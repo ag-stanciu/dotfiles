@@ -5,3 +5,4 @@ export EDITOR='nvim'
 
 # User bin
 export PATH=$PATH:/Users/alex/go/bin
+. "$HOME/.cargo/env"

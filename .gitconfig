@@ -1,0 +1,9 @@
+[user]
+	email = ag.stanciu@gmail.com
+	name = Alex Stanciu
+	signingkey = C00A4B382F09CAD51E264FBAD37D8E3F3ADB8E63 
+[alias]
+	st = status -sb
+	lg = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	cim = commit -m
+	rbi = rebase -i

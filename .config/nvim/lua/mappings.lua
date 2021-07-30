@@ -176,3 +176,16 @@ vim.api.nvim_exec(
 
 -- Y yank until the end of line
 map('n', 'Y', 'y$', opt)
+
+-- center search
+map('n', 'n', 'nzzzv', opt)
+map('n', 'N', 'Nzzzv', opt)
+map('n', 'J', 'mzJ`z', opt)
+
+-- move text
+map("v", "J", ":m '>+1<CR>gv=gv", opt)
+map("v", "K", ":m '>-2<CR>gv=gv", opt)
+map("i", "<C-j>", "<esc>:m .+1<CR>==", opt)
+map("i", "<C-k>", "<esc>:m .-2<CR>==", opt)
+map("n", "<Leader>j", ":m .+1<CR>==", opt)
+map("n", "<Leader>k", ":m .-2<CR>==", opt)

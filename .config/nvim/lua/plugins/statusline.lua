@@ -12,10 +12,48 @@ gl.short_line_list = {" "}
 local global_theme = "themes/" .. vim.g.nvchad_theme
 local colors = require(global_theme)
 
+local function mode_alias(m)
+  local alias = {
+    n = 'NORMAL',
+    i = 'INSERT',
+    c = 'COMMAND',
+    R = 'REPLACE',
+    t = 'TERMINAL',
+    [''] = 'V-BLOCK',
+    V = 'V-LINE',
+    v = 'VISUAL',
+  }
+
+  return alias[m] or ''
+end
+
+local function mode_color(m)
+  local mode_colors = {
+    normal =  colors.nord_blue,
+    insert =  colors.green,
+    visual =  colors.cyan,
+    replace =  colors.green,
+    command = colors.orange,
+  }
+
+  local color = {
+    n = mode_colors.normal,
+    i = mode_colors.insert,
+    c = mode_colors.command,
+    R = mode_colors.replace,
+    t = mode_colors.insert,
+    [''] = mode_colors.visual,
+    V = mode_colors.visual,
+    v = mode_colors.visual,
+  }
+
+  return color[m] or colors.bg_light
+end
+
 gls.left[1] = {
     FirstElement = {
         provider = function()
-            return "▋"
+          return "▋"
         end,
         highlight = {colors.nord_blue, colors.nord_blue}
     }
@@ -24,7 +62,9 @@ gls.left[1] = {
 gls.left[2] = {
     statusIcon = {
         provider = function()
-            return "  "
+            -- return "  "
+            -- return " ﯑ "
+            return "  "
         end,
         highlight = {colors.statusline_bg, colors.nord_blue},
         separator = "  ",
@@ -157,51 +197,27 @@ gls.right[3] = {
     }
 }
 
-gls.right[4] = {
-    viMode_icon = {
-        provider = function()
-            return " "
-        end,
-        highlight = {colors.statusline_bg, colors.red},
-        separator = " ",
-        separator_highlight = {colors.red, colors.statusline_bg}
-    }
-}
-
-gls.right[5] = {
-    ViMode = {
-        provider = function()
-            local alias = {
-                n = "Normal",
-                i = "Insert",
-                c = "Command",
-                V = "Visual",
-                [""] = "Visual",
-                v = "Visual",
-                R = "Replace"
-            }
-            local current_Mode = alias[vim.fn.mode()]
-
-            if current_Mode == nil then
-                return "  Terminal "
-            else
-                return "  " .. current_Mode .. " "
-            end
-        end,
-        highlight = {colors.red, colors.lightbg}
-    }
-}
-
-gls.right[6] = {
-    some_icon = {
-        provider = function()
-            return " "
-        end,
-        separator = "",
-        separator_highlight = {colors.green, colors.lightbg},
-        highlight = {colors.lightbg, colors.green}
-    }
-}
+-- gls.right[4] = {
+--     viMode_icon = {
+--         provider = function()
+--             return " "
+--         end,
+--         highlight = {colors.statusline_bg, colors.red},
+--         separator = " ",
+--         separator_highlight = {colors.red, colors.statusline_bg}
+--     }
+-- }
+-- 
+-- gls.right[6] = {
+--     some_icon = {
+--         provider = function()
+--             return " "
+--         end,
+--         separator = "",
+--         separator_highlight = {colors.green, colors.lightbg},
+--         highlight = {colors.lightbg, colors.green}
+--     }
+-- }
 
 gls.right[7] = {
     line_percentage = {
@@ -210,13 +226,35 @@ gls.right[7] = {
             local total_line = vim.fn.line("$")
 
             if current_line == 1 then
-                return "  Top "
+                return "Top"
             elseif current_line == vim.fn.line("$") then
-                return "  Bot "
+                return "Bot"
             end
             local result, _ = math.modf((current_line / total_line) * 100)
-            return "  " .. result .. "% "
+            return "" .. result .. "%"
         end,
-        highlight = {colors.green, colors.lightbg}
+        separator_highlight = {colors.lightbg, colors.statusline_bg},
+        highlight = {colors.white, colors.lightbg},
+        separator = " ",
+        icon = " ",
     }
 }
+
+vim.api.nvim_command('hi GalaxyViModeReverse guibg=' .. colors.lightbg)
+gls.right[8] = {
+    ViMode = {
+      separator = " ",
+      icon = "  ",
+      highlight = {colors.statusline_bg, mode_color()},
+      separator_highlight = 'GalaxyViModeReverse',
+      provider = function()
+          local m = vim.fn.mode() or vim.fn.visualmode()
+          local mode = mode_alias(m)
+          local color = mode_color(m)
+          vim.api.nvim_command('hi GalaxyViMode guibg=' .. color)
+          vim.api.nvim_command('hi GalaxyViModeReverse guifg=' .. color)
+          return '' .. mode .. ' '
+      end,
+    }
+}
+

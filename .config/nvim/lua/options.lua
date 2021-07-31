@@ -20,8 +20,8 @@ opt.backup = false
 opt.writebackup = false
 opt.cursorline = true
 opt.scrolloff = 5
--- opt.guifont = "CaskaydiaCove Nerd Font"
-opt.guifont = "Liga SFMono Nerd Font"
+opt.guifont = "CaskaydiaCove Nerd Font:h14"
+-- opt.guifont = "Liga SFMono Nerd Font"
 
 -- disable nvim intro
 opt.shortmess:append("sI")

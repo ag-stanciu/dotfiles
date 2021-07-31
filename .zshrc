@@ -14,6 +14,7 @@ alias grep='grep --color=auto'
 alias vim='nvim'
 alias v='nvim'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias gv='neovide --geometry=120x40'
 
 ## prompt
 fpath+=$HOME/.zsh/pure

@@ -1,6 +1,7 @@
 local opt = vim.opt
 local g = vim.g
 
+opt.undofile = true
 opt.ruler = false
 opt.hidden = true
 opt.ignorecase = true
@@ -19,7 +20,16 @@ opt.pumblend = 10
 opt.backup = false
 opt.writebackup = false
 opt.cursorline = true
-opt.scrolloff = 5
+opt.sidescrolloff = 8
+opt.scrolloff = 8
+opt.undofile = true
+opt.undolevels = 10000
+opt.wrap = false
+opt.inccommand = "split"
+opt.wildmode = "longest:full,full"
+opt.list = true
+
+-- GUI
 opt.guifont = "CaskaydiaCove Nerd Font:h14"
 -- opt.guifont = "Liga SFMono Nerd Font"
 
@@ -38,6 +48,7 @@ opt.numberwidth = 2
 opt.expandtab = true
 opt.shiftwidth = 2
 opt.smartindent = true
+opt.tabstop = 2
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
@@ -72,5 +83,10 @@ for _, plugin in pairs(disabled_built_ins) do
     vim.g["loaded_" .. plugin] = 1
 end
 
--- file extension specific tabbing
--- vim.cmd([[autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]])
+-- Don't show status line on vim terminals
+vim.cmd [[ au TermOpen term://* setlocal nonumber laststatus=0 ]]
+
+-- Open a file from its last left off position
+-- vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
+-- File extension specific tabbing
+-- vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]

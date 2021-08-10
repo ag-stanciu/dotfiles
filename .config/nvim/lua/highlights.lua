@@ -46,6 +46,7 @@ fg("Comment", grey_fg)
 fg("NvimInternalError", red)
 fg("VertSplit", line)
 fg("EndOfBuffer", black)
+--fg_bg("Visual",light_grey, colors.lightbg)
 
 -- Pmenu
 bg("Pmenu", one_bg)
@@ -111,9 +112,8 @@ fg("DashboardFooter", grey_fg)
 
 -- packer's floating window
 
-bg("NormalFloat", black2)
-bg("FloatBorder", black2)
-fg("FloatBorder", black2)
+bg("NormalFloat", "NONE")
+fg("FloatBorder", blue)
 
 -- set bg color for nvim
 -- bg("Normal", black)

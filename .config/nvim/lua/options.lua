@@ -28,6 +28,7 @@ opt.wrap = false
 opt.inccommand = "split"
 opt.wildmode = "longest:full,full"
 opt.list = true
+opt.swapfile = false
 
 -- GUI
 opt.guifont = "CaskaydiaCove Nerd Font:h14"
@@ -37,7 +38,7 @@ opt.guifont = "CaskaydiaCove Nerd Font:h14"
 opt.shortmess:append("sI")
 
 -- disable tilde on end of buffer: https://github.com/  neovim/neovim/pull/8546#issuecomment-643643758
-vim.cmd("let &fcs='eob: '")
+opt.fillchars = {eob = " "}
 
 -- Numbers
 opt.number = true

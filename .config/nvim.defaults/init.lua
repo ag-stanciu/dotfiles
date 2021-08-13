@@ -19,10 +19,24 @@ local use = require('packer').use
 require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
   -- UI to select things (files, grep results, open buffers...)
-  use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } }
+  use { 'nvim-telescope/telescope.nvim',
+    requires = {
+      { 'nvim-lua/popup.nvim' },
+      { 'nvim-lua/plenary.nvim' },
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        run = "make",
+      },
+      {
+        "nvim-telescope/telescope-media-files.nvim",
+      }
+    }
+  }
   -- use 'joshdick/onedark.vim' -- Theme inspired by Atom
   use 'folke/tokyonight.nvim'
   use 'navarasu/onedark.nvim'
+  use 'NTBBloodbath/doom-one.nvim'
+  use 'shaunsingh/nord.nvim'
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
@@ -32,7 +46,6 @@ require('packer').startup(function()
   -- Additional textobjects for treesitter
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-  use 'kabouzeid/nvim-lspinstall'
   use 'hrsh7th/nvim-compe' -- Autocompletion plugin
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'hoob3rt/lualine.nvim'
@@ -90,6 +103,7 @@ vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
+vim.opt.tabstop = 2
 
 --Do not save when switching buffers
 vim.o.hidden = true
@@ -113,6 +127,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Pum height
 vim.o.pumheight = 10
+vim.o.pumblend = 10
 vim.o.timeoutlen = 400
 vim.o.clipboard = 'unnamedplus'
 
@@ -120,13 +135,22 @@ vim.o.clipboard = 'unnamedplus'
 vim.o.termguicolors = true
 
 vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 8
 vim.opt.cmdheight = 1
+vim.opt.list = true
+vim.opt.swapfile = false
 
--- coloors
+-- GUI
+vim.opt.guifont = "CaskaydiaCove Nerd Font:h14"
+
+-- colors
 -- vim.g.onedark_terminal_italics = 2
--- vim.g.tokyonight_style = "storm"
--- vim.cmd [[colorscheme onedark]]
+-- vim.g.tokyonight_style = "night"
+-- vim.cmd [[colorscheme tokyonight]]
+vim.g.onedark_style = 'darker'
 vim.cmd[[colorscheme onedark]]
+-- vim.cmd[[colorscheme nord]]
+-- vim.cmd[[colorscheme doom-one]]
 
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
@@ -186,7 +210,7 @@ require('telescope').setup(
         "--column",
         "--smart-case"
       },
-      prompt_prefix = " >  ",
+      prompt_prefix = "   ",
       selection_caret = "  ",
       entry_prefix = "  ",
       initial_mode = "insert",
@@ -263,10 +287,29 @@ vim.api.nvim_exec(
 -- Y yank until the end of line
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 
+-- borders
+vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+
+local border = {
+      {"╭", "FloatBorder"},
+      {"─", "FloatBorder"},
+      {"╮", "FloatBorder"},
+      {"│", "FloatBorder"},
+      {"╯", "FloatBorder"},
+      {"─", "FloatBorder"},
+      {"╰", "FloatBorder"},
+      {"│", "FloatBorder"},
+}
+
+
 -- LSP settings
 local nvim_lsp = require 'lspconfig'
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
 
   local opts = { noremap = true, silent = true }
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -300,22 +343,19 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Enable the following language servers
-local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{
-      on_attach=on_attach,
-      capabilities = capabilities,
-    }
-  end
+local servers = {
+  'gopls',
+  'tsserver',
+}
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  }
 end
 
-setup_servers()
-
 -- replace the default lsp diagnostic symbols
-function lspSymbol(name, icon)
+local function lspSymbol(name, icon)
     vim.fn.sign_define("LspDiagnosticsSign" .. name, {text = icon, numhl = "LspDiagnosticsDefaul" .. name})
 end
 
@@ -339,11 +379,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
       update_in_insert = false
     }
 )
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
@@ -414,6 +449,9 @@ require('compe').setup {
     vsnip = false,
     ultisnips = false,
   },
+  documentation = {
+    border = border;
+  }
 }
 
 -- Lualine
@@ -425,7 +463,7 @@ local lua_lsp_status = function()
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return " ".."LSP"
+        return " ".." LSP"
       end
     end
     return msg
@@ -445,7 +483,7 @@ require("lualine").setup({
     lualine_a = { "mode" },
     lualine_b = { "branch" },
     lualine_c = { "filename"},
-    lualine_x = { 
+    lualine_x = {
       { "diagnostics", sources = { "nvim_lsp" }, symbols = {error="" , warn="", info="", hint=""} },
       {lua_lsp_status, color = { fg = "#fff"}}
     },
@@ -559,13 +597,17 @@ vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
 vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
 --
 --Add move line shortcuts
-vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>==', { noremap = true})
-vim.api.nvim_set_keymap('n', '<A-k>', ':m .-2<CR>==', { noremap = true})
-vim.api.nvim_set_keymap('i', '<A-j>', '<Esc>:m .+1<CR>==gi', { noremap = true})
-vim.api.nvim_set_keymap('i', '<A-k>', '<Esc>:m .-2<CR>==gi', { noremap = true})
-vim.api.nvim_set_keymap('v', '<A-j>', ':m \'>+1<CR>gv=gv', { noremap = true})
-vim.api.nvim_set_keymap('v', '<A-k>', ':m \'<-2<CR>gv=gv', { noremap = true})
+vim.api.nvim_set_keymap('n', '<a-j>', ':m .+1<cr>==', { noremap = true})
+vim.api.nvim_set_keymap('n', '<a-k>', ':m .-2<cr>==', { noremap = true})
+vim.api.nvim_set_keymap('i', '<a-j>', '<esc>:m .+1<cr>==gi', { noremap = true})
+vim.api.nvim_set_keymap('i', '<a-k>', '<esc>:m .-2<cr>==gi', { noremap = true})
+vim.api.nvim_set_keymap('v', '<a-j>', ':m \'>+1<cr>gv=gv', { noremap = true})
+vim.api.nvim_set_keymap('v', '<a-k>', ':m \'<-2<cr>gv=gv', { noremap = true})
 
 -- copy whole file content
-vim.api.nvim_set_keymap("n", "<C-a>", ":%y+<CR>", { noremap = true})
+vim.api.nvim_set_keymap("n", "<c-a>", ":%y+<cr>", { noremap = true})
 
+-- center search
+vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true})
+vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true})
+-- vim.api.nvim_set_keymap('n', 'j', 'mzj`z', { noremap = true})

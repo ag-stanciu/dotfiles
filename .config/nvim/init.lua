@@ -46,6 +46,7 @@ require('packer').startup(function()
   -- Additional textobjects for treesitter
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+  -- use 'ray-x/lsp_signature.nvim'
   use 'hrsh7th/nvim-compe' -- Autocompletion plugin
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'hoob3rt/lualine.nvim'
@@ -139,9 +140,11 @@ vim.opt.sidescrolloff = 8
 vim.opt.cmdheight = 1
 vim.opt.list = true
 vim.opt.swapfile = false
+vim.opt.wrap = false
 
 -- GUI
 vim.opt.guifont = "CaskaydiaCove Nerd Font:h14"
+-- vim.opt.guifont = "Liga SFMono Nerd Font:h14"
 
 -- colors
 -- vim.g.onedark_terminal_italics = 2
@@ -331,6 +334,13 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+
+  -- require('lsp_signature').on_attach({
+  --   bind = true,
+  --   handler_opts = {
+  --     border = 'single'
+  --   }
+  -- })
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then

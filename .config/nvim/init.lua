@@ -33,10 +33,12 @@ require('packer').startup(function()
     }
   }
   -- use 'joshdick/onedark.vim' -- Theme inspired by Atom
-  use 'folke/tokyonight.nvim'
-  use 'navarasu/onedark.nvim'
-  use 'NTBBloodbath/doom-one.nvim'
-  use 'shaunsingh/nord.nvim'
+  -- use 'folke/tokyonight.nvim'
+  -- use 'navarasu/onedark.nvim'
+  use 'ful1e5/onedark.nvim'
+  -- use 'eddyekofo94/gruvbox-flat.nvim'
+  -- use 'EdenEast/nightfox.nvim'
+  -- use 'shaunsingh/nord.nvim'
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
@@ -99,7 +101,6 @@ vim.opt.ruler = false
 vim.opt.cul = true
 vim.opt.cursorline = true
 
-
 -- Idenline
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -128,7 +129,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Pum height
 vim.o.pumheight = 10
-vim.o.pumblend = 10
+vim.o.pumblend = 5
 vim.o.timeoutlen = 400
 vim.o.clipboard = 'unnamedplus'
 
@@ -150,10 +151,16 @@ vim.opt.guifont = "CaskaydiaCove Nerd Font:h14"
 -- vim.g.onedark_terminal_italics = 2
 -- vim.g.tokyonight_style = "night"
 -- vim.cmd [[colorscheme tokyonight]]
-vim.g.onedark_style = 'darker'
-vim.cmd[[colorscheme onedark]]
+-- vim.g.onedark_style = 'darker'
+-- vim.cmd[[colorscheme onedark]]
 -- vim.cmd[[colorscheme nord]]
--- vim.cmd[[colorscheme doom-one]]
+-- vim.cmd[[colorscheme gruvbox-flat]]
+-- vim.cmd[[colorscheme nightfox]]
+require('onedark').setup({
+  colors = {
+    bg = '#1e222a'
+  }
+})
 
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
@@ -174,11 +181,11 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 -- Gitsigns
 require('gitsigns').setup {
   signs = {
-    add = {hl = "DiffAdd", text = "│", numhl = "GitSignsAddNr"},
-    change = {hl = "DiffChange", text = "│", numhl = "GitSignsChangeNr"},
-    delete = {hl = "DiffDelete", text = "_", numhl = "GitSignsDeleteNr"},
-    topdelete = {hl = "DiffDelete", text = "‾", numhl = "GitSignsDeleteNr"},
-    changedelete = {hl = "DiffChange", text = "~", numhl = "GitSignsChangeNr"}
+    add = {hl = "GitGutterAdd", text = "│"},
+    change = {hl = "GitGutterChange", text = "│"},
+    delete = {hl = "GitGutterDelete", text = "_"},
+    topdelete = {hl = "GitGutterDelete", text = "‾"},
+    changedelete = {hl = "GitGutterChange", text = "~"}
 },
   numhl = false,
   keymaps = {
@@ -291,8 +298,8 @@ vim.api.nvim_exec(
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 
 -- borders
-vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+-- vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
+-- vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=#ccc guibg=#1f2335]]
 
 local border = {
       {"╭", "FloatBorder"},
@@ -356,6 +363,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 local servers = {
   'gopls',
   'tsserver',
+  'pyright'
 }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -363,6 +371,45 @@ for _, lsp in ipairs(servers) do
     on_attach = on_attach,
   }
 end
+
+-- lua lang server
+USER = vim.fn.expand('$USER')
+local sumneko_root_path = ""
+local sumneko_bin = ""
+if vim.fn.has('mac') == 1 then
+  sumneko_root_path = '/Users/' .. USER .. '/.config/nvim/lua-language-server'
+  sumneko_bin = '/Users/' .. USER .. '/.config/nvim/lua-language-server/bin/macOS/lua-language-server'
+elseif vim.fn.has('unix') == 1 then
+  sumneko_root_path = '/home/' .. USER .. '/.config/nvim/lua-language-server'
+  sumneko_bin = '/home/' .. USER .. '/.config/nvim/lua-language-server/bin/Linux/lua-language-server'
+else
+  print('Unsupported sumneko')
+end
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
+nvim_lsp.sumneko_lua.setup {
+  cmd = {sumneko_bin, '-E', sumneko_root_path .. '/main.lua'},
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = runtime_path,
+      },
+      diagnostic = {
+        globals = { 'vim' }
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file('', true),
+        maxPreload = 2000,
+        preloadFileSize = 1000,
+      },
+      telemetry = {
+        enable = false
+      }
+    }
+  }
+}
 
 -- replace the default lsp diagnostic symbols
 local function lspSymbol(name, icon)
@@ -467,13 +514,13 @@ require('compe').setup {
 -- Lualine
 local lua_lsp_status = function()
   local clients = vim.lsp.get_active_clients()
-  local msg = "  N/A"
+  local msg = "  n/a"
   if next(clients) ~= nil then
     local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return " ".." LSP"
+        return "  ".. client.name
       end
     end
     return msg
@@ -481,18 +528,22 @@ local lua_lsp_status = function()
     return msg
   end
 end
+local filepath = function ()
+  return vim.fn.expand('%f')
+end
 require("lualine").setup({
   options = {
     icons_enabled = true,
     theme = 'onedark',
-    section_separators = {'', ''},
+    -- theme = 'nightfox',
+    section_separators = {'', ''},
     component_separators = {'', ''},
     disabled_filetypes = {}
   },
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch" },
-    lualine_c = { "filename"},
+    lualine_c = { filepath },
     lualine_x = {
       { "diagnostics", sources = { "nvim_lsp" }, symbols = {error="" , warn="", info="", hint=""} },
       {lua_lsp_status, color = { fg = "#fff"}}
@@ -621,3 +672,7 @@ vim.api.nvim_set_keymap("n", "<c-a>", ":%y+<cr>", { noremap = true})
 vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true})
 vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true})
 -- vim.api.nvim_set_keymap('n', 'j', 'mzj`z', { noremap = true})
+
+-- trim white space
+vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
+

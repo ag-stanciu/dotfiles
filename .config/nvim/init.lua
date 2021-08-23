@@ -32,7 +32,6 @@ require('packer').startup(function()
       }
     }
   }
-  -- use 'joshdick/onedark.vim' -- Theme inspired by Atom
   -- use 'folke/tokyonight.nvim'
   -- use 'navarasu/onedark.nvim'
   use 'ful1e5/onedark.nvim'
@@ -48,8 +47,11 @@ require('packer').startup(function()
   -- Additional textobjects for treesitter
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-  -- use 'ray-x/lsp_signature.nvim'
-  use 'hrsh7th/nvim-compe' -- Autocompletion plugin
+  use 'ray-x/lsp_signature.nvim'
+  -- use 'hrsh7th/nvim-compe' -- Autocompletion plugin
+  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'hoob3rt/lualine.nvim'
   use 'akinsho/nvim-bufferline.lua'
@@ -59,32 +61,36 @@ require('packer').startup(function()
   use 'andymass/vim-matchup'
   use 'terrortylor/nvim-comment'
   use 'karb94/neoscroll.nvim'
+  use 'jose-elias-alvarez/null-ls.nvim'
+
+  -- TS stuff
+  use 'jose-elias-alvarez/nvim-lsp-ts-utils'
 end)
 
 -- disable builtin vim plugins
 local disabled_built_ins = {
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit"
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+  "gzip",
+  "zip",
+  "zipPlugin",
+  "tar",
+  "tarPlugin",
+  "getscript",
+  "getscriptPlugin",
+  "vimball",
+  "vimballPlugin",
+  "2html_plugin",
+  "logipat",
+  "rrhelper",
+  "spellfile_plugin",
+  "matchit"
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
+  vim.g["loaded_" .. plugin] = 1
 end
 
 --Incremental live completion
@@ -117,7 +123,7 @@ vim.o.mouse = 'a'
 vim.o.breakindent = true
 
 --Save undo history
-vim.cmd [[set undofile]]
+vim.opt.undofile = true
 
 --Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -136,12 +142,29 @@ vim.o.clipboard = 'unnamedplus'
 --Set colorscheme (order is important here)
 vim.o.termguicolors = true
 
-vim.opt.scrolloff = 5
-vim.opt.sidescrolloff = 8
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 10
 vim.opt.cmdheight = 1
 vim.opt.list = true
 vim.opt.swapfile = false
 vim.opt.wrap = false
+vim.opt.showmode = false
+vim.opt.listchars = {
+  eol = "↲",
+  tab = "» ",
+} -- set listchars
+
+-- stolen from tjdevries
+vim.opt.formatoptions = vim.opt.formatoptions
+  - "a" -- Auto formatting is BAD.
+  - "t" -- Don't auto format my code. I got linters for that.
+  + "c" -- In general, I like it when comments respect textwidth
+  + "q" -- Allow formatting comments w/ gq
+  - "o" -- O and o, don't continue comments
+  + "r" -- But do continue when pressing enter.
+  + "n" -- Indent past the formatlistpat, not underneath it.
+  + "j" -- Auto-remove comments if possible.
+  - "2" -- I'm not in gradeschool anymore
 
 -- GUI
 vim.opt.guifont = "CaskaydiaCove Nerd Font:h14"
@@ -149,7 +172,7 @@ vim.opt.guifont = "CaskaydiaCove Nerd Font:h14"
 
 -- colors
 -- vim.g.onedark_terminal_italics = 2
--- vim.g.tokyonight_style = "night"
+-- vim.g.tokyonight_style = "storm"
 -- vim.cmd [[colorscheme tokyonight]]
 -- vim.g.onedark_style = 'darker'
 -- vim.cmd[[colorscheme onedark]]
@@ -220,9 +243,9 @@ require('telescope').setup(
         "--column",
         "--smart-case"
       },
-      prompt_prefix = "   ",
-      selection_caret = "  ",
-      entry_prefix = "  ",
+      prompt_prefix = "  ",
+      selection_caret = " ",
+      entry_prefix = " ",
       initial_mode = "insert",
       selection_strategy = "reset",
       sorting_strategy = "descending",
@@ -302,24 +325,23 @@ vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 -- vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=#ccc guibg=#1f2335]]
 
 local border = {
-      {"╭", "FloatBorder"},
-      {"─", "FloatBorder"},
-      {"╮", "FloatBorder"},
-      {"│", "FloatBorder"},
-      {"╯", "FloatBorder"},
-      {"─", "FloatBorder"},
-      {"╰", "FloatBorder"},
-      {"│", "FloatBorder"},
+  {"╭", "FloatBorder"},
+  {"─", "FloatBorder"},
+  {"╮", "FloatBorder"},
+  {"│", "FloatBorder"},
+  {"╯", "FloatBorder"},
+  {"─", "FloatBorder"},
+  {"╰", "FloatBorder"},
+  {"│", "FloatBorder"},
 }
-
-
+local popup_opts = { boder = border, focusable = false }
 -- LSP settings
 local nvim_lsp = require 'lspconfig'
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
-  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, popup_opts)
+  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, popup_opts)
 
   local opts = { noremap = true, silent = true }
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -342,12 +364,15 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 
-  -- require('lsp_signature').on_attach({
-  --   bind = true,
-  --   handler_opts = {
-  --     border = 'single'
-  --   }
-  -- })
+  require('lsp_signature').on_attach({
+    bind = true,
+    fix_pos = true,
+    floating_window = false,
+    hint_prefix = " ",
+    handler_opts = {
+      border = 'single'
+    },
+  })
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
@@ -359,18 +384,68 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  },
+}
 
 local servers = {
   'gopls',
-  'tsserver',
   'pyright'
 }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+for _, server in ipairs(servers) do
+  nvim_lsp[server].setup {
     capabilities = capabilities,
     on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150
+    }
   }
 end
+
+-- tsserver
+local enable_ts = true
+nvim_lsp.tsserver.setup {
+  on_attach = function (client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+
+    on_attach(client, bufnr)
+
+    -- ts utils?
+    if enable_ts then
+      local ts_utils = require('nvim-lsp-ts-utils')
+      ts_utils.setup({
+        import_all_scan_buffers = 100,
+        eslint_bin = 'eslint_d',
+        eslint_enable_diagnostics = true,
+        eslint_show_rule_id = true,
+        enable_formatting = true,
+        formatter = 'prettier_d_slim',
+        update_imports_on_move = true,
+      })
+      ts_utils.setup_client(client)
+    end
+  end,
+  flags = {
+    debounce_text_changes = 150,
+  }
+}
+
+-- null-ls
+require('null-ls').config{}
+nvim_lsp["null-ls"].setup({
+  on_attach = on_attach
+})
 
 -- lua lang server
 USER = vim.fn.expand('$USER')
@@ -390,6 +465,8 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 nvim_lsp.sumneko_lua.setup {
   cmd = {sumneko_bin, '-E', sumneko_root_path .. '/main.lua'},
+  on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -413,7 +490,7 @@ nvim_lsp.sumneko_lua.setup {
 
 -- replace the default lsp diagnostic symbols
 local function lspSymbol(name, icon)
-    vim.fn.sign_define("LspDiagnosticsSign" .. name, {text = icon, numhl = "LspDiagnosticsDefaul" .. name})
+  vim.fn.sign_define("LspDiagnosticsSign" .. name, {text = icon, numhl = "LspDiagnosticsDefaul" .. name})
 end
 
 lspSymbol("Error", "")
@@ -422,19 +499,19 @@ lspSymbol("Information", "")
 lspSymbol("Hint", "")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-      virtual_text = {
-        prefix = "",
-        spacing = 0
-      },
-      signs = true,
-      underline = true,
+  vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    virtual_text = {
+      prefix = "",
+      spacing = 4
+    },
+    signs = true,
+    underline = true,
 
-      -- set this to true if you want diagnostics to show in insert mode
-      update_in_insert = false
-    }
+    -- set this to true if you want diagnostics to show in insert mode
+    update_in_insert = false
+  }
 )
 
 -- Treesitter configuration
@@ -443,6 +520,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = 'maintained',
   highlight = {
     enable = true, -- false will disable the whole extension
+    use_languagetree = true
   },
   incremental_selection = {
     enable = true,
@@ -491,36 +569,83 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+-- Misc
+local lspkind = require('lspkind')
+lspkind.init()
+require('neoscroll').setup()
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- Compe setup
-require('compe').setup {
-  source = {
-    path = true,
-    nvim_lsp = true,
-    luasnip = true,
-    buffer = false,
-    calc = false,
-    nvim_lua = false,
-    vsnip = false,
-    ultisnips = false,
+-- luasnip setup
+local luasnip = require 'luasnip'
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
   },
   documentation = {
-    border = border;
-  }
+    border = border,
+  },
+  formatting = {
+    format = function (_, vim_item)
+      vim_item.kind = lspkind.presets.default[vim_item.kind]
+      return vim_item
+    end
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.prev_item(),
+    ['<C-n>'] = cmp.mapping.next_item(),
+    ['<C-d>'] = cmp.mapping.scroll(-4),
+    ['<C-f>'] = cmp.mapping.scroll(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping.mode({ 'i', 's' }, function(_, fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+      elseif luasnip.expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+      else
+        fallback()
+      end
+    end),
+    ['<S-Tab>'] = cmp.mapping.mode({ 'i', 's' }, function(_, fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+      elseif luasnip.jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+      else
+        fallback()
+      end
+    end),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
 }
+
+-- Autopairs
+require('nvim-autopairs').setup()
 
 -- Lualine
 local lua_lsp_status = function()
   local clients = vim.lsp.get_active_clients()
-  local msg = "  n/a"
+  local msg = " "--"  n/a"
   if next(clients) ~= nil then
     local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return "  ".. client.name
+        return " "
       end
     end
     return msg
@@ -535,7 +660,6 @@ require("lualine").setup({
   options = {
     icons_enabled = true,
     theme = 'onedark',
-    -- theme = 'nightfox',
     section_separators = {'', ''},
     component_separators = {'', ''},
     disabled_filetypes = {}
@@ -545,8 +669,8 @@ require("lualine").setup({
     lualine_b = { "branch" },
     lualine_c = { filepath },
     lualine_x = {
-      { "diagnostics", sources = { "nvim_lsp" }, symbols = {error="" , warn="", info="", hint=""} },
-      {lua_lsp_status, color = { fg = "#fff"}}
+      { "diagnostics", sources = { "nvim_lsp" }, symbols = {error=" " , warn=" ", info=" ", hint=" "} },
+      { lua_lsp_status, color = { fg = "#fff" } }
     },
     lualine_y = { "filetype" },
     lualine_z = { "progress" },
@@ -578,85 +702,22 @@ require('bufferline').setup {
     view = "multiwindow",
     show_buffer_close_icons = true,
     separator_style = "thin",
-    mappings = true,
+    -- mappings = true,
     always_show_bufferline = true
   }
 }
+
 vim.api.nvim_set_keymap("n", "<S-t>", ":enew<CR>", {noremap = true, silent = true}) -- new buffer
 vim.api.nvim_set_keymap("n", "<C-t>b", ":tabnew<CR>", {noremap = true, silent = true}) -- new tab
 vim.api.nvim_set_keymap("n", "<S-x>", ":bd!<CR>", {noremap = true, silent = true}) -- close tab
 vim.api.nvim_set_keymap("n", "<TAB>", ":BufferLineCycleNext<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<S-TAB>", ":BufferLineCyclePrev<CR>", {noremap = true, silent = true})
 
--- Autopairs
-require('nvim-autopairs').setup()
-require('nvim-autopairs.completion.compe').setup(
-  {
-    map_cr = true,
-    map_complete = true -- insert () func completion
-  }
-)
-
 -- Comment
 require('nvim_comment').setup()
 vim.api.nvim_set_keymap("n", "<leader>/", ":CommentToggle<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>/", ":CommentToggle<CR>", {noremap = true, silent = true})
 
--- Misc
-require('lspkind').init()
-require('neoscroll').setup()
-
--- Utility functions for compe and luasnip
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-  local col = vim.fn.col '.' - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' then
-    return true
-  else
-    return false
-  end
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-local luasnip = require 'luasnip'
-
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t '<C-n>'
-  elseif luasnip.expand_or_jumpable() then
-    return t '<Plug>luasnip-expand-or-jump'
-  elseif check_back_space() then
-    return t '<Tab>'
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t '<C-p>'
-  elseif luasnip.jumpable(-1) then
-    return t '<Plug>luasnip-jump-prev'
-  else
-    return t '<S-Tab>'
-  end
-end
-
--- Map tab to the above tab complete functiones
-vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.tab_complete()', { expr = true })
-vim.api.nvim_set_keymap('s', '<Tab>', 'v:lua.tab_complete()', { expr = true })
-vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.s_tab_complete()', { expr = true })
-vim.api.nvim_set_keymap('s', '<S-Tab>', 'v:lua.s_tab_complete()', { expr = true })
-
--- Map compe confirm and complete functions
-vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
-vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
---
 --Add move line shortcuts
 vim.api.nvim_set_keymap('n', '<a-j>', ':m .+1<cr>==', { noremap = true})
 vim.api.nvim_set_keymap('n', '<a-k>', ':m .-2<cr>==', { noremap = true})
@@ -666,7 +727,7 @@ vim.api.nvim_set_keymap('v', '<a-j>', ':m \'>+1<cr>gv=gv', { noremap = true})
 vim.api.nvim_set_keymap('v', '<a-k>', ':m \'<-2<cr>gv=gv', { noremap = true})
 
 -- copy whole file content
-vim.api.nvim_set_keymap("n", "<c-a>", ":%y+<cr>", { noremap = true})
+-- vim.api.nvim_set_keymap("n", "<c-a>", ":%y+<cr>", { noremap = true})
 
 -- center search
 vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true})

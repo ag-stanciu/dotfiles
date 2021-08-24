@@ -27,9 +27,6 @@ require('packer').startup(function()
         "nvim-telescope/telescope-fzf-native.nvim",
         run = "make",
       },
-      {
-        "nvim-telescope/telescope-media-files.nvim",
-      }
     }
   }
   -- use 'folke/tokyonight.nvim'
@@ -152,6 +149,7 @@ vim.opt.showmode = false
 vim.opt.listchars = {
   eol = "↲",
   tab = "» ",
+  trail = "-"
 } -- set listchars
 
 -- stolen from tjdevries
@@ -171,19 +169,25 @@ vim.opt.guifont = "CaskaydiaCove Nerd Font:h14"
 -- vim.opt.guifont = "Liga SFMono Nerd Font:h14"
 
 -- colors
--- vim.g.onedark_terminal_italics = 2
 -- vim.g.tokyonight_style = "storm"
 -- vim.cmd [[colorscheme tokyonight]]
+
 -- vim.g.onedark_style = 'darker'
+-- vim.g.onedark_terminal_italics = 2
 -- vim.cmd[[colorscheme onedark]]
+
 -- vim.cmd[[colorscheme nord]]
 -- vim.cmd[[colorscheme gruvbox-flat]]
--- vim.cmd[[colorscheme nightfox]]
 require('onedark').setup({
   colors = {
     bg = '#1e222a'
   }
 })
+-- local nightfox = require('nightfox')
+-- nightfox.setup({
+--   fox = 'nordfox'
+-- })
+-- nightfox.load()
 
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
@@ -244,7 +248,7 @@ require('telescope').setup(
         "--smart-case"
       },
       prompt_prefix = "  ",
-      selection_caret = " ",
+      selection_caret = " ",
       entry_prefix = " ",
       initial_mode = "insert",
       selection_strategy = "reset",
@@ -287,10 +291,6 @@ require('telescope').setup(
         case_mode = "smart_case" -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
       },
-      media_files = {
-        filetypes = {"png", "webp", "jpg", "jpeg"},
-        find_cmd = "rg" -- find command (defaults to `fd`)
-      }
     }
   }
 )
@@ -334,7 +334,7 @@ local border = {
   {"╰", "FloatBorder"},
   {"│", "FloatBorder"},
 }
-local popup_opts = { boder = border, focusable = false }
+local popup_opts = { border = border, focusable = false }
 -- LSP settings
 local nvim_lsp = require 'lspconfig'
 local on_attach = function(client, bufnr)
@@ -415,6 +415,7 @@ end
 -- tsserver
 local enable_ts = true
 nvim_lsp.tsserver.setup {
+  capabilities = capabilities,
   on_attach = function (client, bufnr)
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
@@ -448,15 +449,12 @@ nvim_lsp["null-ls"].setup({
 })
 
 -- lua lang server
-USER = vim.fn.expand('$USER')
-local sumneko_root_path = ""
+local sumneko_root_path = vim.fn.getenv('HOME') .. '/.bin/lua-language-server'
 local sumneko_bin = ""
 if vim.fn.has('mac') == 1 then
-  sumneko_root_path = '/Users/' .. USER .. '/.config/nvim/lua-language-server'
-  sumneko_bin = '/Users/' .. USER .. '/.config/nvim/lua-language-server/bin/macOS/lua-language-server'
+  sumneko_bin = sumneko_root_path .. '/bin/macOS/lua-language-server'
 elseif vim.fn.has('unix') == 1 then
-  sumneko_root_path = '/home/' .. USER .. '/.config/nvim/lua-language-server'
-  sumneko_bin = '/home/' .. USER .. '/.config/nvim/lua-language-server/bin/Linux/lua-language-server'
+  sumneko_bin = sumneko_root_path .. '/bin/linux/lua-language-server'
 else
   print('Unsupported sumneko')
 end
@@ -578,10 +576,10 @@ require('neoscroll').setup()
 vim.o.completeopt = 'menuone,noselect'
 
 -- luasnip setup
-local luasnip = require 'luasnip'
+local luasnip = require('luasnip')
 
 -- nvim-cmp setup
-local cmp = require 'cmp'
+local cmp = require('cmp')
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -592,23 +590,27 @@ cmp.setup {
     border = border,
   },
   formatting = {
-    format = function (_, vim_item)
-      vim_item.kind = lspkind.presets.default[vim_item.kind]
+    format = function (entry, vim_item)
+      vim_item.menu= ({
+        nvim_lsp = '[LSP]',
+        buffer = '[Buf]',
+      })[entry.source.name]
+      vim_item.kind = lspkind.presets.default[vim_item.kind] .. ' ' .. vim_item.kind
       return vim_item
     end
   },
   mapping = {
-    ['<C-p>'] = cmp.mapping.prev_item(),
-    ['<C-n>'] = cmp.mapping.next_item(),
-    ['<C-d>'] = cmp.mapping.scroll(-4),
-    ['<C-f>'] = cmp.mapping.scroll(4),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping.mode({ 'i', 's' }, function(_, fallback)
+    ['<Tab>'] = function(fallback)
       if vim.fn.pumvisible() == 1 then
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
       elseif luasnip.expand_or_jumpable() then
@@ -616,8 +618,8 @@ cmp.setup {
       else
         fallback()
       end
-    end),
-    ['<S-Tab>'] = cmp.mapping.mode({ 'i', 's' }, function(_, fallback)
+    end,
+    ['<S-Tab>'] = function(fallback)
       if vim.fn.pumvisible() == 1 then
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
       elseif luasnip.jumpable(-1) then
@@ -625,7 +627,7 @@ cmp.setup {
       else
         fallback()
       end
-    end),
+    end,
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -635,6 +637,10 @@ cmp.setup {
 
 -- Autopairs
 require('nvim-autopairs').setup()
+require('nvim-autopairs.completion.cmp').setup {
+  map_cr = true,
+  map_complete = true,
+}
 
 -- Lualine
 local lua_lsp_status = function()

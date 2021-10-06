@@ -31,3 +31,8 @@ bindkey -e
 # source work stuff
 [[ -e "${HOME}/.workrc" ]] && source "${HOME}/.workrc"
 
+
+alias luamake=/Users/alex/.bin/lua-language-server/3rd/luamake/luamake
+
+# direnv
+eval "$(direnv hook zsh)"

@@ -4,7 +4,7 @@ if not ok then
 end
 
 -- NvimTree
-vim.g.nvim_tree_ignore = { '.git', '__pycache__', 'node_modules', '.idea', '.DS_Store' }
+vim.g.nvim_tree_ignore = { ".git", "__pycache__", "node_modules", ".idea", ".DS_Store" }
 tree.setup {
   view = {
     width = '25%',

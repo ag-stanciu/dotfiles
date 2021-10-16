@@ -14,8 +14,8 @@ lualine.setup({
       right = ''
     },
     component_separators = {
-      left = '',
-      right = ''
+      left = '⏽',
+      right = '⏽'
     },
     disabled_filetypes = {}
   },
@@ -25,11 +25,11 @@ lualine.setup({
     lualine_c = { u.filepath },
     lualine_x = {
       { u.lua_lsp_progress, color = { fg = '#fff' } },
-      { "diagnostics", sources = { "nvim_lsp" }, symbols = {error=" " , warn=" ", info=" ", hint=" "} },
+      { "diagnostics", sources = { "nvim_lsp" }, symbols = { error=" " , warn=" ", info=" ", hint=" " } },
       { u.lua_lsp_status, color = { fg = "#fff" } }
     },
     lualine_y = { "filetype" },
-    lualine_z = { "progress" },
+    lualine_z = { "location", "progress" },
   },
   inactive_sections = {
     lualine_a = {},

@@ -19,6 +19,7 @@ require('packer').startup(function()
   -- Colorschemes
   -- use 'folke/tokyonight.nvim'
   use 'navarasu/onedark.nvim'
+  -- use 'olimorris/onedark.nvim'
   -- use 'ful1e5/onedark.nvim'
   -- use 'eddyekofo94/gruvbox-flat.nvim'
   -- use 'EdenEast/nightfox.nvim'
@@ -67,6 +68,9 @@ require('packer').startup(function()
     'jose-elias-alvarez/nvim-lsp-ts-utils',
     ft = {'javascript', 'javascriptreact', 'typescript', 'typescriptreact'}
   }
+
+  -- Lua
+  use "folke/lua-dev.nvim"
 end)
 
 --Remap space as leader key

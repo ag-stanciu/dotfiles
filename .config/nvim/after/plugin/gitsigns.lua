@@ -10,7 +10,7 @@ gs.setup {
     delete = {hl = "GitGutterDelete", text = "_"},
     topdelete = {hl = "GitGutterDelete", text = "‾"},
     changedelete = {hl = "GitGutterChange", text = "~"}
-},
+  },
   numhl = false,
   keymaps = {
       -- Default keymap options
@@ -25,7 +25,7 @@ gs.setup {
       ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>'
   },
   watch_gitdir = {
-      interval = 100
+    interval = 100
   },
   sign_priority = 5,
   status_formatter = nil, -- Use default,

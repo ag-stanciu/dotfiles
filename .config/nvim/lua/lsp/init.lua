@@ -53,20 +53,27 @@ local on_attach = function(client, bufnr)
 end
 
 -- replace the default lsp diagnostic symbols
-local function lspSymbol(name, icon)
-  vim.fn.sign_define("LspDiagnosticsSign" .. name, {text = icon, numhl = "LspDiagnosticsDefault" .. name})
-end
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
-lspSymbol("Error", "")
-lspSymbol("Warning", "")
-lspSymbol("Information", "")
-lspSymbol("Hint", "")
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+-- local function lspSymbol(name, icon)
+--   vim.fn.sign_define("LspDiagnosticsSign" .. name, {text = icon, numhl = "LspDiagnosticsDefault" .. name})
+-- end
+--
+-- lspSymbol("Error", "")
+-- lspSymbol("Warning", "")
+-- lspSymbol("Information", "")
+-- lspSymbol("Hint", "")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
   vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics,
   {
     virtual_text = {
+      source = "if_many",
       prefix = "",
       spacing = 4
     },
@@ -86,6 +93,7 @@ local servers = {
   'pyright',
   'graphql',
   'rust_analyzer',
+  'jsonls',
 }
 for _, server in ipairs(servers) do
   nvim_lsp[server].setup {
@@ -96,12 +104,6 @@ for _, server in ipairs(servers) do
     }
   }
 end
-
--- null-ls
-require('null-ls').config{}
-nvim_lsp["null-ls"].setup({
-  on_attach = on_attach
-})
 
 -- custom settings servers
 require('lsp.tsserver').setup(on_attach, capabilities)

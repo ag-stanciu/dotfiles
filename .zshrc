@@ -21,10 +21,6 @@ fpath+=$HOME/.zsh/pure
 autoload promptinit; promptinit
 prompt pure
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # bash like
 bindkey -e
 
@@ -36,3 +32,8 @@ alias luamake=/Users/alex/.bin/lua-language-server/3rd/luamake/luamake
 
 # direnv
 eval "$(direnv hook zsh)"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion

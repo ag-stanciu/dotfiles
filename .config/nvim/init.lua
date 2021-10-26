@@ -18,8 +18,8 @@ require('packer').startup(function()
 
   -- Colorschemes
   -- use 'folke/tokyonight.nvim'
-  use 'navarasu/onedark.nvim'
-  -- use 'olimorris/onedark.nvim'
+  -- use 'navarasu/onedark.nvim'
+  use 'olimorris/onedark.nvim'
   -- use 'ful1e5/onedark.nvim'
   -- use 'eddyekofo94/gruvbox-flat.nvim'
   -- use 'EdenEast/nightfox.nvim'
@@ -49,8 +49,7 @@ require('packer').startup(function()
   use 'saadparwaiz1/cmp_luasnip'
 
   -- UI
-  -- use 'hoob3rt/lualine.nvim'
-  use 'shadmansaleh/lualine.nvim'
+  use 'nvim-lualine/lualine.nvim'
   use 'akinsho/nvim-bufferline.lua'
   use 'kyazdani42/nvim-web-devicons'
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }

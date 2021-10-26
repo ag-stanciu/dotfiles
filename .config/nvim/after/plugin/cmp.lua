@@ -35,16 +35,15 @@ cmp.setup {
     border = utils.border
   },
   formatting = {
-    format = function (entry, vim_item)
-      vim_item.menu = ({
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
         nvim_lsp = '[LSP]',
         buffer = '[Buf]',
         path = '[FS]',
         luasnip = '[Snip]',
-      })[entry.source.name]
-      vim_item.kind = lspkind.presets.default[vim_item.kind] .. ' ' .. vim_item.kind
-      return vim_item
-    end
+      },
+    },
   },
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),

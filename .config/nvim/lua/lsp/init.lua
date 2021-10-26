@@ -79,6 +79,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     },
     signs = true,
     underline = true,
+    -- severity_sort = true,
 
     -- set this to true if you want diagnostics to show in insert mode
     update_in_insert = false
@@ -89,11 +90,10 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local servers = {
-  'gopls',
-  'pyright',
-  'graphql',
+  -- 'pyright',
+  -- 'graphql',
   'rust_analyzer',
-  'jsonls',
+  -- 'jsonls',
 }
 for _, server in ipairs(servers) do
   nvim_lsp[server].setup {
@@ -109,3 +109,4 @@ end
 require('lsp.tsserver').setup(on_attach, capabilities)
 require('lsp.sumneko').setup(on_attach, capabilities)
 require('lsp.yaml').setup(on_attach, capabilities)
+require('lsp.gopls').setup(on_attach, capabilities)

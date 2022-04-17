@@ -94,6 +94,7 @@ local servers = {
   -- 'graphql',
   'rust_analyzer',
   -- 'jsonls',
+  -- 'tailwindcss',
 }
 for _, server in ipairs(servers) do
   nvim_lsp[server].setup {
@@ -110,3 +111,4 @@ require('lsp.tsserver').setup(on_attach, capabilities)
 require('lsp.sumneko').setup(on_attach, capabilities)
 require('lsp.yaml').setup(on_attach, capabilities)
 require('lsp.gopls').setup(on_attach, capabilities)
+require('lsp.null').setup(on_attach, capabilities)

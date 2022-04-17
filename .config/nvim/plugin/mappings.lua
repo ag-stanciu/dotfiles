@@ -3,7 +3,7 @@ vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true,
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- Y yank until the end of line
-vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
+-- vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 
 --Add move line shortcuts
 vim.api.nvim_set_keymap('n', '<a-j>', ':m .+1<cr>==', { noremap = true})

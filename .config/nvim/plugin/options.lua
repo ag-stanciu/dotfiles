@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 --Incremental live completion
-opt.inccommand = 'nosplit'
+-- opt.inccommand = 'nosplit'
 
 --Set highlight on search
 opt.hlsearch = false
@@ -21,7 +21,7 @@ opt.smartindent = true
 opt.tabstop = 2
 
 --Do not save when switching buffers
-opt.hidden = true
+-- opt.hidden = true
 
 --Enable mouse mode
 opt.mouse = 'a'
@@ -73,4 +73,3 @@ opt.formatoptions = opt.formatoptions
 
 -- GUI
 opt.guifont = "CaskaydiaCove Nerd Font:h14"
--- opt.guifont = "Liga SFMono Nerd Font:h14"

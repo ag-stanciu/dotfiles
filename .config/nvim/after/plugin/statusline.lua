@@ -9,6 +9,7 @@ lualine.setup({
   options = {
     icons_enabled = true,
     theme = 'onedark',
+    -- theme = 'onenord',
     section_separators = {
       left = '',
       right = ''
@@ -25,7 +26,7 @@ lualine.setup({
     lualine_c = { u.filepath },
     lualine_x = {
       { u.lua_lsp_progress, color = { fg = '#fff' } },
-      { "diagnostics", sources = { "nvim_lsp" }, symbols = { error=" " , warn=" ", info=" ", hint=" " } },
+      { "diagnostics", sources = { "nvim_diagnostic" }, symbols = { error=" " , warn=" ", info=" ", hint=" " } },
       { u.lua_lsp_status, color = { fg = "#fff" } }
     },
     lualine_y = { "filetype" },

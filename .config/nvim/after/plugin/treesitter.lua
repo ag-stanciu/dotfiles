@@ -2,13 +2,17 @@ local ok, ts = pcall(require, 'nvim-treesitter.configs')
 if not ok then
   return
 end
--- Treesitter configuration
--- Parsers must be installed manually via :TSInstall
 ts.setup {
   ensure_installed = 'maintained',
   highlight = {
     enable = true, -- false will disable the whole extension
     use_languagetree = true
+  },
+	autopairs = {
+		enable = true,
+	},
+  autotag = {
+    enable = true,
   },
   incremental_selection = {
     enable = true,
@@ -21,7 +25,12 @@ ts.setup {
   },
   indent = {
     enable = true,
+    disable = { 'yaml' },
   },
+	context_commentstring = {
+		enable = true,
+		enable_autocmd = false,
+	},
   textobjects = {
     select = {
       enable = true,

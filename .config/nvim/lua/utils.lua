@@ -20,6 +20,8 @@ M.border = {
   {"│", "FloatBorder"},
 }
 
+M.simple_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+
 M.lua_lsp_status = function()
   local clients = vim.lsp.get_active_clients()
   local msg = " "--"  n/a"

@@ -9,4 +9,16 @@ M.neoscroll = function()
   end
 end
 
+M.lsp_fidget = function ()
+  local fidget = u.check_plugin('fidget')
+  if fidget then
+    fidget.setup({
+      text = {
+        spinner = 'dots'
+      }
+    })
+  end
+end
+
 M.neoscroll()
+M.lsp_fidget()

@@ -59,6 +59,8 @@ opt.listchars = {
   trail = "-"
 } -- set listchars
 
+opt.shortmess:append('c')
+
 -- stolen from tjdevries
 opt.formatoptions = opt.formatoptions
   - "a" -- Auto formatting is BAD.
@@ -66,10 +68,13 @@ opt.formatoptions = opt.formatoptions
   + "c" -- In general, I like it when comments respect textwidth
   + "q" -- Allow formatting comments w/ gq
   - "o" -- O and o, don't continue comments
-  + "r" -- But do continue when pressing enter.
+  - "r" -- But do continue when pressing enter.
   + "n" -- Indent past the formatlistpat, not underneath it.
   + "j" -- Auto-remove comments if possible.
   - "2" -- I'm not in gradeschool anymore
 
 -- GUI
-opt.guifont = "CaskaydiaCove Nerd Font:h14"
+-- opt.guifont = "Dank Mono:h14"
+-- opt.guifont = "SauceCodePro Nerd Font:h13"
+opt.guifont = "Hasklug Nerd Font Mono:h13"
+-- opt.guifont = "MonoLisa Nerd Font Mono:h13"

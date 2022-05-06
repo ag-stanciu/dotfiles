@@ -7,7 +7,9 @@ if not (okLK or okLS or okCmp or okAP or okAU) then
   return
 end
 
-lspkind.init()
+require("luasnip/loaders/from_vscode").lazy_load()
+
+-- lspkind.init()
 
 -- local has_words_before = function()
 --   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -23,7 +25,6 @@ lspkind.init()
 
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = 'menuone,noselect'
-vim.opt.shortmess:append 'c'
 
 -- nvim-cmp setup
 cmp.setup {
@@ -37,7 +38,9 @@ cmp.setup {
     documentation = cmp.config.window.bordered(),
   },
   formatting = {
-    format = lspkind.cmp_format {
+    format = lspkind.cmp_format ({
+      mode = 'symbol',
+      maxwidth = 50,
       with_text = true,
       menu = {
         nvim_lsp = '[LSP]',
@@ -45,16 +48,13 @@ cmp.setup {
         path = '[FS]',
         luasnip = '[Snip]',
       },
-    },
+    }),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
+    ['<CR>'] = cmp.mapping.confirm { select = true },
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -76,6 +76,10 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   }),
+	confirm_opts = {
+		behavior = cmp.ConfirmBehavior.Replace,
+		select = false,
+	},
   sources = {
     { name = 'nvim_lsp', priority = 100 },
     { name = 'luasnip' },

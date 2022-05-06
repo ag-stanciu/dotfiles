@@ -4,14 +4,20 @@ if not ok then
 end
 -- Gitsigns
 gs.setup {
-  signs = {
-    add = {hl = "GitGutterAdd", text = "│"},
-    change = {hl = "GitGutterChange", text = "│"},
-    delete = {hl = "GitGutterDelete", text = "_"},
-    topdelete = {hl = "GitGutterDelete", text = "‾"},
-    changedelete = {hl = "GitGutterChange", text = "~"}
-  },
   numhl = false,
+  signcolumn = true,
+	signs = {
+		add = { hl = "GitSignsAdd", text = "▎", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+		change = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+		delete = { hl = "GitSignsDelete", text = "契", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+		topdelete = { hl = "GitSignsDelete", text = "契", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+		changedelete = {
+			hl = "GitSignsChange",
+			text = "▎",
+			numhl = "GitSignsChangeNr",
+			linehl = "GitSignsChangeLn",
+		},
+	},
   keymaps = {
       -- Default keymap options
       noremap = true,
@@ -32,6 +38,12 @@ gs.setup {
   current_line_blame = true,
   current_line_blame_opts = {
     delay = 2000,
-    virt_text_pos = 'eol'
-  }
+    virt_text = true,
+    virt_text_pos = 'eol',
+    ignore_whitespace = false,
+  },
+  current_line_blame_formatter_opts = {
+    relative_time = false,
+  },
+  update_debounce = 100,
 }

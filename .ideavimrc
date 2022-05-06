@@ -49,6 +49,7 @@ set smartcase
 
 set showcmd
 set highlightedyank
+set surround
 " Mappings
 nmap Y y$
 nnoremap n nzzzv

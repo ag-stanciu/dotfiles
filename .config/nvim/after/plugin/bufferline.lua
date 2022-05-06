@@ -21,12 +21,12 @@ bufferline.setup {
     separator_style = "thin",
     -- mappings = true,
     always_show_bufferline = true
-  }
+  },
 }
 
-vim.api.nvim_set_keymap("n", "<S-t>", ":enew<CR>", {noremap = true, silent = true}) -- new buffer
-vim.api.nvim_set_keymap("n", "<C-t>b", ":tabnew<CR>", {noremap = true, silent = true}) -- new tab
-vim.api.nvim_set_keymap("n", "<S-x>", ":bd!<CR>", {noremap = true, silent = true}) -- close tab
-vim.api.nvim_set_keymap("n", "<TAB>", ":BufferLineCycleNext<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<S-TAB>", ":BufferLineCyclePrev<CR>", {noremap = true, silent = true})
+vim.keymap.set("n", "<S-t>", ":enew<CR>", { silent = true})
+vim.keymap.set("n", "<C-t>", ":tabnew<CR>", { silent = true})
+vim.keymap.set("n", "<S-x>", ":bd!<CR>", { silent = true})
+vim.keymap.set("n", "<TAB>", ":BufferLineCycleNext<CR>", { silent = true})
+vim.keymap.set("n", "<S-TAB>", ":BufferLineCyclePrev<CR>", { silent = true})
 

@@ -1,0 +1,97 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.017  000.017: --- NVIM STARTING ---
+000.959  000.942: locale set
+001.264  000.305: inits 1
+001.277  000.013: window checked
+001.280  000.002: parsing arguments
+004.111  002.832: expanding arguments
+004.165  000.054: inits 2
+004.523  000.358: init highlight
+004.524  000.001: waiting for UI
+007.135  002.610: done waiting for UI
+007.166  000.032: init screen for UI
+007.226  000.060: init default mappings
+007.290  000.064: init default autocommands
+010.115  000.067  000.067: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/ftplugin.vim
+010.329  000.027  000.027: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/indent.vim
+046.106  035.671  035.671: sourcing /Users/alex/.config/nvim/init.lua
+046.129  003.074: sourcing vimrc file(s)
+046.429  000.042  000.042: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/filetype.lua
+051.193  000.011  000.011: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/LuaSnip/ftdetect/snippets.vim
+051.542  005.081  005.069: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/filetype.vim
+051.814  000.052  000.052: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/syntax/synload.vim
+051.887  000.274  000.222: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/syntax/syntax.vim
+056.669  000.028  000.028: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/gzip.vim
+056.726  000.015  000.015: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/health.vim
+056.821  000.064  000.064: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/man.vim
+056.858  000.011  000.011: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/matchit.vim
+056.893  000.011  000.011: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/matchparen.vim
+056.931  000.014  000.014: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/netrwPlugin.vim
+057.082  000.007  000.007: sourcing /Users/alex/.local/share/nvim/rplugin.vim
+057.085  000.129  000.122: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/rplugin.vim
+057.165  000.054  000.054: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/shada.vim
+057.211  000.017  000.017: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/spellfile.vim
+057.257  000.016  000.016: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/tarPlugin.vim
+057.296  000.011  000.011: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/tohtml.vim
+057.594  000.179  000.179: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/tutor.vim
+057.738  000.043  000.043: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/zipPlugin.vim
+058.620  000.292  000.292: sourcing /Users/alex/.config/nvim/plugin/mappings.lua
+059.009  000.350  000.350: sourcing /Users/alex/.config/nvim/plugin/options.lua
+065.532  006.481  006.481: sourcing /Users/alex/.config/nvim/plugin/packer_compiled.lua
+067.137  007.896: loading rtp plugins
+072.014  001.218  001.218: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim/plugin/indent_blankline.vim
+082.887  009.046  009.046: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/LuaSnip/plugin/luasnip.vim
+086.342  001.856  001.856: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/nvim-cmp/plugin/cmp.lua
+087.207  000.243  000.243: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/nvim-lspconfig/plugin/lspconfig.vim
+091.973  003.587  003.587: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/nvim-treesitter/plugin/nvim-treesitter.lua
+093.544  001.192  001.192: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+095.035  000.864  000.864: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag/plugin/nvim-ts-autotag.vim
+095.590  000.175  000.175: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring/plugin/ts_context_commentstring.vim
+096.109  000.038  000.038: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/nvim-web-devicons/plugin/nvim-web-devicons.vim
+096.705  000.034  000.034: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/plenary.nvim/plugin/plenary.vim
+097.793  000.333  000.333: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/telescope.nvim/plugin/telescope.lua
+098.443  000.014  000.014: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/matchparen.vim
+098.709  000.106  000.106: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/plugin/matchparen.vim
+099.193  000.200  000.200: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup.vim
+099.424  000.091  000.091: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/perf.vim
+100.154  000.470  000.470: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/loader.vim
+100.842  000.431  000.431: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/matchparen.vim
+101.513  003.399  002.087: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-matchup/plugin/matchup.vim
+102.005  000.256  000.256: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-surround/plugin/surround.vim
+102.154  012.776: loading packages
+103.949  000.012  000.012: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-matchup/after/plugin/matchit.vim
+108.385  004.070  004.070: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/cmp-buffer/after/plugin/cmp_buffer.lua
+108.543  000.042  000.042: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp/after/plugin/cmp_nvim_lsp.lua
+108.768  000.129  000.129: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help/after/plugin/cmp_nvim_lsp_signature_help.lua
+109.004  000.143  000.143: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/cmp-path/after/plugin/cmp_path.lua
+109.220  000.131  000.131: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/cmp_luasnip/after/plugin/cmp_luasnip.lua
+109.387  000.081  000.081: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/Comment.nvim/after/plugin/Comment.lua
+109.892  000.075  000.075: sourcing /Users/alex/.config/nvim/after/plugin/blankline.lua
+111.916  001.995  001.995: sourcing /Users/alex/.config/nvim/after/plugin/bufferline.lua
+114.748  002.805  002.805: sourcing /Users/alex/.config/nvim/after/plugin/cmp.lua
+114.822  000.046  000.046: sourcing /Users/alex/.config/nvim/after/plugin/commands.lua
+115.857  001.011  001.011: sourcing /Users/alex/.config/nvim/after/plugin/feline.lua
+118.636  002.752  002.752: sourcing /Users/alex/.config/nvim/after/plugin/gitsigns.lua
+119.883  001.219  001.219: sourcing /Users/alex/.config/nvim/after/plugin/misc.lua
+129.348  009.431  009.431: sourcing /Users/alex/.config/nvim/after/plugin/nvim-tree.lua
+142.924  013.533  013.533: sourcing /Users/alex/.config/nvim/after/plugin/telescope.lua
+149.802  006.837  006.837: sourcing /Users/alex/.config/nvim/after/plugin/treesitter.lua
+149.808  003.341: loading after plugins
+149.815  000.007: inits 3
+151.988  002.173: reading ShaDa
+153.697  000.053  000.053: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/ts_engine.vim
+154.878  000.021  000.021: sourcing /Users/alex/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/re.vim
+155.289  003.227: opening buffers
+155.438  000.149: BufEnter autocommands
+155.440  000.002: editing files in windows
+156.041  000.602: VimEnter autocommands
+156.043  000.002: UIEnter autocommands
+156.285  000.112  000.112: sourcing /opt/homebrew/Cellar/neovim/HEAD-6e6f5a7/share/nvim/runtime/autoload/provider/clipboard.vim
+156.321  000.166: before starting main loop
+158.839  002.518: first screen update
+158.840  000.001: --- NVIM STARTED ---

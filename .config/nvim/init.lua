@@ -32,9 +32,11 @@ require('packer').startup(function()
   -- use 'eddyekofo94/gruvbox-flat.nvim'
   -- use 'EdenEast/nightfox.nvim'
   -- use 'shaunsingh/nord.nvim'
-  -- use 'rmehri01/onenord.nvim'
+  use 'rmehri01/onenord.nvim'
   -- use "rebelot/kanagawa.nvim"
+  use 'kvrohit/substrata.nvim'
   -- use 'kvrohit/rasmus.nvim'
+  use 'sainnhe/gruvbox-material'
 
   -- Git
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -47,8 +49,8 @@ require('packer').startup(function()
   -- LSP
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'jose-elias-alvarez/null-ls.nvim'
-  use 'ray-x/lsp_signature.nvim'
   use 'onsails/lspkind-nvim'
+  use 'j-hui/fidget.nvim'
 
   -- Snippets
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
@@ -60,9 +62,11 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-buffer'
   use 'saadparwaiz1/cmp_luasnip'
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'b0o/schemastore.nvim'
 
   -- UI
-  use 'nvim-lualine/lualine.nvim'
+  -- use 'nvim-lualine/lualine.nvim'
+  use 'feline-nvim/feline.nvim'
   use 'akinsho/nvim-bufferline.lua'
   use 'kyazdani42/nvim-web-devicons'
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
@@ -74,13 +78,15 @@ require('packer').startup(function()
   use 'windwp/nvim-ts-autotag'
   use 'andymass/vim-matchup'
   -- use 'terrortylor/nvim-comment'
-  use { "dstein64/vim-startuptime", cmd = "StartupTime", }
+  -- use { "dstein64/vim-startuptime", cmd = "StartupTime", }
   use {
       'numToStr/Comment.nvim',
       config = function()
           require('Comment').setup()
       end
   }
+  use 'tpope/vim-surround'
+
   -- TS stuff
   use {
     'jose-elias-alvarez/nvim-lsp-ts-utils'
@@ -101,3 +107,6 @@ require('disable_builtin')
 
 -- LSP
 require('lsp')
+
+-- Colorscheme
+require('Colorscheme')

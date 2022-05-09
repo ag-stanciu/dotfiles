@@ -1,9 +1,9 @@
-local okLK, lspkind = pcall(require, 'lspkind')
+-- local okLK, lspkind = pcall(require, 'lspkind')
 local okLS, luasnip = pcall(require, 'luasnip')
 local okAU, autopairs = pcall(require, 'nvim-autopairs')
 local okAP, cmp_autopairs = pcall(require, 'nvim-autopairs.completion.cmp')
 local okCmp, cmp = pcall(require, 'cmp')
-if not (okLK or okLS or okCmp or okAP or okAU) then
+if not (okLS or okCmp or okAP or okAU) then
   return
 end
 
@@ -26,30 +26,73 @@ require("luasnip/loaders/from_vscode").lazy_load()
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = 'menuone,noselect'
 
+local icons = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "⌘",
+    Field = "ﰠ",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "塞",
+    Value = "",
+    Enum = "",
+    Keyword = "廓",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "פּ",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+}
+
 -- nvim-cmp setup
 cmp.setup {
+  completion = {
+      -- completeopt = "menu,menuone,noinsert",
+      -- keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
+    keyword_length = 1,
+  },
+  -- preselect = cmp.PreselectMode.None,
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
   },
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+  -- window = {
+  --   -- completion = cmp.config.window.bordered(),
+  --   documentation = cmp.config.window.bordered(),
+  -- },
+   formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(_, vim_item)
+      vim_item.menu = vim_item.kind
+      vim_item.kind = icons[vim_item.kind]
+
+      return vim_item
+    end,
   },
-  formatting = {
-    format = lspkind.cmp_format ({
-      mode = 'symbol',
-      maxwidth = 50,
-      with_text = true,
-      menu = {
-        nvim_lsp = '[LSP]',
-        buffer = '[Buf]',
-        path = '[FS]',
-        luasnip = '[Snip]',
-      },
-    }),
-  },
+  -- formatting = {
+  --   format = lspkind.cmp_format ({
+  --     mode = 'symbol',
+  --     maxwidth = 50,
+  --     with_text = true,
+  --     menu = {
+  --       nvim_lsp = '[LSP]',
+  --       buffer = '[Buf]',
+  --       path = '[FS]',
+  --       luasnip = '[Snip]',
+  --     },
+  --   }),
+  -- },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),

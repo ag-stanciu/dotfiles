@@ -53,30 +53,24 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-  vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics,
-  {
-    virtual_text = false, --{
-    --   source = "if_many",
-    --   prefix = "",
-    --   spacing = 4
-    -- },
-    signs = true,
-    underline = true,
-    severity_sort = true,
-
-    -- set this to true if you want diagnostics to show in insert mode
-    update_in_insert = false
-  }
-)
+vim.diagnostic.config{
+  virtual_text = false,
+  float = {
+    header = false,
+    source = "always",
+  },
+  signs = true,
+  underline = false,
+  update_in_insert = false,
+  severity_sort = true,
+}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local servers = {
   -- 'pyright',
-  -- 'graphql',
+  'graphql',
   'rust_analyzer',
   'tailwindcss',
   'dockerls',

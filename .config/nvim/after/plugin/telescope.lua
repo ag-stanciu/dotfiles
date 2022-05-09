@@ -11,7 +11,9 @@ telescope.setup(
     defaults = {
       mappings = {
         i = {
-          ["<esc>"] = actions.close
+          ["<esc>"] = actions.close,
+          ["<Tab>"] = "move_selection_next",
+          ["<S-Tab>"] = "move_selection_previous",
         },
       },
       vimgrep_arguments = {
@@ -39,8 +41,8 @@ telescope.setup(
         vertical = {
           mirror = false,
         },
-        width = 0.87,
-        height = 0.80,
+        width = 0.80,
+        height = 0.85,
         preview_cutoff = 120
       },
       file_sorter = require("telescope.sorters").get_fuzzy_file,

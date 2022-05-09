@@ -66,4 +66,6 @@ M.lua_lsp_progress = function()
   return ''
 end
 
+M.signs = { Error = "", Warn = "", Hint = "", Info = "" }
+
 return M

@@ -253,7 +253,7 @@ function M.setup()
     ----------------------------------FILE INFO--------------------------------- {{{
     {
       provider = function()
-        local file = require("feline.providers.file").file_info({ icon = "" }, { type = "short" })
+        local file = require("feline.providers.file").file_info({ icon = "" }, { type = "relative" })
 
         if mask_plugin() then
           file = vim.bo.filetype

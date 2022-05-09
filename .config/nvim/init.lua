@@ -26,12 +26,8 @@ require('packer').startup(function()
 
   -- Colorschemes
   -- use 'folke/tokyonight.nvim'
-  -- use 'navarasu/onedark.nvim'
   use 'olimorris/onedark.nvim'
-  -- use 'ful1e5/onedark.nvim'
-  -- use 'eddyekofo94/gruvbox-flat.nvim'
   -- use 'EdenEast/nightfox.nvim'
-  -- use 'shaunsingh/nord.nvim'
   use 'rmehri01/onenord.nvim'
   -- use "rebelot/kanagawa.nvim"
   use 'kvrohit/substrata.nvim'
@@ -49,7 +45,7 @@ require('packer').startup(function()
   -- LSP
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'jose-elias-alvarez/null-ls.nvim'
-  use 'onsails/lspkind-nvim'
+  -- use 'onsails/lspkind-nvim'
   use 'j-hui/fidget.nvim'
 
   -- Snippets
@@ -74,11 +70,11 @@ require('packer').startup(function()
   use 'lukas-reineke/indent-blankline.nvim'  -- Add indentation guides even on blank lines
 
   -- Misc
+  use 'norcalli/nvim-colorizer.lua'
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
   use 'andymass/vim-matchup'
-  -- use 'terrortylor/nvim-comment'
-  -- use { "dstein64/vim-startuptime", cmd = "StartupTime", }
+  use { "dstein64/vim-startuptime", cmd = "StartupTime", }
   use {
       'numToStr/Comment.nvim',
       config = function()
@@ -89,7 +85,8 @@ require('packer').startup(function()
 
   -- TS stuff
   use {
-    'jose-elias-alvarez/nvim-lsp-ts-utils'
+    -- 'jose-elias-alvarez/nvim-lsp-ts-utils'
+    'jose-elias-alvarez/typescript.nvim'
     -- ft = {'javascript', 'javascriptreact', 'typescript', 'typescriptreact'}
   }
 
@@ -101,6 +98,9 @@ end)
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- filetype
+vim.g.do_filetype_lua = 1
 
 -- diable builtin
 require('disable_builtin')

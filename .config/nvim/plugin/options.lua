@@ -56,7 +56,8 @@ opt.showmode = false
 opt.listchars = {
   -- eol = "↴",
   tab = "» ",
-  trail = "-"
+  -- trail = "-"
+  trail = "·"
 } -- set listchars
 
 opt.shortmess:append('c')

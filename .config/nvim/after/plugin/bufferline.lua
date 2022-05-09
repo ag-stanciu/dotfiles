@@ -2,6 +2,7 @@ local ok, bufferline = pcall(require, 'bufferline')
 if not ok then
   return
 end
+
 -- Bufferine
 bufferline.setup {
   options = {
@@ -21,7 +22,7 @@ bufferline.setup {
     separator_style = "thin",
     -- mappings = true,
     always_show_bufferline = true
-  },
+  }
 }
 
 vim.keymap.set("n", "<S-t>", ":enew<CR>", { silent = true})

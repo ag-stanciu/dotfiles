@@ -82,6 +82,7 @@ end
 function M.setup()
   -- local colors = require("onedarkpro").get_colors(vim.g.onedarkpro_style)
   local colors = require('onenord.colors').load()
+  -- local colorscheme = require('colorscheme').colors
   colors.bg = '#1e222a'
   colors.statusline_div = '#2e323b'
   colors.statusline_bg = '#2e323b'
@@ -103,7 +104,7 @@ function M.setup()
     ENTER = colors.cyan,
     MORE = colors.cyan,
     SELECT = colors.orange,
-    COMMAND = colors.purple,
+    COMMAND = colors.dark_red,
     SHELL = colors.purple,
     TERM = colors.purple,
     NONE = colors.yellow,
@@ -145,22 +146,22 @@ function M.setup()
     }
   end
 
-  local function inverse_block()
-    return {
-      body = {
-        fg = colors.bg,
-        bg = vim.o.background == "light" and colors.black or colors.gray,
-      },
-      sep_left = {
-        fg = colors.bg,
-        bg = vim.o.background == "light" and colors.black or colors.gray,
-      },
-      sep_right = {
-        fg = vim.o.background == "light" and colors.black or colors.gray,
-        bg = colors.bg,
-      },
-    }
-  end
+  -- local function inverse_block()
+  --   return {
+  --     body = {
+  --       fg = colors.bg,
+  --       bg = vim.o.background == "light" and colors.black or colors.gray,
+  --     },
+  --     sep_left = {
+  --       fg = colors.bg,
+  --       bg = vim.o.background == "light" and colors.black or colors.gray,
+  --     },
+  --     sep_right = {
+  --       fg = vim.o.background == "light" and colors.black or colors.gray,
+  --       bg = colors.bg,
+  --     },
+  --   }
+  -- end
 
   M.components.inactive = { { { provider = "", hl = InactiveStatusHL } } }
   ---------------------------------------------------------------------------- }}}
@@ -196,11 +197,12 @@ function M.setup()
       provider = function()
         return require("feline.providers.vi_mode").get_vim_mode() .. " "
       end,
-      icon = "",
+      icon = " ",
       hl = function()
         return {
-          fg = colors.bg,
-          bg = vi_mode_utils.get_mode_color(),
+          -- fg = colors.bg,
+          fg = vi_mode_utils.get_mode_color(),
+          bg = colors.statusline_bg,
           style = 'bold'
         }
       end,
@@ -217,7 +219,8 @@ function M.setup()
         str = "slant_right",
         hl = function()
           return {
-            fg = vi_mode_utils.get_mode_color(),
+            fg = colors.statusline_bg,
+            -- fg = vi_mode_utils.get_mode_color(),
             bg = colors.bg,
           }
         end,
@@ -234,18 +237,18 @@ function M.setup()
         return git.git_info_exists()
       end,
       hl = function()
-        return inverse_block().body
+        return block(colors.statusline_bg, colors.blue).body
       end,
       left_sep = {
         str = "slant_right",
         hl = function()
-          return inverse_block().sep_left
+          return block(colors.statusline_bg).sep_left
         end,
       },
       right_sep = {
         str = "slant_right",
         hl = function()
-          return inverse_block().sep_right
+          return block(colors.statusline_bg).sep_right
         end,
       },
     },
@@ -262,102 +265,18 @@ function M.setup()
         return " " .. file .. " "
       end,
       hl = function()
-        return block().body
+        return block(colors.bg, colors.statusline_text).body
       end,
       left_sep = {
         str = "slant_right",
         hl = function()
-          return block().sep_left
+          return block(colors.bg, colors.statusline_text).sep_left
         end,
       },
       right_sep = {
         str = "slant_right",
         hl = function()
-          return block().sep_right
-        end,
-      },
-    },
-    ---------------------------------------------------------------------------- }}}
-    ---------------------------------LSP ERRORS--------------------------------- {{{
-    {
-      provider = "diagnostic_errors",
-      icon = " ",
-      hl = function()
-        return block(colors.red, colors.bg).body
-      end,
-      left_sep = {
-        str = "slant_right",
-        hl = function()
-          return block(colors.red).sep_left
-        end,
-      },
-      right_sep = {
-        str = "slant_right",
-        hl = function()
-          return block(colors.red).sep_right
-        end,
-      },
-    },
-    ---------------------------------------------------------------------------- }}}
-    --------------------------------LSP WARNINGS-------------------------------- {{{
-    {
-      provider = "diagnostic_warnings",
-      icon = " ",
-      hl = function()
-        return block(colors.yellow, colors.bg).body
-      end,
-      left_sep = {
-        str = "slant_right",
-        hl = function()
-          return block(colors.yellow).sep_left
-        end,
-      },
-      right_sep = {
-        str = "slant_right",
-        hl = function()
-          return block(colors.yellow).sep_right
-        end,
-      },
-    },
-    ---------------------------------------------------------------------------- }}}
-    ----------------------------------LSP HINTS--------------------------------- {{{
-    {
-      provider = "diagnostic_hints",
-      icon = " ",
-      hl = function()
-        return default_hl()
-      end,
-      left_sep = {
-        str = " ",
-        hl = function()
-          return default_hl()
-        end,
-      },
-      right_sep = {
-        str = " ",
-        hl = function()
-          return default_hl()
-        end,
-      },
-    },
-    ---------------------------------------------------------------------------- }}}
-    ----------------------------------LSP INFO---------------------------------- {{{
-    {
-      provider = "diagnostic_info",
-      icon = " ",
-      hl = function()
-        return default_hl()
-      end,
-      left_sep = {
-        str = " ",
-        hl = function()
-          return default_hl()
-        end,
-      },
-      right_sep = {
-        str = " ",
-        hl = function()
-          return default_hl()
+          return block(colors.bg, colors.statusline_text).sep_right
         end,
       },
     },
@@ -404,31 +323,91 @@ function M.setup()
   ---------------------------------------------------------------------------- }}}
   ------------------------------RIGHT COMPONENTS------------------------------ {{{
   M.components.active[2] =
-    --------------------------------ASYNC TESTING------------------------------- {{{
     {
-      -- {
-      --   provider = function()
-      --     return async_run()
-      --   end,
-      --   enabled = function()
-      --     return async_run() ~= nil
-      --   end,
-      --   hl = function()
-      --     return default_hl()
-      --   end,
-      --   left_sep = {
-      --     str = " ",
-      --     hl = function()
-      --       return default_hl()
-      --     end,
-      --   },
-      --   right_sep = {
-      --     str = "",
-      --     hl = function()
-      --       return default_hl()
-      --     end,
-      --   },
-      -- },
+      ---------------------------------------------------------------------------- }}}
+      ----------------------------------LSP HINTS--------------------------------- {{{
+      {
+        provider = "diagnostic_hints",
+        icon = "  ",
+        hl = function()
+          return default_hl()
+        end,
+        left_sep = {
+          str = " ",
+          hl = function()
+            return default_hl()
+          end,
+        },
+        right_sep = {
+          str = " ",
+          hl = function()
+            return default_hl()
+          end,
+        },
+      },
+      ---------------------------------------------------------------------------- }}}
+      ----------------------------------LSP INFO---------------------------------- {{{
+      {
+        provider = "diagnostic_info",
+        icon = "  ",
+        hl = function()
+          return default_hl()
+        end,
+        left_sep = {
+          str = " ",
+          hl = function()
+            return default_hl()
+          end,
+        },
+        right_sep = {
+          str = " ",
+          hl = function()
+            return default_hl()
+          end,
+        },
+      },
+      ---------------------------------------------------------------------------- }}}
+      --------------------------------LSP WARNINGS-------------------------------- {{{
+      {
+        provider = "diagnostic_warnings",
+        icon = " ",
+        hl = function()
+          return block(colors.orange, colors.bg).body
+        end,
+        left_sep = {
+          str = "slant_left",
+          hl = function()
+            return block(colors.orange).sep_right
+          end,
+        },
+        right_sep = {
+          str = "slant_left",
+          hl = function()
+            return block(colors.orange).sep_left
+          end,
+        },
+      },
+    ---------------------------------------------------------------------------- }}}
+    ---------------------------------LSP ERRORS--------------------------------- {{{
+      {
+        provider = "diagnostic_errors",
+        icon = " ",
+        hl = function()
+          return block(colors.red, colors.bg).body
+        end,
+        left_sep = {
+          str = "slant_left",
+          hl = function()
+            return block(colors.red).sep_right
+          end,
+        },
+        right_sep = {
+          str = "slant_left",
+          hl = function()
+            return block(colors.red).sep_left
+          end,
+        },
+      },
       ---------------------------------------------------------------------------- }}}
       -----------------------------------LSP-------------------------------------- {{{
       {
@@ -439,7 +418,7 @@ function M.setup()
           return u.lsp_active()
         end,
         hl = function()
-          return block().body
+          return block(colors.statusline_bg, colors.green).body
         end,
         left_sep = {
           str = "slant_left",
@@ -469,7 +448,10 @@ function M.setup()
           return not mask_plugin()
         end,
         hl = function()
-          return block().body
+          local filename = vim.api.nvim_buf_get_name(0)
+          local extension = vim.fn.fnamemodify(filename, ":e")
+          local icon = get_icon(filename, extension, {})
+          return block(colors.statusline_bg, icon.hl.fg).body
         end,
         left_sep = {
           str = "slant_left",
@@ -488,50 +470,62 @@ function M.setup()
       ---------------------------------LINE COLUMN-------------------------------- {{{
       {
         provider = function()
-          return " " .. line_col() .. " "
+          return " " .. line_col()
         end,
         padding = true,
         hl = function()
-          return inverse_block().body
+          return block(colors.statusline_bg, colors.statusline_text).body
         end,
         left_sep = {
           str = "slant_left",
           hl = function()
-            return inverse_block().sep_right
+            return block(colors.statusline_bg).sep_right
           end,
         },
-        right_sep = {
-          str = "slant_left",
-          hl = function()
-            return inverse_block().sep_left
-          end,
-        },
+        -- right_sep = {
+        --   str = "slant_left",
+        --   hl = function()
+        --     return block(colors.statusline_bg).sep_left
+        --   end,
+        -- },
       },
       ---------------------------------------------------------------------------- }}}
       -------------------------------LINE PERCENTAGE------------------------------ {{{
+      -- {
+      --   provider = function()
+      --     local percent = line_percentage()
+      --
+      --     return "  " .. percent
+      --   end,
+      --   reverse = true,
+      --   hl = function()
+      --     return block(colors.statusline_bg, colors.statusline_text).body
+      --   end,
+      --   left_sep = {
+      --     str = "slant_left",
+      --     hl = function()
+      --       return block(colors.statusline_bg).sep_right
+      --     end,
+      --   },
+      -- },
+      ---------------------------------------------------------------------------- }}}
       {
         provider = function()
-          local percent = line_percentage()
-
-          return " " .. percent
+          return " "
         end,
         hl = function()
-          return inverse_block().body
+          return block(colors.statusline_bg, vi_mode_utils.get_mode_color()).body
         end,
-        left_sep = {
-          str = "slant_left",
-          hl = function()
-            return inverse_block().sep_right
-          end,
-        },
         right_sep = {
-          str = " ",
+          str = "vertical_bar_thin",
           hl = function()
-            return inverse_block().body
+            return {
+              fg = vi_mode_utils.get_mode_color(),
+              bg = vi_mode_utils.get_mode_color(),
+            }
           end,
         },
       },
-      ---------------------------------------------------------------------------- }}}
     }
   ---------------------------------------------------------------------------- }}}
   -------------------------------FINALISE SETUP------------------------------- {{{

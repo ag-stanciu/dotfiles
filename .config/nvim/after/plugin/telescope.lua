@@ -12,8 +12,8 @@ telescope.setup(
       mappings = {
         i = {
           ["<esc>"] = actions.close,
-          ["<Tab>"] = "move_selection_next",
-          ["<S-Tab>"] = "move_selection_previous",
+          ["<Tab>"] = "move_selection_previous",
+          ["<S-Tab>"] = "move_selection_next",
         },
       },
       vimgrep_arguments = {
@@ -51,7 +51,7 @@ telescope.setup(
       path_display = {"absolute"},
       winblend = 0,
       border = {},
-      borderchars = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+      -- borderchars = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
       color_devicons = true,
       use_less = true,
       set_env = {["COLORTERM"] = "truecolor"}, -- default = nil,

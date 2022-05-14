@@ -93,7 +93,7 @@ require('onenord').setup({
       VertSplit = { fg = colors.grey14 },
       BufferLineIndicatorSelected = { fg = colors.cyan, bg = colors.bg },
       BufferLineFill = { fg = colors.fg, bg = colors.bg },
-      NvimTreeNormal = { fg = colors.grey5, bg = colors.grey14 },
+      NvimTreeNormal = { fg = colors.grey5, bg = colors.grey16 },
       WhichKeyFloat = { bg = colors.grey14 },
       GitSignsAdd = { fg = colors.green },
       GitSignsChange = { fg = colors.orange },

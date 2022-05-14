@@ -75,7 +75,9 @@ opt.formatoptions = opt.formatoptions
   - "2" -- I'm not in gradeschool anymore
 
 -- GUI
--- opt.guifont = "Dank Mono:h14"
+-- opt.guifont = "DankMono Nerd Font:h14"
 -- opt.guifont = "SauceCodePro Nerd Font:h13"
 opt.guifont = "Hasklug Nerd Font Mono:h13"
+-- opt.guifont = "LigaSauceCodePro Nerd Font:h13"
+-- opt.guifont = "SauceCodePro Nerd Font:h13"
 -- opt.guifont = "MonoLisa Nerd Font Mono:h13"

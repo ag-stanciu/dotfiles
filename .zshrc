@@ -14,7 +14,7 @@ alias grep='grep --color=auto'
 alias vim='nvim'
 alias v='nvim'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias gv='neovide --geometry=120x40'
+alias gv='~/dev/neovide/target/release/neovide'
 
 ## prompt
 fpath+=$HOME/.zsh/pure
@@ -26,9 +26,6 @@ bindkey -e
 
 # source work stuff
 [[ -e "${HOME}/.workrc" ]] && source "${HOME}/.workrc"
-
-
-alias luamake=/Users/alex/.bin/lua-language-server/3rd/luamake/luamake
 
 # direnv
 eval "$(direnv hook zsh)"

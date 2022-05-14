@@ -26,13 +26,13 @@ require('packer').startup(function()
 
   -- Colorschemes
   -- use 'folke/tokyonight.nvim'
-  use 'olimorris/onedark.nvim'
+  -- use 'olimorris/onedark.nvim'
   -- use 'EdenEast/nightfox.nvim'
   use 'rmehri01/onenord.nvim'
   -- use "rebelot/kanagawa.nvim"
-  use 'kvrohit/substrata.nvim'
+  -- use 'kvrohit/substrata.nvim'
   -- use 'kvrohit/rasmus.nvim'
-  use 'sainnhe/gruvbox-material'
+  -- use 'sainnhe/gruvbox-material'
 
   -- Git
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -75,17 +75,11 @@ require('packer').startup(function()
   use 'windwp/nvim-ts-autotag'
   use 'andymass/vim-matchup'
   use { "dstein64/vim-startuptime", cmd = "StartupTime", }
-  use {
-      'numToStr/Comment.nvim',
-      config = function()
-          require('Comment').setup()
-      end
-  }
+  use 'numToStr/Comment.nvim'
   use 'tpope/vim-surround'
 
   -- TS stuff
   use {
-    -- 'jose-elias-alvarez/nvim-lsp-ts-utils'
     'jose-elias-alvarez/typescript.nvim'
     -- ft = {'javascript', 'javascriptreact', 'typescript', 'typescriptreact'}
   }
@@ -109,4 +103,4 @@ require('disable_builtin')
 require('lsp')
 
 -- Colorscheme
-require('Colorscheme')
+require('colorscheme')

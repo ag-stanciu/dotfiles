@@ -72,10 +72,11 @@ cmp.setup {
   --   documentation = cmp.config.window.bordered(),
   -- },
    formatting = {
-    fields = { "kind", "abbr", "menu" },
+    -- fields = { "kind", "abbr", "menu" },
     format = function(_, vim_item)
-      vim_item.menu = vim_item.kind
-      vim_item.kind = icons[vim_item.kind]
+      -- vim_item.menu = vim_item.kind
+      -- vim_item.kind = icons[vim_item.kind]
+      vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
       return vim_item
     end,

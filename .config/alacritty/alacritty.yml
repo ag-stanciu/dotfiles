@@ -18,7 +18,7 @@ window:
   # Specified in number of columns/lines, not pixels.
   # If both are `0`, this setting is ignored.
   dimensions:
-    columns: 80 
+    columns: 80
     lines: 25
 
   # Window padding (changes require restart)
@@ -27,10 +27,10 @@ window:
   # by DPI and the specified value is always added at both opposing sides.
   padding:
     x: 2
-    y: 2
+    y: 0
 
   # Spread additional padding evenly around the terminal content.
-  dynamic_padding: false
+  dynamic_padding: true
 
   # Window decorations
   #
@@ -41,7 +41,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: buttonless 
+  decorations: buttonless
 
   # When true, alacritty starts maximized.
   start_maximized: false
@@ -86,9 +86,9 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    family: CaskaydiaCove Nerd Font
+    family: Hasklug Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    #style: Regular
+    style: Regular
 
   # Bold font face
   bold:
@@ -96,10 +96,10 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: CaskaydiaCove Nerd Font
+    family: Hasklug Nerd Font Mono
 
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    style: Bold
 
   # Italic font face
   italic:
@@ -107,10 +107,10 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: CaskaydiaCove Nerd Font
+    family: Hasklug Nerd Font Mono
 
     # The `style` can be specified to pick a specific face.
-    #style: Italic
+    style: Italic
 
   # Point size
   size: 13.0
@@ -153,12 +153,13 @@ persistent_logging: false
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Nord)
+# Colors (OneNord)
 colors:
-   # Default colors
+  # Default colors
   primary:
-    background: '0x2E3440'
-    foreground: '0xD8DEE9'
+    # background: '0x2E3440'
+    background: '0x1E222A'
+    foreground: '0xC8D0E0'
 
   # Normal colors
   normal:
@@ -167,7 +168,7 @@ colors:
     green:   '0xA3BE8C'
     yellow:  '0xEBCB8B'
     blue:    '0x81A1C1'
-    magenta: '0xB48EAD'
+    magenta: '0xB988B0'
     cyan:    '0x88C0D0'
     white:   '0xE5E9F0'
 
@@ -178,9 +179,34 @@ colors:
     green:   '0xA3BE8C'
     yellow:  '0xEBCB8B'
     blue:    '0x81A1C1'
-    magenta: '0xB48EAD'
+    magenta: '0xB988B0'
     cyan:    '0x8FBCBB'
     white:   '0xECEFF4'
+
+  search:
+    matches:
+     foreground: '#81A1C1'
+     background: '#4C566A'
+    focused_match:
+     foreground: '#EBCB8B'
+     background: '#4C566A'
+
+    bar:
+     background: '#434C5E'
+     foreground: '#88C0D0'
+
+  hints:
+    start:
+     foreground: '#B988B0'
+     background: '#4C566A'
+
+    end:
+     foreground: '#81A1C1'
+     background: '#4C566A'
+
+  selection:
+   text: CellForeground
+   background: '#3F4758'
 
   # Dim colors
   #
@@ -236,7 +262,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1
+window_opacity: 1
 
 # Mouse bindings
 #

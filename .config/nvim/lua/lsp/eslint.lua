@@ -5,7 +5,7 @@ local nvim_lsp = require('lspconfig')
 M.setup = function(on_attach, capabilities)
   nvim_lsp.eslint.setup({
     on_attach = function (client, bufnr)
-      client.resolved_capabilities.document_formatting = true
+      client.server_capabilities.document_formatting = true
       on_attach(client, bufnr)
     end,
     capabilities = capabilities,

@@ -1,0 +1,119 @@
+{
+    "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    //"height": 30, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["clock"],
+    "modules-right": ["cpu", "pulseaudio", "tray", "network", "battery", "custom/power"],
+
+    // Modules configuration
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "  ",
+            "2": "  ",
+            "3": "  ",
+            "4": "  ",
+            "urgent": "  ",
+            "focused": "  ",
+            "default": " ﯽ ",
+        }
+    },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "ï®",
+            "deactivated": "ï°"
+        }
+    },
+
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+    },
+
+    "clock": {
+		"format": "{:%a %b %d %H:%M}",
+		"tooltip": false
+    },
+
+    "cpu": {
+        "format": "{usage}% ﬙ ",
+        "tooltip": false,
+		"on-click": "kitty -e top"
+    },
+
+    "memory": {
+        "format": "{}% ïƒ‰"
+    },
+
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}Â°C {icon}",
+        "format": "{temperatureC}Â°C {icon}",
+        "format-icons": ["ï«", "ï‹‰", "ï©"]
+    },
+
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["ï†…", "ï„‘"]
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": "  ",
+        "format-plugged": "  ",
+        "format-alt": "{capacity} {time} {icon}",
+        "format-good": "{icon}", // An empty format will hide the module
+        "format-full": "{icon}",
+        "format-icons": ["  ", "  ", "  ", "  ", "  "]
+    },
+
+    "network": {
+        "format-wifi": "  ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ïž–",
+        "format-linked": "{ifname} (No IP) ïž–",
+        "format-disconnected": "Disconnected 睊 ",
+        "format-alt": "{essid} {signalStrength}% {ifname}: {ipaddr}/{cidr}"
+    },
+
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}%",
+        "format-muted": " 婢 {format_source}",
+        "format-source": "{volume}% ï„°",
+        "format-source-muted": " 婢",
+        "format-icons": {
+            "headphones": "  ",
+            "handsfree": "ï–",
+            "headset": "ï–",
+            "phone": "ï‚•",
+            "portable": "ï‚•",
+            "car": "ï†¹",
+            "default": [" 奄 ", " 奔 ", " 墳 "]
+        },
+        "on-click": "kitty -e alsamixer"
+    },
+
+	"custom/power": {
+		"format": "  ",
+		"on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Suspend' 'zzz' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now'"
+	}
+}

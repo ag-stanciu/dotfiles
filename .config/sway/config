@@ -247,14 +247,17 @@ gaps inner 2
 
 # autostart
 exec nm-applet --indicator
+exec blueman-applet
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
 
 # clamshell
-set $laptop <eDP-1>
+set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 exec_always ~/.config/sway/scripts/clamshell.sh
 
+# external display
+output DP-1 scale 1
 
 include /etc/sway/config.d/*

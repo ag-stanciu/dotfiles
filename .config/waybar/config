@@ -4,7 +4,7 @@
     "position": "top",
 
     // If height property would be not present, it'd be calculated dynamically
-    "height": 25,
+    "height": 20,
     "width" : 10,
 
     "modules-left": [
@@ -18,16 +18,16 @@
     ],
 
     "modules-right": [
-        "network",
+        //"network",
         "idle_inhibitor",
         //"memory",
         //"cpu",
         "pulseaudio",
         // "custom/keyboard-layout",
-        "battery",
         //"custom/PBPbattery",
         "backlight#icon",
         "backlight#value",
+        "battery",
         "tray",
         //"custom/weather",
         "custom/power",

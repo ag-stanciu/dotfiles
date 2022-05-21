@@ -1,8 +1,5 @@
 local opt = vim.opt
 
---Incremental live completion
--- opt.inccommand = 'nosplit'
-
 --Set highlight on search
 opt.hlsearch = false
 
@@ -73,6 +70,7 @@ opt.formatoptions = opt.formatoptions
   + "n" -- Indent past the formatlistpat, not underneath it.
   + "j" -- Auto-remove comments if possible.
   - "2" -- I'm not in gradeschool anymore
+-- opt.winbar = "%{%v:lua.require'utils'.winbar()%}"
 
 -- GUI
 -- opt.guifont = "DankMono Nerd Font:h14"

@@ -21,6 +21,7 @@ require('packer').startup(function()
     requires = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
     }
   }
 
@@ -47,6 +48,7 @@ require('packer').startup(function()
   use 'jose-elias-alvarez/null-ls.nvim'
   -- use 'onsails/lspkind-nvim'
   use 'j-hui/fidget.nvim'
+  use 'SmiteshP/nvim-gps'
 
   -- Snippets
   use 'L3MON4D3/LuaSnip' -- Snippets plugin

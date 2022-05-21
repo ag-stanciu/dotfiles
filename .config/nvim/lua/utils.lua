@@ -87,4 +87,34 @@ M.powerline = {
   },
 }
 
+M.winbar = function ()
+  local colors = require("colorscheme").colors
+  colors.statusline_bg = '#2e323b'
+  colors.statusline_text = '#696C77'
+  vim.api.nvim_set_hl(0, "WinBarSeparatorLeft", { fg = colors.statusline_bg, bg = colors.bg })
+  vim.api.nvim_set_hl(0, "WinBarContent", { fg = colors.statusline_text, bg = colors.statusline_bg })
+  vim.api.nvim_set_hl(0, "WinBarSeparatorRight", { fg = colors.statusline_bg, bg = colors.bg })
+
+  if vim.api.nvim_eval_statusline("%f",{})["str"] == "[No Name]" then
+    return ""
+  end
+  return "%#WinBarSeparatorLeft#"
+    .. "█"
+    .. "%*"
+    .. "%#WinBarContent#"
+    .. "%f"
+    .. "%*"
+    .. "%#WinBarSeparatorRight#"
+    .. ""
+    .. "%*"
+end
+
+M.str_split = function (s, delimiter)
+  local result = {};
+  for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+    table.insert(result, match);
+  end
+  return result;
+end
+
 return M

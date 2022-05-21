@@ -6,6 +6,7 @@ end
 blankline.setup {
   char = '┊',
   filetype_exclude = {'help, packer'},
+  use_treesitter = true,
   buftype_exclude = { 'terminal', 'nofile'},
   char_highlight = 'LineNr',
   show_trailing_blankline_indent = false,

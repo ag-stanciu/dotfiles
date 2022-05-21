@@ -3,6 +3,7 @@ if not ok then
   return
 end
 local u = require('utils')
+local cs = require('colorscheme').colors
 ---------------------------------PROPERTIES--------------------------------- {{{
 local M = {}
 
@@ -64,6 +65,7 @@ M.disable = {
 -- local lsp = require("feline.providers.lsp")
 local git = require("feline.providers.git")
 local vi_mode_utils = require("feline.providers.vi_mode")
+local gps = require('nvim-gps')
 
 local function mask_plugin()
   -- return om.find_pattern_match(M.filetypes_to_mask, vim.bo.filetype)
@@ -72,10 +74,6 @@ local function mask_plugin()
   end, M.filetypes_to_mask))
 end
 
--- local function nvim_gps()
---   local has_gps, gps = om.safe_require("nvim-gps")
---   return has_gps, gps
--- end
 ---------------------------------------------------------------------------- }}}
 ---------------------------------COMPONENTS--------------------------------- {{{
 ------------------------------------SETUP----------------------------------- {{{
@@ -284,15 +282,13 @@ function M.setup()
     -------------------------------------GPS------------------------------------ {{{
     -- {
     --   provider = function()
-    --     local _, gps = nvim_gps()
     --     return gps.get_location()
     --   end,
     --   short_provider = function()
     --     return ""
     --   end,
     --   enabled = function()
-    --     local has_gps, gps = nvim_gps()
-    --     return has_gps and vim.g.enable_gps and gps.is_available()
+    --     return gps.is_available()
     --   end,
     --   hl = function()
     --     return default_hl()
@@ -536,6 +532,125 @@ function M.setup()
     disable = M.disable,
     force_inactive = M.force_inactive,
   })
+
+  M.wb_components = { active = {}, inactive = {} }
+  M.wb_components.active[1] = {
+    {
+      provider = function()
+        local file = require("feline.providers.file").file_info({ icon = "" }, { type = "relative" })
+
+        if mask_plugin() then
+          file = vim.bo.filetype
+        end
+
+        local fileSplit = u.str_split(file , '/')
+
+        local breadcrumbs = table.concat(fileSplit, '  ')
+        return " " .. breadcrumbs .. " "
+      end,
+      hl = function()
+        return block(colors.statusline_bg, colors.statusline_text).body
+      end,
+      right_sep = {
+        str = "slant_right",
+        hl = function()
+          return block().sep_right
+        end,
+      },
+      left_sep = {
+        str = "vertical_bar_thin",
+        hl = function()
+          return {
+            fg = cs.grey9,
+            bg = cs.grey9,
+          }
+        end,
+      },
+    },
+    {
+      hl = function()
+        return default_hl()
+      end,
+    },
+  }
+  M.wb_components.active[2] = {
+    {
+      provider = function()
+        local size = require("feline.providers.file").file_size()
+        return '  ' .. size .. ' '
+      end,
+      hl = function ()
+        return block(colors.statusline_bg, colors.statusline_text).body
+      end,
+      left_sep = {
+        str = "slant_left",
+        hl = function()
+          return block().sep_right
+        end,
+      },
+      right_sep = {
+        str = "slant_left",
+        hl = function()
+          return block().sep_left
+        end,
+      },
+    },
+    {
+      provider = function()
+        local tabstop = vim.opt.tabstop:get()
+        return '  ' .. tabstop .. ' '
+      end,
+      hl = function ()
+        return block(colors.statusline_bg, colors.statusline_text).body
+      end,
+      left_sep = {
+        str = "slant_left",
+        hl = function()
+          return block().sep_right
+        end,
+      },
+      right_sep = {
+        str = "slant_left",
+        hl = function()
+          return block().sep_left
+        end,
+      },
+    },
+    {
+      provider = function()
+        local file = require("feline.providers.file").file_encoding()
+
+        if mask_plugin() then
+          file = vim.bo.filetype
+        end
+
+        return " " .. file .. " "
+      end,
+      hl = function()
+        return block(colors.statusline_bg, colors.statusline_text).body
+      end,
+      left_sep = {
+        str = "slant_left",
+        hl = function()
+          return block().sep_right
+        end,
+      },
+      right_sep = {
+        str = "vertical_bar_thin",
+        hl = function()
+          return {
+            fg = cs.grey9,
+            bg = cs.grey9,
+          }
+        end,
+      },
+    },
+  }
+  -- feline.winbar.setup({
+  --   components = M.wb_components,
+  --   disable = M.disable,
+  --   force_inactive = M.force_inactive,
+  -- })
 end
 ---------------------------------------------------------------------------- }}}
 M.setup()

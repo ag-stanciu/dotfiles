@@ -20,5 +20,13 @@ M.lsp_fidget = function ()
   end
 end
 
+M.gps = function ()
+  local gps = u.check_plugin('nvim-gps')
+  if gps then
+    gps.setup()
+  end
+end
+
 M.neoscroll()
 M.lsp_fidget()
+M.gps()

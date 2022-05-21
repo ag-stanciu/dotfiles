@@ -258,9 +258,14 @@ web_devicons.setup {
             color = colors.blue,
             name = "yarnlock",
         },
+        ["pnpm-lock.yaml"] = {
+            icon = "",
+            color = colors.orange,
+            name = "pnpmlock",
+        },
         ["package.json"] = {
-            icon = "",
-            color = colors.red,
+            icon = "",
+            color = colors.green,
             name = "npm_packagejson",
         },
         [".gitignore"] = {
@@ -302,6 +307,41 @@ web_devicons.setup {
             icon = "ﰚ",
             color = colors.green,
             name = "commitlinrcjson",
+        },
+        ["commitlint.config.ts"] = {
+            icon = "ﰚ",
+            color = colors.green,
+            name = "commitlintconfigts",
+        },
+        ["Makefile"] = {
+            icon = "",
+            color = colors.orange,
+            name = "Makefile",
+        },
+        ["tsconfig.build.json"] = {
+            icon = "",
+            color = colors.blue,
+            name = "tsconfigbuildjson",
+        },
+        ["tsconfig.json"] = {
+            icon = "",
+            color = colors.blue,
+            name = "tsconfigjson",
+        },
+        ["nest-cli.json"] = {
+            icon = "",
+            color = colors.red,
+            name = "nestclijson",
+        },
+        ["vite.config.js"] = {
+            icon = "",
+            color = colors.yellow,
+            name = "viteconfigjs",
+        },
+        ["vite.config.ts"] = {
+            icon = "",
+            color = colors.blue,
+            name = "viteconfigts",
         },
     },
     default = true,

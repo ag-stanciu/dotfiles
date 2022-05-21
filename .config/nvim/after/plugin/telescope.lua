@@ -73,6 +73,7 @@ telescope.setup(
   }
 )
 telescope.load_extension('fzf')
+telescope.load_extension('ui-select')
 
 --Add leader shortcuts
 vim.keymap.set("n", "<leader><space>", require('telescope.builtin').buffers)

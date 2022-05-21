@@ -4,7 +4,7 @@ vim.opt.termguicolors = true
 local M = {}
 -- custom colors
 local colors = {
-    -- bg = "#2e3440",
+    bg2 = "#2e3440",
     bg = "#1e222a",
     fg = "#ECEFF4",
     red = "#bf616a",
@@ -93,7 +93,7 @@ require('onenord').setup({
       VertSplit = { fg = colors.grey14 },
       BufferLineIndicatorSelected = { fg = colors.cyan, bg = colors.bg },
       BufferLineFill = { fg = colors.fg, bg = colors.bg },
-      NvimTreeNormal = { fg = colors.grey5, bg = colors.grey16 },
+      NvimTreeNormal = { fg = colors.grey5, bg = colors.bg },
       WhichKeyFloat = { bg = colors.grey14 },
       GitSignsAdd = { fg = colors.green },
       GitSignsChange = { fg = colors.orange },

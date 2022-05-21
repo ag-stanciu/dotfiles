@@ -1,0 +1,22 @@
+font=SF Pro Display 12.5
+
+background-color=#1e222a
+text-color=#e5e9f0
+width=315
+height=200
+padding=10
+margin=10
+progress-color=over #eceff480
+icon-path=/usr/share/icons/Papirus-Dark
+max-icon-size=70
+layer=overlay
+
+border-size=1
+border-radius=2
+border-color=#6C7A96
+
+default-timeout=5000
+
+[urgency=high]
+
+ignore-timeout=1

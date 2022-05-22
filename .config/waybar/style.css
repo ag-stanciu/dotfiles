@@ -6,7 +6,7 @@
     box-shadow:    none;
     text-shadow:   none;
     transition-duration: 0s;
-    color:      #e5e9f0;
+    color:      #eceff4;
     min-height: 0;
     padding: 0;
     margin: 1px;
@@ -14,7 +14,7 @@
 
 window {
     font-weight:    bold;
-    color:          #E5E9F0;
+    color:          #eceff4;
     background:     #1e222a;
 }
 
@@ -50,7 +50,8 @@ window {
 }
 
 #workspaces button.focused {
-    background-color:       #458588;
+    background-color:       #5e81ac;
+    border-radius: 5px;
 }
 
 /* #battery, #network, #pulseaudio, #clock, #custom-power, #custom-qbitstats { */
@@ -65,32 +66,32 @@ window {
 /* } */
 
 #custom-power {
-    color:         #E06C75;
+    color:         #bf616a;
     margin-left: 15px;
     margin-right: 15px;
     font-size: 15px;
 }
 
-#battery {
-    color:       #689d6a;
-}
-
-#battery.critical {
-    color:          #E06C75;
-}
-
-#battery.good {
-    color:          #9EC183;
-
-}
-
-#battery.charging {
-    color:      #b8bb26;
-}
-
-#network.wifi {
-    color:          #81A1C1 ;
-}
+/* #battery { */
+/*     color:       #689d6a; */
+/* } */
+/**/
+/* #battery.critical { */
+/*     color:          #E06C75; */
+/* } */
+/**/
+/* #battery.good { */
+/*     color:          #9EC183; */
+/**/
+/* } */
+/**/
+/* #battery.charging { */
+/*     color:      #b8bb26; */
+/* } */
+/**/
+/* #network.wifi { */
+/*     color:          #81A1C1 ; */
+/* } */
 
 #network.disconnected {
     color:          #EBCB8B;
@@ -102,9 +103,9 @@ window {
 }
 
 
-#idle_inhibitor {
-  color: #ebcb8b;
-}
+/* #idle_inhibitor { */
+/*   color: #ebcb8b; */
+/* } */
 /* #waybar > box:nth-child(2) > box:nth-child(3) > * > label { */
 /*     padding: 0 3px; */
 /* } */

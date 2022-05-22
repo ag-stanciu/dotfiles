@@ -46,9 +46,9 @@ output * bg ~/Pictures/current.jpg fill
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 'swaylock -f -c 1e222a' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep 'swaylock -f -c 1e222a'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -238,7 +238,18 @@ bar {
 #     }
 }
 
-default_border pixel 1
+# Apps workspaces
+assign [app_id="firefox"] 2
+for_window [app_id="firefox"] focus
+
+assign [class="firefox"] 2
+for_window [class="firefox"] focus
+
+assign [class="Spotify"] 9
+for_window [class="Spotify"] move to workspace 9
+for_window [class="Spotify"] focus
+
+default_border pixel 2
 default_floating_border none
 smart_borders on
 # smart_gaps on
@@ -258,6 +269,8 @@ bindswitch --reload --locked lid:off output $laptop enable
 exec_always ~/.config/sway/scripts/clamshell.sh
 
 # external display
-output DP-1 scale 1
+output DP-1 scale 1.2
+
+# xwayland disable
 
 include /etc/sway/config.d/*

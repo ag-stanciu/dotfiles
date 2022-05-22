@@ -1,8 +1,8 @@
-font=SF Pro Display 12.5
+font=SF Pro Display 13
 
 background-color=#1e222a
 text-color=#e5e9f0
-width=315
+width=400
 height=200
 padding=10
 margin=10
@@ -13,7 +13,7 @@ layer=overlay
 
 border-size=1
 border-radius=2
-border-color=#6C7A96
+border-color=#333a47
 
 default-timeout=5000
 

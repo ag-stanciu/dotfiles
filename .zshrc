@@ -9,6 +9,15 @@ fi
 autoload -Uz compinit
 compinit
 
+# history
+export HISTFILESIZE=1000000
+export HISTSIZE=1000000
+export HISTFILE=~/.zsh_history
+
+setopt HIST_FIND_NO_DUPS
+# following should be turned off, if sharing history via setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
 # alias
 alias grep='grep --color=auto'
 alias vim='nvim'

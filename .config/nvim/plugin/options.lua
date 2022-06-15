@@ -45,7 +45,7 @@ opt.clipboard = 'unnamedplus'
 
 opt.scrolloff = 10
 opt.sidescrolloff = 10
-opt.cmdheight = 1
+opt.cmdheight = 0
 opt.list = true
 opt.swapfile = false
 opt.wrap = false
@@ -57,6 +57,7 @@ opt.listchars = {
   trail = "·"
 } -- set listchars
 
+opt.laststatus = 3
 opt.shortmess:append('c')
 
 -- stolen from tjdevries

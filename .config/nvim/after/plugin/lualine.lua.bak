@@ -5,7 +5,7 @@ if not ok then
 end
 
 local colors = require("colorscheme").colors
-local powerline = require("utils").powerline.triangle
+local powerline = require("utils").powerline.chevron
 local u = require('utils')
 
 local mode_color = {

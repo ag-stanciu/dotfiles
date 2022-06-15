@@ -48,7 +48,6 @@ require('packer').startup(function()
   use 'jose-elias-alvarez/null-ls.nvim'
   -- use 'onsails/lspkind-nvim'
   use 'j-hui/fidget.nvim'
-  use 'SmiteshP/nvim-gps'
 
   -- Snippets
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
@@ -87,7 +86,7 @@ require('packer').startup(function()
   }
 
   -- Lua
-  use "folke/lua-dev.nvim"
+  use 'folke/lua-dev.nvim'
 end)
 
 --Remap space as leader key
@@ -106,3 +105,6 @@ require('lsp')
 
 -- Colorscheme
 require('colorscheme')
+
+-- ident
+require('utils').setIndentSize { go = 4, python = 4, rust = 4, cpp = 4, c = 4, make = 4 } --, lua = 4 }

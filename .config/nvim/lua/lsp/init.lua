@@ -38,10 +38,11 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})
 
   -- Set some keybinds conditional on server capabilities
-  if client.server_capabilities.document_formatting then
+  if client.supports_method 'textDocument/formatting' then
+  -- if client.server_capabilities.document_formatting then
       vim.keymap.set('n', '<leader>fm', vim.lsp.buf.format, opts)
-  elseif client.server_capabilities.document_range_formatting then
-      vim.keymap.set('n', '<space>fm', vim.lsp.buf.range_formatting, opts)
+  elseif client.supports_method 'textDocument/rangeFormatting' then
+      vim.keymap.set('n', '<leader>fm', vim.lsp.buf.range_formatting, opts)
   end
 end
 

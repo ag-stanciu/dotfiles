@@ -65,7 +65,7 @@ M.disable = {
 -- local lsp = require("feline.providers.lsp")
 local git = require("feline.providers.git")
 local vi_mode_utils = require("feline.providers.vi_mode")
-local gps = require('nvim-gps')
+-- local gps = require('nvim-gps')
 
 local function mask_plugin()
   -- return om.find_pattern_match(M.filetypes_to_mask, vim.bo.filetype)
@@ -164,23 +164,24 @@ function M.setup()
   M.components.inactive = { { { provider = "", hl = InactiveStatusHL } } }
   ---------------------------------------------------------------------------- }}}
   ------------------------------CUSTOM COMPONENTS----------------------------- {{{
-  local function line_percentage()
-    local curr_line = vim.api.nvim_win_get_cursor(0)[1]
-    local lines = vim.api.nvim_buf_line_count(0)
-    local result = 'BOT'
-    local percent = 100
+  -- local function line_percentage()
+  --   local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+  --   local lines = vim.api.nvim_buf_line_count(0)
+  --   local result = 'BOT'
+  --   local percent = 100
+  --
+  --   if curr_line ~= lines then
+  --     percent = math.ceil(curr_line / lines * 99)
+  --     result = string.format('%s', percent) .. '%%'
+  --   end
+  --
+  --   if percent == 1 then
+  --     result = 'TOP'
+  --   end
+  --
+  --   return result
+  -- end
 
-    if curr_line ~= lines then
-      percent = math.ceil(curr_line / lines * 99)
-      result = string.format('%s', percent) .. '%%'
-    end
-
-    if percent == 1 then
-      result = 'TOP'
-    end
-
-    return result
-  end
   local function line_col()
     local row = vim.api.nvim_win_get_cursor(0)[1]
     local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -537,7 +538,7 @@ function M.setup()
   M.wb_components.active[1] = {
     {
       provider = function()
-        local file = require("feline.providers.file").file_info({ icon = "" }, { type = "relative" })
+        local file = require("feline.providers.file").file_info({ icon = "" }, { type = "unique-short" })
 
         if mask_plugin() then
           file = vim.bo.filetype
@@ -624,7 +625,7 @@ function M.setup()
           file = vim.bo.filetype
         end
 
-        return " " .. file .. " "
+        return " " .. file:lower() .. " "
       end,
       hl = function()
         return block(colors.statusline_bg, colors.statusline_text).body

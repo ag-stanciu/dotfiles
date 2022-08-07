@@ -19,15 +19,15 @@ local sources = {
 
 local M = {}
 M.setup = function(on_attach, capabilities)
-  null_ls.setup({
-    -- debug = true,
-    sources = sources,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    root_dir = function (fname)
-      return lsp_util.root_pattern("tsconfig.json")(fname)
-    end
-  })
+    null_ls.setup({
+        -- debug = true,
+        sources = sources,
+        on_attach = on_attach,
+        capabilities = capabilities,
+        root_dir = function(fname)
+            return lsp_util.root_pattern("tsconfig.json")(fname)
+        end
+    })
 end
 
 return M

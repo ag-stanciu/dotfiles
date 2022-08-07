@@ -35,7 +35,7 @@ opt.smartcase = true
 
 --Decrease update time
 opt.updatetime = 250
-vim.wo.signcolumn = 'yes'
+opt.signcolumn = 'yes'
 
 -- Pum height
 opt.pumheight = 10
@@ -51,27 +51,35 @@ opt.swapfile = false
 opt.wrap = false
 opt.showmode = false
 opt.listchars = {
-  -- eol = "↴",
-  tab = "» ",
-  -- trail = "-"
-  trail = "·"
+    -- eol = "↴",
+    tab = "» ",
+    -- trail = "-"
+    trail = "·"
 } -- set listchars
+opt.fillchars:append({
+    horiz = '━',
+    horizup = '┻',
+    horizdown = '┳',
+    vert = '┃',
+    vertleft = '┨',
+    vertright = '┣',
+    verthoriz = '╋',
+})
 
 opt.laststatus = 3
 opt.shortmess:append('c')
 
 -- stolen from tjdevries
 opt.formatoptions = opt.formatoptions
-  - "a" -- Auto formatting is BAD.
-  - "t" -- Don't auto format my code. I got linters for that.
-  + "c" -- In general, I like it when comments respect textwidth
-  + "q" -- Allow formatting comments w/ gq
-  - "o" -- O and o, don't continue comments
-  - "r" -- But do continue when pressing enter.
-  + "n" -- Indent past the formatlistpat, not underneath it.
-  + "j" -- Auto-remove comments if possible.
-  - "2" -- I'm not in gradeschool anymore
--- opt.winbar = "%{%v:lua.require'utils'.winbar()%}"
+    - "a" -- Auto formatting is BAD.
+    - "t" -- Don't auto format my code. I got linters for that.
+    + "c" -- In general, I like it when comments respect textwidth
+    + "q" -- Allow formatting comments w/ gq
+    - "o" -- O and o, don't continue comments
+    - "r" -- But do continue when pressing enter.
+    + "n" -- Indent past the formatlistpat, not underneath it.
+    + "j" -- Auto-remove comments if possible.
+    - "2" -- I'm not in gradeschool anymore
 
 -- GUI
 -- opt.guifont = "DankMono Nerd Font:h14"
@@ -80,3 +88,4 @@ opt.guifont = "Hasklug Nerd Font Mono:h13"
 -- opt.guifont = "LigaSauceCodePro Nerd Font:h13"
 -- opt.guifont = "SauceCodePro Nerd Font:h13"
 -- opt.guifont = "MonoLisa Nerd Font Mono:h13"
+vim.g.neovide_input_macos_alt_is_meta = true

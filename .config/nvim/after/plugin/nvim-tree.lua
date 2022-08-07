@@ -4,7 +4,7 @@ if not ok then
     return
 end
 
-local signs = require("utils").signs
+local signs = require("hek.utils").signs
 
 nvimtree.setup {
     auto_reload_on_write = true,
@@ -36,7 +36,7 @@ nvimtree.setup {
         },
     },
     renderer = {
-        add_trailing = true,
+        add_trailing = false,
         group_empty = false,
         highlight_git = true,
         highlight_opened_files = "none",
@@ -58,20 +58,20 @@ nvimtree.setup {
                 file = true,
                 folder = true,
                 folder_arrow = false,
-                git = true,
+                git = false,
             },
             glyphs = {
                 default = "",
                 symlink = "",
                 folder = {
+                    default = "",
+                    empty = "",
+                    empty_open = "",
+                    open = "",
+                    symlink = "",
+                    symlink_open = "",
                     arrow_open = "",
                     arrow_closed = "",
-                    default = "",
-                    open = "",
-                    empty = "",
-                    empty_open = "",
-                    symlink = "",
-                    symlink_open = "",
                 },
                 git = {
                     unstaged = "",
@@ -84,10 +84,10 @@ nvimtree.setup {
                 },
             },
         },
-        special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+        special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md", "package.json" },
     },
     hijack_directories = {
-        enable = true,
+        enable = false,
         auto_open = true,
     },
     update_focused_file = {

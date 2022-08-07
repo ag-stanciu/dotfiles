@@ -1,3 +1,11 @@
+local function smart_dd()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return "\"_dd"
+  else
+    return "dd"
+  end
+end
+
 --Remap for dealing with word wrap
 -- vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 -- vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
@@ -29,3 +37,4 @@ vim.keymap.set('v', '<a-k>', ':m \'<-2<cr>gv=gv')
 -- vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true})
 vim.keymap.set("n", "n", "nzzzv")
 -- vim.api.nvim_set_keymap('n', 'j', 'mzj`z', { noremap = true})
+vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true } )

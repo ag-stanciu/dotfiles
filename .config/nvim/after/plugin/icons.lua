@@ -1,12 +1,12 @@
-local ok, web_devicons = pcall(require, "nvim-web-devicons")
+local ok, devicons = pcall(require, "nvim-web-devicons")
 
 if not ok then
     return
 end
 
-local colors = require("colorscheme").colors
+local colors = require("hek.colorscheme").colors
 
-web_devicons.setup {
+devicons.setup {
     override = {
         html = {
             icon = "",
@@ -20,12 +20,12 @@ web_devicons.setup {
         },
         scss = {
             icon = "",
-            color = colors.pink,
+            color = colors.magenta,
             name = "scss",
         },
         sass = {
             icon = "",
-            color = colors.pink,
+            color = colors.magenta,
             name = "sass",
         },
         js = {
@@ -135,7 +135,7 @@ web_devicons.setup {
         },
         graphql = {
             icon = "",
-            color = colors.pink,
+            color = colors.magenta,
             name = "graphql",
         },
         env = {
@@ -260,13 +260,18 @@ web_devicons.setup {
         },
         ["pnpm-lock.yaml"] = {
             icon = "",
-            color = colors.orange,
+            color = colors.red,
             name = "pnpmlock",
         },
         ["package.json"] = {
-            icon = "",
+            icon = "",
             color = colors.green,
             name = "npm_packagejson",
+        },
+        ["package-lock.json"] = {
+            icon = "",
+            color = colors.red,
+            name = "packagelockjson",
         },
         [".gitignore"] = {
             icon = "",
@@ -297,6 +302,11 @@ web_devicons.setup {
             icon = "",
             color = colors.red,
             name = "travis",
+        },
+        [".babelrc"] = {
+            icon = "",
+            color = colors.yellow,
+            name = "babelrc",
         },
         ["babel.config.js"] = {
             icon = "",
@@ -342,6 +352,16 @@ web_devicons.setup {
             icon = "",
             color = colors.blue,
             name = "viteconfigts",
+        },
+        ["Procfile"] = {
+            icon = "",
+            color = colors.magenta,
+            name = "procfile",
+        },
+        [".editorconfig"] = {
+            icon = "",
+            color = colors.bg0,
+            name = "editorconfig",
         },
     },
     default = true,

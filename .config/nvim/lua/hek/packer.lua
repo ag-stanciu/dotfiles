@@ -56,6 +56,7 @@ packer.startup(function(use)
     -- use 'kvrohit/rasmus.nvim'
     -- use 'sainnhe/gruvbox-material'
     -- use 'kaiuri/nvim-juliana'
+    use 'olivercederborg/poimandres.nvim'
 
     -- Git
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -108,6 +109,9 @@ packer.startup(function(use)
             })
         end
     })
+    use ({'akinsho/git-conflict.nvim', tag = "*", config = function()
+      require('git-conflict').setup()
+    end})
 
     -- TS stuff
     use {

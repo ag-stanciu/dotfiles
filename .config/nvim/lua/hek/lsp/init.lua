@@ -118,7 +118,7 @@ nvim_lsp.jsonls.setup {
 -- custom settings servers
 require('hek.lsp.tsserver').setup(on_attach, capabilities)
 require('hek.lsp.sumneko').setup(on_attach, capabilities)
--- require('hek.lsp.yaml').setup(on_attach, capabilities)
+require('hek.lsp.yaml').setup(on_attach, capabilities)
 require('hek.lsp.gopls').setup(on_attach, capabilities)
 -- require('hek.lsp.null').setup(on_attach, capabilities)
 require('hek.lsp.eslint').setup(on_attach, capabilities)

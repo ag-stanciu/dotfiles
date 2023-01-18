@@ -3,7 +3,7 @@ if not ok then
     return
 end
 local u = require('hek.utils')
-local cs = require('hek.colorscheme').colors
+local cs = require('hek.colors').colors
 ---------------------------------PROPERTIES--------------------------------- {{{
 local M = {}
 
@@ -80,11 +80,12 @@ end
 ------------------------------------SETUP----------------------------------- {{{
 function M.setup()
     -- local colors = require("onedarkpro").get_colors(vim.g.onedarkpro_style)
-    local colors = require('onenord.colors').load()
-    colors.bg = '#1e222a'
-    colors.statusline_div = '#2e323b'
-    colors.statusline_bg = '#2e323b'
-    colors.statusline_text = '#696C77'
+    --[[ local colors = require('onenord.colors').load() ]]
+    --[[ colors.bg = '#1e222a' ]]
+    --[[ colors.statusline_div = '#2e323b' ]]
+    --[[ colors.statusline_bg = '#2e323b' ]]
+    --[[ colors.statusline_text = '#696C77' ]]
+    local colors = cs
 
     if not colors then
         return

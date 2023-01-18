@@ -27,6 +27,21 @@ M.gps = function()
     end
 end
 
+M.surround = function ()
+   local surround = u.check_plugin("nvim-surround")
+    if surround then
+        surround.setup()
+    end
+end
+
+M.gitconflict = function ()
+    local gc = u.check_plugin("git-conflict")
+    if gc then
+        gc.setup()
+    end
+end
+
 M.neoscroll()
 M.lsp_fidget()
 M.gps()
+M.surround()

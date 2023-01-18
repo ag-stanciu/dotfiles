@@ -9,10 +9,40 @@ M.setup = function(on_attach, capabilities)
         filetypes = { 'yaml', 'yml' },
         settings = {
             yaml = {
-                -- schemas = require('schemastore').json.schemas(),
+                validate = true,
+                format = {
+                    enable = true
+                },
+                hover = true,
+                schemaDownload = {
+                    enable = true
+                },
                 schemaStore = {
+                    url = "https://www.schemastore.org/api/json/catalog.json",
                     enable = true,
                 },
+                customTags = {
+                    "!Base64 scalar",
+                    "!Cidr scalar",
+                    "!And sequence",
+                    "!Equals sequence",
+                    "!If sequence",
+                    "!Not sequence",
+                    "!Or sequence",
+                    "!Condition scalar",
+                    "!FindInMap sequence",
+                    "!GetAtt scalar",
+                    "!GetAtt sequence",
+                    "!GetAZs scalar",
+                    "!ImportValue scalar",
+                    "!Join sequence",
+                    "!Select sequence",
+                    "!Split sequence",
+                    "!Sub scalar",
+                    "!Sub sequence",
+                    "!Transform mapping",
+                    "!Ref scalar",
+                }
             }
         },
         flags = {

@@ -4,7 +4,7 @@ if not ok then
     return
 end
 
-local colors = require("hek.colorscheme").colors
+local colors = require("hek.colors").colors
 
 devicons.setup {
     override = {

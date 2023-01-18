@@ -35,7 +35,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
-    vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})
+    vim.api.nvim_create_user_command('Format', vim.lsp.buf.format, {})
 
     -- Set some keybinds conditional on server capabilities
     if client.supports_method 'textDocument/formatting' then
@@ -82,16 +82,16 @@ vim.diagnostic.config {
     severity_sort = true,
 }
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local servers = {
     -- 'pyright',
-    'graphql',
+    -- 'graphql',
     'rust_analyzer',
-    'tailwindcss',
+    -- 'tailwindcss',
     'dockerls',
-    -- 'html',
+    'terraformls',
+    'bashls',
 }
 for _, server in ipairs(servers) do
     nvim_lsp[server].setup {

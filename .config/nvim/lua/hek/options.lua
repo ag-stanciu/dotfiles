@@ -37,6 +37,9 @@ opt.smartcase = true
 opt.updatetime = 250
 opt.signcolumn = 'yes'
 
+-- true colors
+opt.termguicolors = true
+
 -- Pum height
 opt.pumheight = 10
 opt.pumblend = 5

@@ -43,3 +43,6 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz', opts)
 vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
 -- vim.api.nvim_set_keymap('n', 'j', 'mzj`z', { noremap = true})
 vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true } )
+
+-- greatest remap ever
+vim.keymap.set("x", "<leader>p", "\"_dP", opts)

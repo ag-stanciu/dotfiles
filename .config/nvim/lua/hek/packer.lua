@@ -120,7 +120,7 @@ packer.startup(function(use)
     }
 
     -- Lua
-    use 'folke/lua-dev.nvim'
+    use 'folke/neodev.nvim'
 
     -- Perf
     use 'lewis6991/impatient.nvim'

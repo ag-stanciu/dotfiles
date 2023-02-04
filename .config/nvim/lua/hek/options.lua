@@ -35,7 +35,7 @@ opt.smartcase = true
 
 --Decrease update time
 opt.updatetime = 250
-opt.signcolumn = 'yes'
+-- opt.signcolumn = 'yes'
 
 -- true colors
 opt.termguicolors = true

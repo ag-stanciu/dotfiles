@@ -1,4 +1,4 @@
-local u = require('hek.utils')
+local u = require('hek.util')
 local nvim_lsp = u.check_plugin('lspconfig')
 if not nvim_lsp then
     return

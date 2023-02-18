@@ -3,7 +3,7 @@ local M = {}
 local nvim_lsp = require('lspconfig')
 M.setup = function(on_attach, capabilities)
     require('neodev').setup({})
-    nvim_lsp.sumneko_lua.setup({
+    nvim_lsp.lua_ls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {

@@ -49,3 +49,5 @@ export PATH="$PATH:/Users/alex/.local/bin:/opt/homebrew/bin"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

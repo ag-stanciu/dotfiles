@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function(on_attach, capabilities)
-    require('typescript').setup {
+    require("typescript").setup {
         server = {
             on_attach = function(client, bufnr)
                 client.server_capabilities.document_formatting = false

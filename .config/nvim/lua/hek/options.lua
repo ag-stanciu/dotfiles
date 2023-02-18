@@ -16,6 +16,7 @@ opt.expandtab = true
 opt.shiftwidth = 2
 opt.smartindent = true
 opt.tabstop = 2
+opt.linespace = 1
 
 --Do not save when switching buffers
 -- opt.hidden = true
@@ -35,7 +36,7 @@ opt.smartcase = true
 
 --Decrease update time
 opt.updatetime = 250
--- opt.signcolumn = 'yes'
+opt.signcolumn = 'yes'
 
 -- true colors
 opt.termguicolors = true
@@ -92,3 +93,8 @@ opt.guifont = "Hasklug Nerd Font Mono:h13"
 -- opt.guifont = "SauceCodePro Nerd Font:h13"
 -- opt.guifont = "MonoLisa Nerd Font Mono:h13"
 vim.g.neovide_input_macos_alt_is_meta = true
+
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0

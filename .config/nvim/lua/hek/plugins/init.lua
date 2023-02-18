@@ -1,6 +1,9 @@
 return {
     -- Colorschemes
-    'folke/tokyonight.nvim',
+    {
+        'folke/tokyonight.nvim',
+        lazy = true,
+    },
     -- 'olimorris/onedark.nvim'
     -- 'EdenEast/nightfox.nvim'
     -- 'rmehri01/onenord.nvim',
@@ -11,30 +14,22 @@ return {
     -- 'kaiuri/nvim-juliana'
     -- 'olivercederborg/poimandres.nvim',
 
-    -- LSP
-    'neovim/nvim-lspconfig', -- Collection of configurations for built-in LSP client
-    'jose-elias-alvarez/null-ls.nvim',
-    'jose-elias-alvarez/typescript.nvim',
-    'b0o/schemastore.nvim',
-    'folke/neodev.nvim',
     {
         'j-hui/fidget.nvim',
         event = "VeryLazy",
-        config = function ()
-           require("fidget").setup({
-                text = {
-                    spinner = "dots"
-                }
-            })
-        end
+        opts = {
+            text = {
+                spinner = "dots"
+            }
+        },
     },
 
     -- UI
     {
         'karb94/neoscroll.nvim',
         event = "VeryLazy",
-        config = function ()
-           require("neoscroll").setup()
+        config = function()
+            require("neoscroll").setup()
         end
     },
 
@@ -42,24 +37,47 @@ return {
     {
         'norcalli/nvim-colorizer.lua',
         event = "BufReadPost",
-        config = function ()
+        config = function()
             require("colorizer").setup()
         end
     },
     {
         'kylechui/nvim-surround',
         event = "VeryLazy",
-        config = function ()
-           require("nvim-surround").setup()
+        config = function()
+            require("nvim-surround").setup()
         end
     },
 
     {
         'akinsho/git-conflict.nvim',
         event = "BufReadPost",
-        version = "*" ,
-        config = function ()
-           require("git-conflict").setup()
+        version = "*",
+        config = function()
+            require("git-conflict").setup()
         end
+    },
+    {
+        'luukvbaal/statuscol.nvim',
+        event = "VeryLazy",
+        opts = {
+            setopt = true,
+        }
+    },
+    {
+        "smjonas/inc-rename.nvim",
+        cmd = "IncRename",
+        opts = {
+            input_buffer_type = "dressing"
+        }
+    },
+    {
+        "folke/trouble.nvim",
+        cmd = { "TroubleToggle", "Trouble" },
+        opts = { use_diagnostic_signs = true },
+        keys = {
+            { "<leader>dx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
+            { "<leader>wx", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+        },
     },
 }

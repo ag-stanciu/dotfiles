@@ -9,14 +9,20 @@ local M = {}
 tokyo.setup({
     style = "night"
 })
-local colors = require("tokyonight.colors").setup() -- pass in any of the config options as explained above
+local colorscheme = require("tokyonight.colors").setup()
 local util = require("tokyonight.util")
-colors.statusline_bg = colors.bg_statusline
-colors.statusline_div = colors.bg_statusline
-colors.statusline_text = colors.fg
-colors.gray = colors.terminal_black
-colors.grey9 = util.darken(colors.gray, 0.5)
-colors.dark_red = util.darken(colors.red, 0.5)
+
+local grey9 = util.darken(colorscheme.bg_highlight, 0.5)
+local dark_red = util.darken(colorscheme.red, 0.5)
+
+local colors = vim.tbl_deep_extend("force", colorscheme, {
+    statusline_bg = colorscheme.bg_statusline,
+    statusline_div = colorscheme.bg_statusline,
+    statusline_text = colorscheme.fg,
+    gray = colorscheme.terminal_black,
+    grey9 = grey9,
+    dark_red = dark_red,
+})
 vim.cmd('colorscheme tokyonight-night')
 
 M.colors = colors

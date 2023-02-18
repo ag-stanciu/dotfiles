@@ -82,6 +82,8 @@ M.powerline = {
     triangle = {
         left = "",
         right = "",
+        left_2="",
+        right_2="",
     },
     chevron = {
         left = "",
@@ -113,5 +115,33 @@ M.setIndentSize = function(filetypes)
         })
     end
 end
+
+M.kinds = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "⌘",
+    Field = "ﰠ",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "塞",
+    Value = "",
+    Enum = "",
+    Keyword = "廓",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "פּ",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+}
 
 return M

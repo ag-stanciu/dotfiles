@@ -359,7 +359,7 @@ return {
                 },
                 [".editorconfig"] = {
                     icon = "",
-                    color = colors.bg0,
+                    color = colors.bg_statusline,
                     name = "editorconfig",
                 },
             },

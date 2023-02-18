@@ -12,6 +12,7 @@ return {
         'windwp/nvim-autopairs',
     },
     config = function()
+        local util = require("hek.util")
         local luasnip = require('luasnip')
         local autopairs = require('nvim-autopairs')
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -21,33 +22,7 @@ return {
         -- Set completeopt to have a better completion experience
         vim.opt.completeopt = 'menuone,noselect'
 
-        local icons = {
-            Text = "",
-            Method = "",
-            Function = "",
-            Constructor = "⌘",
-            Field = "ﰠ",
-            Variable = "",
-            Class = "ﴯ",
-            Interface = "",
-            Module = "",
-            Property = "ﰠ",
-            Unit = "塞",
-            Value = "",
-            Enum = "",
-            Keyword = "廓",
-            Snippet = "",
-            Color = "",
-            File = "",
-            Reference = "",
-            Folder = "",
-            EnumMember = "",
-            Constant = "",
-            Struct = "פּ",
-            Event = "",
-            Operator = "",
-            TypeParameter = "",
-        }
+        local icons = util.kinds
 
         -- nvim-cmp setup
         cmp.setup {
@@ -92,8 +67,9 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ['<C-d>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                ---@diagnostic disable-next-line: missing-parameter
                 ['<C-Space>'] = cmp.mapping.complete(),
-                ['<CR>'] = cmp.mapping.confirm { select = true },
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
                 ['<Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()

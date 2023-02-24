@@ -62,7 +62,7 @@ return {
             local blankline = require('indent_blankline')
             blankline.setup {
                 char = '┊',
-                filetype_exclude = { 'help, packer' },
+                filetype_exclude = { 'help'  },
                 use_treesitter = true,
                 buftype_exclude = { 'terminal', 'nofile' },
                 char_highlight = 'LineNr',
@@ -73,6 +73,27 @@ return {
                 -- show_first_indent_level = false,
             }
         end
+    },
+    {
+        "echasnovski/mini.indentscope",
+        version = false, -- wait till new 0.7.0 release to put it back on semver
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "help", "alpha", "NvimTree", "neo-tree", "Trouble", "lazy", "mason" },
+                callback = function()
+                    vim.b.miniindentscope_disable = true
+                end,
+            })
+            require("mini.indentscope").setup({
+                -- symbol = "▏",
+                symbol = "│",
+                options = { try_as_border = true },
+                draw = {
+                    animation = require("mini.indentscope").gen_animation.none()
+                }
+            })
+        end,
     },
     -- {
     --     "utilyre/barbecue.nvim",

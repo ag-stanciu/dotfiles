@@ -4,6 +4,10 @@ return {
         'folke/tokyonight.nvim',
         lazy = true,
     },
+    -- {
+    --     "rmehri01/onenord.nvim",
+    --     lazy = true,
+    -- },
     -- 'olimorris/onedark.nvim'
     -- 'EdenEast/nightfox.nvim'
     -- 'rmehri01/onenord.nvim',
@@ -19,8 +23,9 @@ return {
         event = "VeryLazy",
         opts = {
             text = {
-                spinner = "dots"
-            }
+                spinner = "dots",
+                done = "",
+            },
         },
     },
 

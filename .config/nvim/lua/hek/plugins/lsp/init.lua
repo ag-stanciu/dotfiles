@@ -72,10 +72,6 @@ return {
                 vim.keymap.set('n', '<leader>fm', vim.lsp.buf.range_formatting, opts)
             end
 
-            if client.name == "tsserver" then
-                vim.keymap.set("n", "<leader>tso", "<cmd>TypescriptOrganizeImports<CR>", { buffer = bufnr })
-            end
-
             -- vim.api.nvim_create_autocmd("CursorHold", {
             --     buffer = bufnr,
             --     callback = function()
@@ -120,6 +116,7 @@ return {
             'dockerls',
             -- 'terraformls',
             'bashls',
+            'rnix',
         }
         for _, server in ipairs(servers) do
             nvim_lsp[server].setup {

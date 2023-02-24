@@ -155,8 +155,9 @@ end)
 return {
     -- color_scheme = "tokyonight",
     font = wezterm.font_with_fallback {
-        -- "SF Mono",
+        -- "Liga SFMono Nerd Font",
         -- "Cascadia Code",
+        -- "CaskaydiaCove Nerd Font Mono",
         "Hasklug Nerd Font Mono",
     },
     font_size = 13,
@@ -243,9 +244,13 @@ return {
         { mods = mod, key = "C",          action = act.CopyTo("ClipboardAndPrimarySelection") },
         { mods = mod, key = "l",          action = wezterm.action({ ActivateTabRelative = 1 }) },
         { mods = mod, key = "h",          action = wezterm.action({ ActivateTabRelative = -1 }) },
+        { mods = mod, key = "v",          action = act.PasteFrom("Clipboard") },
         { key = "C",  mods = "CTRL",      action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
         { key = "w",  mods = "SUPER",     action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
         { key = "n",  mods = "SUPER",     action = "SpawnWindow" },
+        { key = "t",  mods = "SUPER",     action = act.Multiple{act.SendKey{key = "a", mods = "CTRL"}, act.SendKey{key= "c"}}},
+        { key = "x",  mods = "SUPER",     action = act.Multiple{act.SendKey{key = "a", mods = "CTRL"}, act.SendKey{key= "x"}}},
+        { key = "s",  mods = "SUPER",     action = act.Multiple{act.SendKey{key = "a", mods = "CTRL"}, act.SendKey{key= "s"}}}
     },
     mouse_bindings = {
         make_mouse_binding("Up", 1, "Left", "NONE", wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor("ClipboardAndPrimarySelection")),

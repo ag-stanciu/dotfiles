@@ -7,6 +7,8 @@ M.setup = function(on_attach, capabilities)
                 client.server_capabilities.document_formatting = false
                 client.server_capabilities.document_range_formatting = false
                 on_attach(client, bufnr)
+
+                vim.keymap.set("n", "<leader>tso", "<cmd>TypescriptOrganizeImports<CR>", { buffer = bufnr })
             end,
             capabilities = capabilities,
             flags = {

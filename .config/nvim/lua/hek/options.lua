@@ -44,6 +44,7 @@ opt.termguicolors = true
 -- Pum height
 opt.pumheight = 10
 opt.pumblend = 5
+opt.winblend = 5
 opt.timeoutlen = 400
 opt.clipboard = 'unnamedplus'
 
@@ -86,13 +87,28 @@ opt.formatoptions = opt.formatoptions
     - "2" -- I'm not in gradeschool anymore
 
 -- GUI
--- opt.guifont = "DankMono Nerd Font:h14"
--- opt.guifont = "SauceCodePro Nerd Font:h13"
-opt.guifont = "Hasklug Nerd Font Mono:h13"
--- opt.guifont = "LigaSauceCodePro Nerd Font:h13"
--- opt.guifont = "SauceCodePro Nerd Font:h13"
--- opt.guifont = "MonoLisa Nerd Font Mono:h13"
-vim.g.neovide_input_macos_alt_is_meta = true
+opt.guifont = "Hasklug Nerd Font:h13"
+if vim.g.neovide then
+    -- Put anything you want to happen only in Neovide here
+    vim.g.neovide_input_macos_alt_is_meta = true
+
+    vim.g.neovide_padding_top = 2
+    vim.g.neovide_padding_bottom = 2
+    vim.g.neovide_padding_right = 2
+    vim.g.neovide_padding_left = 2
+
+    -- vim.g.neovide_floating_blur_amount_x = 5.0
+    -- vim.g.neovide_floating_blur_amount_y = 5.0
+    --
+    -- -- Helper function for transparency formatting
+    -- local alpha = function()
+    --   return string.format("%x", math.floor(255 * (vim.g.transparency or 0.8)))
+    -- end
+    -- -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+    -- vim.g.neovide_transparency = 0.0
+    -- vim.g.transparency = 0.9
+    -- vim.g.neovide_background_color = "#1f2335" .. alpha()
+end
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0

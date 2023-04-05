@@ -156,7 +156,8 @@ return {
                     self.once = true
                 end
             end,
-            provider = "▌",
+            -- provider = "▌",
+            provider = "▊ ",
             hl = function(self)
                 local mode = self.mode:sub(1, 1)
                 return { fg = VIMODE_COLORS[mode], bg = colors.bg_dark }
@@ -177,7 +178,8 @@ return {
                     self.once = true
                 end
             end,
-            provider = "▐",
+            -- provider = "▐",
+            provider = " ▊",
             hl = function(self)
                 local mode = self.mode:sub(1, 1)
                 return { fg = VIMODE_COLORS[mode], bg = colors.bg }
@@ -610,6 +612,44 @@ return {
         --     end,
         -- }
 
+        local SearchCount = {
+            condition = function()
+                return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0
+            end,
+            init = function(self)
+                local ok, search = pcall(vim.fn.searchcount)
+                if ok and search.total then
+                    self.search = search
+                end
+            end,
+            provider = function(self)
+                local search = self.search
+                return string.format("[%d/%d]", search.current, math.min(search.total, search.maxcount))
+            end,
+        }
+
+        local MacroRec = {
+            condition = function()
+                return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
+            end,
+            provider = " ",
+            hl = { fg = "orange", bold = true },
+            utils.surround({ "[", "]" }, nil, {
+                provider = function()
+                    return vim.fn.reg_recording()
+                end,
+                hl = { fg = "green", bold = true },
+            }),
+            update = {
+                "RecordingEnter",
+                "RecordingLeave",
+                -- redraw the statusline on recording events
+                callback = vim.schedule_wrap(function()
+                    vim.cmd("redrawstatus")
+                end),
+            }
+        }
+
         local StatusLine = {
             static = {
                 filetypes = filetypes,
@@ -617,15 +657,17 @@ return {
             },
             condition = function(self)
                 return not conditions.buffer_matches({
-                        filetype = self.force_inactive_filetypes,
-                    })
+                    filetype = self.force_inactive_filetypes,
+                })
             end,
             ViModeSepLeft,
             ViMode,
             RightSep,
             Git,
-            FileNameBlock,
+            -- FileNameBlock,
             -- FileSize,
+            SearchCount,
+            MacroRec,
             Align,
             Diagnostics,
             LSPActive,

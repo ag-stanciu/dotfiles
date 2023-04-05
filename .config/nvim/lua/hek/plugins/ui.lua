@@ -24,7 +24,8 @@ return {
             -- Bufferine
             bufferline.setup {
                 options = {
-                    offsets = { { filetype = "NvimTree", text = "", separator = true, highlight = "Directory" } },
+                    offsets = { { filetype = "NvimTree", text = "", separator = true, highlight = "Directory" },
+                   { filetype = "neo-tree", text = "NeoTree", separator = false, text_align = "left" } },
                     buffer_close_icon = "",
                     modified_icon = "",
                     close_icon = "",
@@ -62,7 +63,7 @@ return {
             local blankline = require('indent_blankline')
             blankline.setup {
                 char = '┊',
-                filetype_exclude = { 'help'  },
+                filetype_exclude = { 'help' },
                 use_treesitter = true,
                 buftype_exclude = { 'terminal', 'nofile' },
                 char_highlight = 'LineNr',
@@ -96,35 +97,63 @@ return {
         end,
     },
     -- {
-    --     "utilyre/barbecue.nvim",
-    --     event = "VeryLazy",
+    --     "folke/noice.nvim",
     --     dependencies = {
-    --         "SmiteshP/nvim-navic",
-    --         "nvim-tree/nvim-web-devicons", -- optional dependency
+    --         "MunifTanjim/nui.nvim",
+    --         "rcarriga/nvim-notify"
     --     },
-    --     config = function()
-    --         local util = require("hek.util")
-    --         require("barbecue").setup({
-    --             create_autocmd = false, -- prevent barbecue from updating itself automatically
-    --             kinds = util.kinds
-    --         })
-    --
-    --         vim.api.nvim_create_autocmd({
-    --             "WinResized", -- or WinResized on NVIM-v0.9 and higher
-    --             "BufWinEnter",
-    --             "CursorHold",
-    --             "InsertLeave",
-    --
-    --             -- include these if you have set `show_modified` to `true`
-    --             "BufWritePost",
-    --             "TextChanged",
-    --             "TextChangedI",
-    --         }, {
-    --             group = vim.api.nvim_create_augroup("barbecue.updater", {}),
-    --             callback = function()
-    --                 require("barbecue.ui").update()
-    --             end,
-    --         })
-    --     end,
-    -- }
+    --     event = "VeryLazy",
+    --     opts = {
+    --         notify = {
+    --             enabled = false,
+    --         },
+    --         lsp = {
+    --             progress = {
+    --                 enabled = false
+    --             },
+    --             override = {
+    --                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+    --                 ["vim.lsp.util.stylize_markdown"] = true,
+    --             },
+    --         },
+    --         presets = {
+    --             bottom_search = true,
+    --             command_palette = true,
+    --             long_message_to_split = true,
+    --             inc_rename = true,
+    --         },
+    --     }
+    -- },
+    {
+        "utilyre/barbecue.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        config = function()
+            local util = require("hek.util")
+            require("barbecue").setup({
+                create_autocmd = false, -- prevent barbecue from updating itself automatically
+                kinds = util.kinds
+            })
+
+            vim.api.nvim_create_autocmd({
+                "WinResized", -- or WinResized on NVIM-v0.9 and higher
+                "BufWinEnter",
+                "CursorHold",
+                "InsertLeave",
+
+                -- include these if you have set `show_modified` to `true`
+                "BufWritePost",
+                "TextChanged",
+                "TextChangedI",
+            }, {
+                group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+                callback = function()
+                    require("barbecue.ui").update()
+                end,
+            })
+        end,
+    }
 }

@@ -9,6 +9,7 @@ return {
         "b0o/schemastore.nvim",
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
     },
     config = function()
         local u = require('hek.util')
@@ -27,6 +28,8 @@ return {
             }
         })
         local nvim_lsp = require('lspconfig')
+        local lsp_lines = require("lsp_lines")
+        lsp_lines.setup()
         local popup_opts = { border = u.border, focusable = false }
 
         -- Diagnostic keymaps
@@ -34,6 +37,7 @@ return {
         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
         vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+        vim.keymap.set('n', '<leader>l', lsp_lines.toggle)
 
         -- LSP settings
         local on_attach = function(client, bufnr)
@@ -104,6 +108,7 @@ return {
             underline = false,
             update_in_insert = false,
             severity_sort = true,
+            virtual_lines = false
         }
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())

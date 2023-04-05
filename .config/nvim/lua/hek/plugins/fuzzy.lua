@@ -20,7 +20,8 @@ return {
             --     <cmd>Telescope tags { only_current_buffer = true }
             -- end}
             { "<leader>?",       "<cmd> Telescope oldfiles<CR>" },
-            { "<leader>gt",      "<cmd> Telescope git_status<CR>" }
+            { "<leader>gt",      "<cmd> Telescope git_status<CR>" },
+            { "<leader>fr",      "<cmd> Telescope lsp_references<CR>" }
         },
         config = function()
             local telescope = require("telescope")
@@ -46,8 +47,8 @@ return {
                             "--column",
                             "--smart-case"
                         },
-                        prompt_prefix = "  ",
-                        selection_caret = " ",
+                        prompt_prefix = " ",
+                        selection_caret = " ",
                         entry_prefix = " ",
                         initial_mode = "insert",
                         selection_strategy = "reset",

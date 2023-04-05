@@ -4,10 +4,10 @@ return {
         'folke/tokyonight.nvim',
         lazy = true,
     },
-    -- {
-    --     "rmehri01/onenord.nvim",
-    --     lazy = true,
-    -- },
+    {
+        "rmehri01/onenord.nvim",
+        lazy = true,
+    },
     -- 'olimorris/onedark.nvim'
     -- 'EdenEast/nightfox.nvim'
     -- 'rmehri01/onenord.nvim',
@@ -65,9 +65,7 @@ return {
     {
         'luukvbaal/statuscol.nvim',
         event = "VeryLazy",
-        opts = {
-            setopt = true,
-        }
+        config = true,
     },
     {
         "smjonas/inc-rename.nvim",

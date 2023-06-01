@@ -30,7 +30,7 @@ return {
         local nvim_lsp = require('lspconfig')
         local lsp_lines = require("lsp_lines")
         lsp_lines.setup()
-        local popup_opts = { border = u.border, focusable = false }
+        local popup_opts = { border = u.outer_border, focusable = false }
 
         -- Diagnostic keymaps
         vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
@@ -111,7 +111,8 @@ return {
             virtual_lines = false
         }
 
-        local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+        local capabilities = vim.tbl_deep_extend("force", nvim_lsp.util.default_config.capabilities, cmp_capabilities)
 
         local servers = {
             -- 'pyright',
@@ -121,6 +122,7 @@ return {
             'dockerls',
             -- 'terraformls',
             'bashls',
+            -- 'clangd',
             'rnix',
         }
         for _, server in ipairs(servers) do

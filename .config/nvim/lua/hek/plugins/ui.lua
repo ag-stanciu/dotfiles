@@ -13,6 +13,16 @@ return {
                 require("lazy").load({ plugins = { "dressing.nvim" } })
                 return vim.ui.input(...)
             end
+        end,
+        config = function()
+            local util = require("hek.util")
+            require("dressing").setup({
+                input = {
+                    relative = "win",
+                    border = util.border_chars_outer_thin,
+                    prefer_width = 60,
+                }
+            })
         end
     },
     {
@@ -25,8 +35,8 @@ return {
             bufferline.setup {
                 options = {
                     offsets = { { filetype = "NvimTree", text = "", separator = true, highlight = "Directory" },
-                   { filetype = "neo-tree", text = "NeoTree", separator = false, text_align = "left" } },
-                    buffer_close_icon = "",
+                        { filetype = "neo-tree", text = "NeoTree", separator = false, text_align = "left" } },
+                    buffer_close_icon = "󰅖",
                     modified_icon = "",
                     close_icon = "",
                     left_trunc_marker = "",
@@ -40,12 +50,12 @@ return {
                     show_buffer_close_icons = true,
                     separator_style = "thin",
                     -- mappings = true,
-                    always_show_bufferline = true,
+                    always_show_bufferline = false,
                 },
                 highlights = {
                     fill = {
-                        bg = colors.bg
-                    }
+                        bg = colors.bg,
+                    },
                 }
             }
 

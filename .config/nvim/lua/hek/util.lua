@@ -10,17 +10,59 @@ end
 
 
 M.border = {
-    { "╭", "FloatBorder" },
+    { "┌", "FloatBorder" },
     { "─", "FloatBorder" },
-    { "╮", "FloatBorder" },
+    { "┐", "FloatBorder" },
     { "│", "FloatBorder" },
-    { "╯", "FloatBorder" },
+    { "┘", "FloatBorder" },
     { "─", "FloatBorder" },
-    { "╰", "FloatBorder" },
+    { "└", "FloatBorder" },
     { "│", "FloatBorder" },
 }
 
+M.outer_border = {
+    { "🭽", "FloatBorder" },
+    { "▔",  "FloatBorder" },
+    { "🭾", "FloatBorder" },
+    { "▕",  "FloatBorder" },
+    { "🭿", "FloatBorder" },
+    { "▁",  "FloatBorder" },
+    { "🭼", "FloatBorder" },
+    { "▏",  "FloatBorder" },
+}
+
+M.outer_border_simple = {
+    { " ",   "FloatBorder" },
+    { "▔", "FloatBorder" },
+    { " ",   "FloatBorder" },
+    { "▕", "FloatBorder" },
+    { " ",   "FloatBorder" },
+    { "▁", "FloatBorder" },
+    { " ",   "FloatBorder" },
+    { "▏", "FloatBorder" },
+}
+
 M.simple_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+M.border_chars_none = { "", "", "", "", "", "", "", "" }
+M.border_chars_empty = { " ", " ", " ", " ", " ", " ", " ", " " }
+
+M.border_chars_inner_thick = { " ", "▄", " ", "▌", " ", "▀", " ", "▐" }
+M.border_chars_outer_thick = { "▛", "▀", "▜", "▐", "▟", "▄", "▙", "▌" }
+
+M.border_chars_outer_thin = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" }
+M.border_chars_inner_thin = { " ", "▁", " ", "▏", " ", "▔", " ", "▕" }
+
+M.top_right_corner_thin = "🭾"
+M.top_left_corner_thin = "🭽"
+
+M.border_square = { '─', '│', '─', '│', '┌', '┐', '┘', '└' }
+M.border_prompt = { "─", "│", " ", "│", '┌', '┐', "│", "│" }
+M.border_results = { "─", "│", "─", "│", "├", "┤", "┘", "└" }
+M.border_preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' }
+
+M.border_chars_outer_thin_telescope = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" }
+M.border_chars_outer_thin_telescope_prompt = { " ", "▕", "▁", "▏", "▏", "▕", "🭿", "🭼" }
+M.border_chars_outer_thick_telescope = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" }
 
 M.lua_lsp_status = function()
     local clients = vim.lsp.get_active_clients()
@@ -68,7 +110,7 @@ M.lua_lsp_progress = function()
 end
 
 -- M.signs = { Error = "", Warn = "", Hint = "", Info = "" }
-M.signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+M.signs = { Error = "󰅗", Warn = "󰀧", Hint = "", Info = "󰀧" }
 
 M.powerline = {
     circle = {
@@ -82,8 +124,8 @@ M.powerline = {
     triangle = {
         left = "",
         right = "",
-        left_2="",
-        right_2="",
+        left_2 = "",
+        right_2 = "",
     },
     chevron = {
         left = "",
@@ -117,31 +159,59 @@ M.setIndentSize = function(filetypes)
 end
 
 M.kinds = {
-    Text = "",
+    Text = "",
     Method = "",
     Function = "",
-    Constructor = "⌘",
-    Field = "ﰠ",
-    Variable = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
     Class = "ﴯ",
     Interface = "",
-    Module = "",
+    Module = "",
     Property = "ﰠ",
-    Unit = "塞",
+    Unit = "",
     Value = "",
     Enum = "",
-    Keyword = "廓",
-    Snippet = "",
+    Keyword = "",
+    Snippet = "",
     Color = "",
     File = "",
-    Reference = "",
-    Folder = "",
+    Reference = "",
+    Folder = "",
     EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
+    Constant = "",
+    Struct = "",
     Event = "",
     Operator = "",
-    TypeParameter = "",
+    TypeParameter = ""
+}
+
+M.cod_kinds = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "",
+    Interface = "",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
 }
 
 return M

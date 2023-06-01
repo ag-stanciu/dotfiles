@@ -26,6 +26,7 @@ return {
         config = function()
             local telescope = require("telescope")
             local actions = require("telescope.actions")
+            local u = require("hek.util")
 
             -- Telescope
             telescope.setup(
@@ -47,13 +48,14 @@ return {
                             "--column",
                             "--smart-case"
                         },
-                        prompt_prefix = " ",
-                        selection_caret = " ",
-                        entry_prefix = " ",
+                        prompt_prefix = "  ",
+                        selection_caret = " ▶ ",
+                        entry_prefix = "   ",
                         initial_mode = "insert",
                         selection_strategy = "reset",
                         sorting_strategy = "descending",
                         layout_strategy = "horizontal",
+                        results_title = "",
                         layout_config = {
                             horizontal = {
                                 prompt_position = "bottom",
@@ -72,8 +74,14 @@ return {
                         generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
                         path_display = { "absolute" },
                         winblend = 0,
-                        border = {},
+                        border = true,
                         -- borderchars = { "" },
+                        borderchars = {
+                            -- u.border_square,
+                            prompt = u.border_chars_outer_thin_telescope_prompt,
+                            results = u.border_chars_outer_thin_telescope,
+                            preview = u.border_chars_outer_thin_telescope
+                        },
                         color_devicons = true,
                         use_less = true,
                         set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
@@ -85,10 +93,10 @@ return {
                     },
                     extensions = {
                         fzf = {
-                            fuzzy = true, -- false will only do exact matching
+                            fuzzy = true,                    -- false will only do exact matching
                             override_generic_sorter = false, -- override the generic sorter
-                            override_file_sorter = true, -- override the file sorter
-                            case_mode = "smart_case" -- or "ignore_case" or "respect_case"
+                            override_file_sorter = true,     -- override the file sorter
+                            case_mode = "smart_case"         -- or "ignore_case" or "respect_case"
                             -- the default case_mode is "smart_case"
                         }
                     },

@@ -8,6 +8,14 @@ return {
         "rmehri01/onenord.nvim",
         lazy = true,
     },
+    {
+        "rebelot/kanagawa.nvim",
+        lazy = true,
+    },
+    {
+        "neanias/everforest-nvim",
+        lazy = true,
+    },
     -- 'olimorris/onedark.nvim'
     -- 'EdenEast/nightfox.nvim'
     -- 'rmehri01/onenord.nvim',
@@ -58,9 +66,7 @@ return {
         'akinsho/git-conflict.nvim',
         event = "BufReadPost",
         version = "*",
-        config = function()
-            require("git-conflict").setup()
-        end
+        opts = true
     },
     {
         'luukvbaal/statuscol.nvim',

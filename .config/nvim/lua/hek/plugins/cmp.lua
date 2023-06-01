@@ -14,6 +14,11 @@ return {
     config = function()
         local util = require("hek.util")
         local luasnip = require('luasnip')
+        luasnip.config.setup({
+            history = true,
+            region_check_events = "InsertEnter",
+            delete_check_events = "TextChanged,InsertLeave",
+        })
         local autopairs = require('nvim-autopairs')
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
         local cmp = require('cmp')
@@ -37,16 +42,48 @@ return {
                     luasnip.lsp_expand(args.body)
                 end,
             },
-            -- window = {
-            --   -- completion = cmp.config.window.bordered(),
-            --   documentation = cmp.config.window.bordered(),
-            -- },
+
+            window = {
+                -- completion = cmp.config.window.bordered {
+                --     border = util.border_chars_outer_thin,
+                -- },
+                -- documentation = cmp.config.window.bordered {
+                --     border = util.border,
+                -- },
+                completion = {
+                    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+                    col_offset = -3,
+                    side_padding = 0
+                },
+                -- completion = cmp.config.window.bordered {
+                --     winhighlight = "Normal:Pmenu,FloatBorder:PmenuBorder,CursorLine:PmenuSel,Search:None",
+                --     -- scrollbar = true,
+                --     border = util.border_chars_outer_thin,
+                --     col_offset = -3,
+                --     side_padding = 0
+                -- },
+                documentation = cmp.config.window.bordered {
+                    winhighlight = "Normal:Pmenu,FloatBorder:PmenuDocBorder,CursorLine:PmenuSel,Search:None",
+                    scrollbar = true,
+                    border = util.border_chars_outer_thin,
+                    side_padding = 1 -- Not working?
+                },
+            },
             formatting = {
-                -- fields = { "kind", "abbr", "menu" },
-                format = function(_, vim_item)
+                fields = { "kind", "abbr", "menu" },
+                format = function(entry, vim_item)
                     -- vim_item.menu = vim_item.kind
-                    -- vim_item.kind = icons[vim_item.kind]
-                    vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+                    local src = ({
+                        buffer = "buf",
+                        nvim_lsp = "lsp",
+                        luasnip = "snip",
+                        nvim_lua = "lua",
+                        path = "path"
+                    })[entry.source.name]
+                    -- vim_item.menu = "   (" .. string.format("%s", vim_item.kind) .. ")   "
+                    vim_item.menu = string.format("(%s) - %s", vim_item.kind, src)
+                    vim_item.kind = " " .. icons[vim_item.kind] .. " "
+                    -- vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
                     return vim_item
                 end,
@@ -96,10 +133,10 @@ return {
                 select = false,
             },
             sources = {
-                { name = 'nvim_lsp', priority = 100 },
+                { name = 'nvim_lsp',               priority = 100 },
                 { name = 'luasnip' },
                 { name = 'path' },
-                { name = 'buffer', priority = 2, keyword_length = 5, max_item_count = 5 },
+                { name = 'buffer',                 priority = 2,  keyword_length = 5, max_item_count = 5 },
                 { name = 'nvim_lsp_signature_help' },
             },
         }

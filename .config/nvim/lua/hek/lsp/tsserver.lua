@@ -2,6 +2,9 @@ local M = {}
 
 M.setup = function(on_attach, capabilities)
     require("typescript").setup {
+        go_to_source_definition = {
+            fallback = true, -- fall back to standard LSP definition on failure
+        },
         server = {
             on_attach = function(client, bufnr)
                 client.server_capabilities.document_formatting = false

@@ -5,6 +5,7 @@ end
 
 local M = {}
 
+
 -- colors
 tokyo.setup({
     style = "night",
@@ -116,7 +117,7 @@ local util = require("tokyonight.util")
 local grey9 = util.darken(colorscheme.bg_highlight, 0.5)
 local dark_red = util.darken(colorscheme.red, 0.5)
 vim.cmd("colorscheme tokyonight-night")
-
+--
 -- require("onenord").setup({
 --     custom_colors = {
 --         bg = "#1e222a",
@@ -187,13 +188,88 @@ local colors = vim.tbl_deep_extend("force", colorscheme, {
 --     red = colorscheme.dragonRed,
 -- })
 
+
 -- everforest
 -- require("everforest").setup({
 --     background = "hard",
+--     on_highlights = function(hl, palette)
+--         hl.TelescopePromptNormal = { bg = palette.bg, }
+--         hl.TelescopeResultsNormal = { bg = palette.bg, }
+--         hl.TelescopePreviewNormal = { bg = palette.bg, }
+--
+--         --     -- Selection.
+--         hl.TelescopeSelection = { bg = palette.bg1, fg = palette.fg, bold = true, }
+--         hl.TelescopeSelectionCaret = { fg = palette.blue7, bg = palette.bg1, bold = true }
+--
+--         --     -- Titles.
+--         hl.TelescopePreviewTitle = { bg = palette.blue, fg = palette.bg1, bold = true, }
+--         hl.TelescopeResultsTitle = { bg = palette.blue, fg = palette.bg1, bold = true, }
+--         hl.TelescopePromptTitle = { bg = palette.blue, fg = palette.bg1, bold = true, }
+--         hl.TelescopeTitle = { bg = palette.orange, fg = palette.bg1, bold = true, }
+--
+--         -- Borders.
+--         -- hl.TelescopeBorder = { fg = palette.bg_popup, bg = palette.bg_popup, }
+--         hl.TelescopePromptBorder = { bg = palette.bg, fg = palette.blue, }
+--         hl.TelescopeResultsBorder = { bg = palette.bg_dark, fg = palette.blue, }
+--         hl.TelescopePreviewBorder = { bg = palette.bg_dark, fg = palette.blue, }
+--
+--         -- Mispalette.
+--         hl.TelescopePromptPrefix = { bg = palette.bg, fg = palette.blue7, }
+--
+--         hl.PopupNormal = { bg = palette.bg_dark, }
+--         hl.PopupBorder = { bg = palette.bg_dark, fg = palette.blue7, }
+--         hl.NormalFloat = { bg = palette.bg_dark, }
+--         hl.FloatBorder = { bg = palette.bg_dark, fg = palette.blue7 }
+--
+--         hl.Pmenu = { link = 'PopupNormal' }
+--         hl.PmenuSel = { bg = palette.blue }
+--         hl.PmenuBorder = { link = 'PopupBorder' }
+--         hl.PmenuDocBorder = { bg = palette.bg, fg = palette.blue }
+--
+--
+--         hl.CmpItemAbbrDeprecated = { fg = palette.comment, bg = "NONE", strikethrough = true }
+--         hl.CmpItemAbbrMatch = { fg = palette.blue, bg = "NONE", bold = true }
+--         hl.CmpItemAbbrMatchFuzzy = { fg = palette.blue, bg = "NONE", bold = true }
+--         hl.CmpItemMenu = { fg = palette.purple, bg = "NONE", italic = true }
+--
+--         hl.CmpItemKindField = { fg = palette.fg, bg = palette.red }
+--         hl.CmpItemKindProperty = { fg = palette.fg, bg = palette.red }
+--         hl.CmpItemKindEvent = { fg = palette.fg, bg = palette.red }
+--
+--         hl.CmpItemKindText = { fg = palette.fg, bg = palette.green }
+--         hl.CmpItemKindEnum = { fg = palette.fg, bg = palette.green }
+--         hl.CmpItemKindKeyword = { fg = palette.fg, bg = palette.green }
+--
+--         hl.CmpItemKindConstant = { fg = palette.fg, bg = palette.magenta }
+--         hl.CmpItemKindConstructor = { fg = palette.fg, bg = palette.magenta }
+--         hl.CmpItemKindReference = { fg = palette.fg, bg = palette.magenta }
+--
+--         hl.CmpItemKindFunction = { fg = palette.fg, bg = palette.purple }
+--         hl.CmpItemKindStruct = { fg = palette.fg, bg = palette.purple }
+--         hl.CmpItemKindClass = { fg = palette.fg, bg = palette.purple }
+--         hl.CmpItemKindModule = { fg = palette.fg, bg = palette.purple }
+--         hl.CmpItemKindOperator = { fg = palette.fg, bg = palette.purple }
+--
+--         hl.CmpItemKindVariable = { fg = palette.fg_dark, bg = palette.dark3 }
+--         hl.CmpItemKindFile = { fg = palette.fg_dark, bg = palette.dark3 }
+--
+--         hl.CmpItemKindUnit = { fg = palette.fg, bg = palette.yellow }
+--         hl.CmpItemKindSnippet = { fg = palette.fg, bg = palette.yellow }
+--         hl.CmpItemKindFolder = { fg = palette.fg, bg = palette.yellow }
+--
+--         hl.CmpItemKindMethod = { fg = palette.fg, bg = palette.blue }
+--         hl.CmpItemKindValue = { fg = palette.fg, bg = palette.blue }
+--         hl.CmpItemKindEnumMember = { fg = palette.fg, bg = palette.blue }
+--
+--         hl.CmpItemKindInterface = { fg = palette.fg, bg = palette.blue }
+--         hl.CmpItemKindColor = { fg = palette.fg, bg = palette.blue }
+--         hl.CmpItemKindTypeParameter = { fg = palette.fg, bg = palette.blue }
+--     end,
 -- })
 -- vim.cmd("colorscheme everforest")
--- local colorscheme = require("everforest.colours").generate_palette({ background = "hard" }, "dark")
--- vim.pretty_print(colorscheme)
+-- local conf = require("everforest").config
+-- local colorscheme = require("everforest.colours").generate_palette(conf, "dark")
+-- -- vim.print(vim.inspect(colorscheme))
 -- local colors = vim.tbl_deep_extend("force", colorscheme, {
 --     bg = colorscheme.bg0,
 --     statusline_bg = colorscheme.bg0,
@@ -204,6 +280,23 @@ local colors = vim.tbl_deep_extend("force", colorscheme, {
 --     bg_dark = colorscheme.bg1,
 --     -- gray = colorscheme.terminal_black,
 -- })
+
+-- gruvbox material
+-- vim.g.gruvbox_material_background = "hard"
+-- -- vim.cmd("colorscheme gruvbox-material")
+-- local gb_cfg = vim.fn['gruvbox_material#get_configuration']()
+-- local palette = vim.fn['gruvbox_material#get_palette'](gb_cfg.background, gb_cfg.foreground, gb_cfg.colors_override)
+-- vim.print(palette)
+-- local colors = {
+--     bg = palette.bg0[1],
+--     statusline_bg = palette.bg_statusline1[1],
+--     statusline_div = palette.bg_statusline1[1],
+--     statusline_text = palette.fg0[1],
+--     grey9 = palette.grey0[1],
+--     dark_red = palette.red[1],
+--     -- bg_dark = "#2e3440",
+--     -- gray = colorscheme.terminal_black,
+-- }
 
 M.colors = colors
 return M

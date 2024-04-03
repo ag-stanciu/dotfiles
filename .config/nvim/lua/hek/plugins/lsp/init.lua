@@ -4,8 +4,7 @@ return {
     dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-        "jose-elias-alvarez/null-ls.nvim",
-        "jose-elias-alvarez/typescript.nvim",
+        -- "jose-elias-alvarez/typescript.nvim",
         "b0o/schemastore.nvim",
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
@@ -30,7 +29,7 @@ return {
         local nvim_lsp = require('lspconfig')
         local lsp_lines = require("lsp_lines")
         lsp_lines.setup()
-        local popup_opts = { border = u.outer_border, focusable = false }
+        local popup_opts = { border = u.border_chars_outer_thin, focusable = false }
 
         -- Diagnostic keymaps
         vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
@@ -152,7 +151,6 @@ return {
         require('hek.lsp.luals').setup(on_attach, capabilities)
         require('hek.lsp.yaml').setup(on_attach, capabilities)
         require('hek.lsp.gopls').setup(on_attach, capabilities)
-        -- require('hek.lsp.null').setup(on_attach, capabilities)
         require('hek.lsp.eslint').setup(on_attach, capabilities)
     end
 }

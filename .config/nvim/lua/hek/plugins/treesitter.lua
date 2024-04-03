@@ -39,10 +39,10 @@ return {
                 enable = true,
                 -- disable = { 'yaml' },
             },
-            context_commentstring = {
-                enable = true,
-                enable_autocmd = false,
-            },
+            -- context_commentstring = {
+            --     enable = true,
+            --     enable_autocmd = false,
+            -- },
             -- textobjects = {
             --     select = {
             --         enable = true,
@@ -77,5 +77,7 @@ return {
             --     },
             -- },
         }
+        vim.g.skip_ts_context_commentstring_module = true
+        require("ts_context_commentstring").setup()
     end
 }

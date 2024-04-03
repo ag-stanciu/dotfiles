@@ -1,23 +1,44 @@
 local M = {}
 
-M.setup = function(on_attach, capabilities)
-    require("typescript").setup {
-        go_to_source_definition = {
-            fallback = true, -- fall back to standard LSP definition on failure
-        },
-        server = {
-            on_attach = function(client, bufnr)
-                client.server_capabilities.document_formatting = false
-                client.server_capabilities.document_range_formatting = false
-                on_attach(client, bufnr)
+local nvim_lsp = require('lspconfig')
 
-                vim.keymap.set("n", "<leader>tso", "<cmd>TypescriptOrganizeImports<CR>", { buffer = bufnr })
-            end,
-            capabilities = capabilities,
-            flags = {
-                debounce_text_changes = 150,
-            }
-        }
+M.setup = function(on_attach, capabilities)
+    nvim_lsp.tsserver.setup {
+        on_attach = function(client, bufnr)
+            client.server_capabilities.document_formatting = false
+            client.server_capabilities.document_range_formatting = false
+            on_attach(client, bufnr)
+
+            vim.keymap.set("n", "<leader>tso", function()
+                vim.lsp.buf.code_action({
+                    apply = true,
+                    context = {
+                        only = { "source.organizeImports.ts" },
+                        diagnostics = {},
+                    },
+                })
+            end, { buffer = bufnr })
+        end,
+        capabilities = capabilities,
+        settings = {
+            typescript = {
+                format = {
+                    indentSize = vim.o.shiftwidth,
+                    convertTabsToSpaces = vim.o.expandtab,
+                    tabSize = vim.o.tabstop,
+                },
+            },
+            javascript = {
+                format = {
+                    indentSize = vim.o.shiftwidth,
+                    convertTabsToSpaces = vim.o.expandtab,
+                    tabSize = vim.o.tabstop,
+                },
+            },
+            completions = {
+                completeFunctionCalls = true,
+            },
+        },
     }
 end
 

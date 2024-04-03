@@ -155,10 +155,10 @@ end)
 return {
     -- color_scheme = "tokyonight",
     font = wezterm.font_with_fallback {
-        -- "Liga SFMono Nerd Font",
         -- "SF Mono",
-        -- "CaskaydiaCove Nerd Font Mono",
-        "Hasklug Nerd Font",
+        "Hasklug Nerd Font"
+        -- "Source Code Pro",
+        -- "Symbols Nerd Font"
     },
     font_size = 13,
     line_height = 1.0,
@@ -179,8 +179,8 @@ return {
     show_new_tab_button_in_tab_bar = false,
     audible_bell = "Disabled",
     window_close_confirmation = "NeverPrompt",
-    -- window_background_opacity = 0.9,
-    -- macos_window_background_blur = 40,
+    -- window_background_opacity = 0.95,
+    -- macos_window_background_blur = 80,
     window_padding = {
         left = 5,
         right = 5,
@@ -189,7 +189,10 @@ return {
     },
     window_frame = {
         font_size = 13.0,
-        font = wezterm.font("Hasklug Nerd Font Mono", { weight = "Bold" }),
+        font = wezterm.font_with_fallback(
+            { family = "Source Code Pro", weight = "Bold" },
+            { family = "Symbols Nerd Font Mono" }
+        ),
         active_titlebar_bg = "#1a1b26",
         inactive_titlebar_bg = "#16161e",
     },

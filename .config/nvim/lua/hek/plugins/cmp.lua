@@ -27,7 +27,7 @@ return {
         -- Set completeopt to have a better completion experience
         vim.opt.completeopt = 'menuone,noselect'
 
-        local icons = util.kinds
+        local icons = util.new_kinds
 
         -- nvim-cmp setup
         cmp.setup {
@@ -82,7 +82,7 @@ return {
                     })[entry.source.name]
                     -- vim_item.menu = "   (" .. string.format("%s", vim_item.kind) .. ")   "
                     vim_item.menu = string.format("(%s) - %s", vim_item.kind, src)
-                    vim_item.kind = " " .. icons[vim_item.kind] .. " "
+                    vim_item.kind = " " .. icons[vim_item.kind]
                     -- vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
                     return vim_item

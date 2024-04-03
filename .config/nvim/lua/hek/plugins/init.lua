@@ -16,6 +16,10 @@ return {
         "neanias/everforest-nvim",
         lazy = true,
     },
+    {
+        "sainnhe/gruvbox-material",
+        lazy = true,
+    },
     -- 'olimorris/onedark.nvim'
     -- 'EdenEast/nightfox.nvim'
     -- 'rmehri01/onenord.nvim',
@@ -26,18 +30,15 @@ return {
     -- 'kaiuri/nvim-juliana'
     -- 'olivercederborg/poimandres.nvim',
 
-    {
-        'j-hui/fidget.nvim',
-        event = "VeryLazy",
-        opts = {
-            text = {
-                spinner = "dots",
-                done = "",
-            },
-        },
-    },
 
     -- UI
+    {
+        "j-hui/fidget.nvim",
+        config =  function ()
+           require("fidget").setup()
+        end
+    },
+
     {
         'karb94/neoscroll.nvim',
         event = "VeryLazy",

@@ -155,12 +155,11 @@ end)
 return {
     -- color_scheme = "tokyonight",
     font = wezterm.font_with_fallback {
-        -- "SF Mono",
-        "Hasklug Nerd Font"
-        -- "Source Code Pro",
-        -- "Symbols Nerd Font"
+            -- { family = "Source Code Pro" },
+            { family = "Hasklug Nerd Font" },
+            -- { family = "Symbols Nerd Font Mono" }
     },
-    font_size = 13,
+    font_size = 14,
     line_height = 1.0,
     scrollback_lines = 10000,
     initial_cols = 150,
@@ -179,8 +178,8 @@ return {
     show_new_tab_button_in_tab_bar = false,
     audible_bell = "Disabled",
     window_close_confirmation = "NeverPrompt",
-    -- window_background_opacity = 0.95,
-    -- macos_window_background_blur = 80,
+    window_background_opacity = 0.85,
+    macos_window_background_blur = 20,
     window_padding = {
         left = 5,
         right = 5,

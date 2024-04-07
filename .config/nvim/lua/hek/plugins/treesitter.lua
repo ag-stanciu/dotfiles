@@ -11,7 +11,31 @@ return {
     config = function()
         local ts = require('nvim-treesitter.configs')
         ts.setup {
-            ensure_installed = 'all',
+            ensure_installed = {
+                'bash',
+                'c',
+                'html',
+                'lua',
+                'luadoc',
+                'vim',
+                'vimdoc',
+                'css',
+                'diff',
+                'dockerfile',
+                'go',
+                'gomod',
+                'gosum',
+                'graphql',
+                'json',
+                'jsonc',
+                'javascript',
+                'rust',
+                'sql',
+                'terraform',
+                'typescript',
+                'yaml',
+                'zig',
+            },
             ignore_install = { 'phpdoc' },
             highlight = {
                 enable = true, -- false will disable the whole extension

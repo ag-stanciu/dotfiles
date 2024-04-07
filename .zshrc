@@ -23,7 +23,6 @@ alias grep='grep --color=auto'
 alias vim='nvim'
 alias v='nvim'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias gv='~/dev/neovide/target/release/neovide'
 
 ## prompt
 fpath+=$HOME/.zsh/pure

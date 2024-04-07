@@ -146,7 +146,10 @@ return {
             local util = require("hek.util")
             require("barbecue").setup({
                 create_autocmd = false, -- prevent barbecue from updating itself automatically
-                kinds = util.new_kinds
+                kinds = util.new_kinds,
+                symbols = {
+                    separator = ">",
+                }
             })
 
             vim.api.nvim_create_autocmd({

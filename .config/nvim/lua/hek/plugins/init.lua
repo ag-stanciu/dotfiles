@@ -34,9 +34,14 @@ return {
     -- UI
     {
         "j-hui/fidget.nvim",
-        config =  function ()
-           require("fidget").setup()
-        end
+        event = "VeryLazy",
+        opts = {
+            progress = {
+                display = {
+                    done_icon = "󰸞",
+                }
+            }
+        }
     },
 
     {
@@ -58,9 +63,7 @@ return {
     {
         'kylechui/nvim-surround',
         event = "VeryLazy",
-        config = function()
-            require("nvim-surround").setup()
-        end
+        opts = true,
     },
 
     {

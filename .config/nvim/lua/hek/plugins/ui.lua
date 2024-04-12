@@ -72,7 +72,6 @@ return {
         main = "ibl",
         opts = {
             indent = {
-
                 char = '┊',
                 highlight = "IndentBlanklineChar",
             },
@@ -147,9 +146,9 @@ return {
             require("barbecue").setup({
                 create_autocmd = false, -- prevent barbecue from updating itself automatically
                 kinds = util.new_kinds,
-                symbols = {
-                    separator = ">",
-                }
+                -- symbols = {
+                --     separator = ">",
+                -- }
             })
 
             vim.api.nvim_create_autocmd({

@@ -123,27 +123,27 @@ local function get_process(tab)
     )
 end
 
-local function get_current_working_dir(tab)
-    local current_dir = tab.active_pane.current_working_dir
-    local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
-
-    return current_dir == HOME_DIR and "  ~"
-        or string.format("  %s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
-end
-
-wezterm.on("format-tab-title", function(tab)
-    return wezterm.format({
-        { Attribute = { Intensity = "Half" } },
-        -- { Text = string.format(" %s ", tab.tab_index + 1) },
-        { Text = string.format(" %s ", "") },
-        "ResetAttributes",
-        { Text = get_process(tab) },
-        { Text = " " },
-        { Text = get_current_working_dir(tab) },
-        { Foreground = { Color = colors.base } },
-        { Text = " ▕" },
-    })
-end)
+-- local function get_current_working_dir(tab)
+--     local current_dir = tab.active_pane.current_working_dir
+--     local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
+--
+--     return current_dir == HOME_DIR and "  ~"
+--         or string.format("  %s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
+-- end
+--
+-- wezterm.on("format-tab-title", function(tab)
+--     return wezterm.format({
+--         { Attribute = { Intensity = "Half" } },
+--         -- { Text = string.format(" %s ", tab.tab_index + 1) },
+--         { Text = string.format(" %s ", "") },
+--         "ResetAttributes",
+--         { Text = get_process(tab) },
+--         { Text = " " },
+--         { Text = get_current_working_dir(tab) },
+--         { Foreground = { Color = colors.base } },
+--         { Text = " ▕" },
+--     })
+-- end)
 
 wezterm.on("update-right-status", function(window)
     window:set_right_status(wezterm.format({
@@ -155,9 +155,10 @@ end)
 return {
     -- color_scheme = "tokyonight",
     font = wezterm.font_with_fallback {
-            -- { family = "Source Code Pro" },
-            { family = "Hasklug Nerd Font" },
-            -- { family = "Symbols Nerd Font Mono" }
+        { family = "Source Code Pro" },
+        -- { family = "IosevkaBlue" },
+        -- { family = "Hasklug Nerd Font" },
+        { family = "Symbols Nerd Font Mono" }
     },
     font_size = 14,
     line_height = 1.0,
@@ -188,10 +189,11 @@ return {
     },
     window_frame = {
         font_size = 13.0,
-        font = wezterm.font_with_fallback(
-            { family = "Source Code Pro", weight = "Bold" },
+        font = wezterm.font_with_fallback {
+            { family = "Source Code Pro" },
+            -- { family = "Hasklug Nerd Font" },
             { family = "Symbols Nerd Font Mono" }
-        ),
+        },
         active_titlebar_bg = "#1a1b26",
         inactive_titlebar_bg = "#16161e",
     },

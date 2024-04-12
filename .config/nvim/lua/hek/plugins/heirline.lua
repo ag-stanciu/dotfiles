@@ -40,7 +40,7 @@ return {
         end
 
         conditions.hide_in_width = function(size)
-            return vim.api.nvim_get_option("columns") > (size or 140)
+            return vim.api.nvim_get_option_value("columns", {}) > (size or 140)
         end
 
         local Align = { provider = "%=", hl = { bg = colors.bg } }
@@ -158,7 +158,8 @@ return {
                 end
             end,
             -- provider = "▌",
-            provider = "▊ ",
+            -- provider = "▊ ",
+            provider = util.powerline.bar.block .. " ",
             hl = function(self)
                 local mode = self.mode:sub(1, 1)
                 return { fg = VIMODE_COLORS[mode], bg = colors.bg_dark }
@@ -180,7 +181,8 @@ return {
                 end
             end,
             -- provider = "▐",
-            provider = "▊",
+            -- provider = "▊",
+            provider = util.powerline.bar.block,
             hl = function(self)
                 local mode = self.mode:sub(1, 1)
                 return { fg = VIMODE_COLORS[mode], bg = colors.bg }
@@ -332,7 +334,7 @@ return {
             {
                 provider = function()
                     local names = {}
-                    for _, server in pairs(vim.lsp.get_active_clients()) do
+                    for _, server in pairs(vim.lsp.get_clients()) do
                         if server.name ~= "null-ls" then
                             table.insert(names, server.name)
                         end

@@ -141,6 +141,7 @@ return {
             },
             sorting = {
                 -- TODO: Would be cool to add stuff like "See variable names before method names" in rust, or something like that.
+                priority_weight = 1000,
                 comparators = {
                     cmp.config.compare.offset,
                     cmp.config.compare.exact,

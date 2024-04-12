@@ -40,7 +40,8 @@ return {
 
         -- LSP settings
         local on_attach = function(client, bufnr)
-            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+            -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+            vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, popup_opts)
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, popup_opts)
@@ -100,8 +101,8 @@ return {
         vim.diagnostic.config {
             virtual_text = false,
             float = {
-                header = false,
-                source = "always",
+                -- header = false,
+                source = true,
             },
             signs = true,
             underline = false,

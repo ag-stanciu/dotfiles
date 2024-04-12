@@ -94,6 +94,11 @@ M.powerline = {
         left = "",
         right = "",
     },
+    bar = {
+        block = "█",
+        normal = "┃",
+        thin = "│",
+    }
 }
 
 M.str_split = function(s, delimiter)

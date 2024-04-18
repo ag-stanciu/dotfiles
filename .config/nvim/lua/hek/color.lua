@@ -117,7 +117,7 @@ local util = require("tokyonight.util")
 local grey9 = util.darken(colorscheme.bg_highlight, 0.5)
 local dark_red = util.darken(colorscheme.red, 0.5)
 vim.cmd("colorscheme tokyonight-night")
---
+
 -- require("onenord").setup({
 --     custom_colors = {
 --         bg = "#1e222a",
@@ -297,6 +297,20 @@ local colors = vim.tbl_deep_extend("force", colorscheme, {
 --     -- bg_dark = "#2e3440",
 --     -- gray = colorscheme.terminal_black,
 -- }
+
+-- require("poimandres").setup()
+-- local colorscheme = require("poimandres.palette")
+-- local colors = vim.tbl_deep_extend("force", colorscheme, {
+--     statusline_bg = colorscheme.background1,
+--     statusline_div = colorscheme.background1,
+--     statusline_text = colorscheme.fg,
+--     grey9 = colorscheme.blueGray1,
+--     dark_red = colorscheme.pink3,
+--     bg_dark = colorscheme.background3,
+--     bg = colorscheme.background2,
+--     -- gray = colorscheme.terminal_black,
+-- })
+-- vim.cmd("colorscheme poimandres")
 
 M.colors = colors
 return M

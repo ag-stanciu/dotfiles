@@ -20,6 +20,10 @@ return {
         "sainnhe/gruvbox-material",
         lazy = true,
     },
+    {
+        "olivercederborg/poimandres.nvim",
+        lazy = true,
+    },
     -- 'olimorris/onedark.nvim'
     -- 'EdenEast/nightfox.nvim'
     -- 'rmehri01/onenord.nvim',

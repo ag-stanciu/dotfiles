@@ -3,26 +3,26 @@ return {
     event = "InsertEnter",
     dependencies = {
         'windwp/nvim-autopairs',
-        'L3MON4D3/LuaSnip', -- Snippets plugin
+        -- 'L3MON4D3/LuaSnip', -- Snippets plugin
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-buffer',
-        'saadparwaiz1/cmp_luasnip',
+        -- 'saadparwaiz1/cmp_luasnip',
         'hrsh7th/cmp-nvim-lsp-signature-help',
         'windwp/nvim-autopairs',
     },
     config = function()
         local util = require("hek.util")
-        local luasnip = require('luasnip')
-        luasnip.config.setup({
-            history = true,
-            region_check_events = "InsertEnter",
-            delete_check_events = "TextChanged,InsertLeave",
-        })
+        -- local luasnip = require('luasnip')
+        -- luasnip.config.setup({
+        --     history = true,
+        --     region_check_events = "InsertEnter",
+        --     delete_check_events = "TextChanged,InsertLeave",
+        -- })
         local autopairs = require('nvim-autopairs')
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
         local cmp = require('cmp')
-        require("luasnip/loaders/from_vscode").lazy_load()
+        -- require("luasnip/loaders/from_vscode").lazy_load()
 
         -- Set completeopt to have a better completion experience
         vim.opt.completeopt = 'menuone,noselect'
@@ -39,7 +39,7 @@ return {
             -- preselect = cmp.PreselectMode.None,
             snippet = {
                 expand = function(args)
-                    luasnip.lsp_expand(args.body)
+                    vim.snippet.expand(args.body)
                 end,
             },
 
@@ -76,7 +76,6 @@ return {
                     local src = ({
                         buffer = "buf",
                         nvim_lsp = "lsp",
-                        luasnip = "snip",
                         nvim_lua = "lua",
                         path = "path"
                     })[entry.source.name]
@@ -110,8 +109,8 @@ return {
                 ['<Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
-                    elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
+                    elseif vim.snippet.jumpable(1) then
+                        vim.snippet.jump(1)
                         -- elseif has_words_before() then
                         --   cmp.complete()
                     else
@@ -121,8 +120,8 @@ return {
                 ['<S-Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
-                    elseif luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
+                    elseif vim.snippet.jumpable(-1) then
+                        vim.snippet.jump(-1)
                     else
                         fallback()
                     end
@@ -134,7 +133,7 @@ return {
             },
             sources = {
                 { name = 'nvim_lsp',               priority = 100 },
-                { name = 'luasnip' },
+                -- { name = 'luasnip' },
                 { name = 'path' },
                 { name = 'buffer',                 priority = 2,  keyword_length = 5, max_item_count = 5 },
                 { name = 'nvim_lsp_signature_help' },

@@ -340,7 +340,7 @@ return {
                         end
                     end
                     -- return "  " .. table.concat(names, " ") .. " "
-                    return "  "
+                    return " "
                 end,
             },
             InvRightSep,

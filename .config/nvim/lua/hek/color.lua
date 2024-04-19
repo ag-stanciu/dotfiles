@@ -5,7 +5,6 @@ end
 
 local M = {}
 
-
 -- colors
 tokyo.setup({
     style = "night",
@@ -56,60 +55,35 @@ tokyo.setup({
         hl.CmpItemKindField = { fg = c.fg, bg = c.red }
         hl.CmpItemKindProperty = { fg = c.fg, bg = c.red }
         hl.CmpItemKindEvent = { fg = c.fg, bg = c.red }
-        -- hl.CmpItemKindField = { fg = "#EED8DA", bg = "#B5585F" }
-        -- hl.CmpItemKindProperty = { fg = "#EED8DA", bg = "#B5585F" }
-        -- hl.CmpItemKindEvent = { fg = "#EED8DA", bg = "#B5585F" }
 
         hl.CmpItemKindText = { fg = c.fg, bg = c.green2 }
         hl.CmpItemKindEnum = { fg = c.fg, bg = c.green2 }
         hl.CmpItemKindKeyword = { fg = c.fg, bg = c.green2 }
-        -- hl.CmpItemKindText = { fg = "#C3E88D", bg = "#9FBD73" }
-        -- hl.CmpItemKindEnum = { fg = "#C3E88D", bg = "#9FBD73" }
-        -- hl.CmpItemKindKeyword = { fg = "#C3E88D", bg = "#9FBD73" }
 
         hl.CmpItemKindConstant = { fg = c.fg, bg = c.magenta2 }
         hl.CmpItemKindConstructor = { fg = c.fg, bg = c.magenta2 }
         hl.CmpItemKindReference = { fg = c.fg, bg = c.magenta2 }
-        -- hl.CmpItemKindConstant = { fg = "#FFE082", bg = "#D4BB6C" }
-        -- hl.CmpItemKindConstructor = { fg = "#FFE082", bg = "#D4BB6C" }
-        -- hl.CmpItemKindReference = { fg = "#FFE082", bg = "#D4BB6C" }
 
         hl.CmpItemKindFunction = { fg = c.fg, bg = c.purple }
         hl.CmpItemKindStruct = { fg = c.fg, bg = c.purple }
         hl.CmpItemKindClass = { fg = c.fg, bg = c.purple }
         hl.CmpItemKindModule = { fg = c.fg, bg = c.purple }
         hl.CmpItemKindOperator = { fg = c.fg, bg = c.purple }
-        -- hl.CmpItemKindFunction = { fg = "#EADFF0", bg = "#A377BF" }
-        -- hl.CmpItemKindStruct = { fg = "#EADFF0", bg = "#A377BF" }
-        -- hl.CmpItemKindClass = { fg = "#EADFF0", bg = "#A377BF" }
-        -- hl.CmpItemKindModule = { fg = "#EADFF0", bg = "#A377BF" }
-        -- hl.CmpItemKindOperator = { fg = "#EADFF0", bg = "#A377BF" }
 
         hl.CmpItemKindVariable = { fg = c.fg_dark, bg = c.dark3 }
         hl.CmpItemKindFile = { fg = c.fg_dark, bg = c.dark3 }
-        -- hl.CmpItemKindVariable = { fg = "#C5CDD9", bg = "#7E8294" }
-        -- hl.CmpItemKindFile = { fg = "#C5CDD9", bg = "#7E8294" }
 
         hl.CmpItemKindUnit = { fg = c.fg, bg = c.yellow }
         hl.CmpItemKindSnippet = { fg = c.fg, bg = c.yellow }
         hl.CmpItemKindFolder = { fg = c.fg, bg = c.yellow }
-        -- hl.CmpItemKindUnit = { fg = "#F5EBD9", bg = "#D4A959" }
-        -- hl.CmpItemKindSnippet = { fg = "#F5EBD9", bg = "#D4A959" }
-        -- hl.CmpItemKindFolder = { fg = "#F5EBD9", bg = "#D4A959" }
 
         hl.CmpItemKindMethod = { fg = c.fg, bg = c.blue }
         hl.CmpItemKindValue = { fg = c.fg, bg = c.blue }
         hl.CmpItemKindEnumMember = { fg = c.fg, bg = c.blue }
-        -- hl.CmpItemKindMethod = { fg = "#DDE5F5", bg = "#6C8ED4" }
-        -- hl.CmpItemKindValue = { fg = "#DDE5F5", bg = "#6C8ED4" }
-        -- hl.CmpItemKindEnumMember = { fg = "#DDE5F5", bg = "#6C8ED4" }
 
         hl.CmpItemKindInterface = { fg = c.fg, bg = c.blue2 }
         hl.CmpItemKindColor = { fg = c.fg, bg = c.blue2 }
         hl.CmpItemKindTypeParameter = { fg = c.fg, bg = c.blue2 }
-        -- hl.CmpItemKindInterface = { fg = "#D8EEEB", bg = "#58B5A8" }
-        -- hl.CmpItemKindColor = { fg = "#D8EEEB", bg = "#58B5A8" }
-        -- hl.CmpItemKindTypeParameter = { fg = "#D8EEEB", bg = "#58B5A8" }
     end,
 })
 local colorscheme = require("tokyonight.colors").setup()
@@ -298,19 +272,21 @@ local colors = vim.tbl_deep_extend("force", colorscheme, {
 --     -- gray = colorscheme.terminal_black,
 -- }
 
--- require("poimandres").setup()
--- local colorscheme = require("poimandres.palette")
+-- require("poimandres").setup({
+--     use_background = false
+-- })
+-- local colorscheme = require("poimandres.colors")
 -- local colors = vim.tbl_deep_extend("force", colorscheme, {
---     statusline_bg = colorscheme.background1,
---     statusline_div = colorscheme.background1,
+--     statusline_bg = colorscheme.bg,
+--     statusline_div = colorscheme.bg,
 --     statusline_text = colorscheme.fg,
---     grey9 = colorscheme.blueGray1,
---     dark_red = colorscheme.pink3,
---     bg_dark = colorscheme.background3,
---     bg = colorscheme.background2,
+--     grey9 = colorscheme.darkerGray,
+--     dark_red = colorscheme.hotRed,
+--     bg_dark = colorscheme.focus,
+--     bg = colorscheme.bg,
 --     -- gray = colorscheme.terminal_black,
 -- })
--- vim.cmd("colorscheme poimandres")
+-- vim.cmd("colorscheme poimandres-storm")
 
 M.colors = colors
 return M

@@ -21,7 +21,7 @@ return {
         lazy = true,
     },
     {
-        "olivercederborg/poimandres.nvim",
+        "jasonlong/poimandres.nvim",
         lazy = true,
     },
     -- 'olimorris/onedark.nvim'

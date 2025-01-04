@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 
 local gen_group = vim.api.nvim_create_augroup("_general_settings", {})
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "qf,lspinfo,man,help",
+    pattern = "qf,lspinfo,man,help,oil",
     callback = function ()
        vim.keymap.set("n", "q", ":close<CR>", { silent = true })
     end,

@@ -19,7 +19,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("hek.disable")
 require("hek.options")
+local util = require("hek.util")
 require("lazy").setup("hek.plugins", {
+    ui = {
+        border = util.border_chars_outer_thin,
+        backdrop = 80,
+    },
     performance = {
         rtp = {
             disabled_plugins = {
@@ -35,7 +40,7 @@ require("lazy").setup("hek.plugins", {
     }
 })
 require("hek.mappings")
-require("hek.util").setIndentSize({ go = 4, python = 4, rust = 4, cpp = 4, c = 4, make = 4, lua = 4 })
+util.setIndentSize({ go = 4, python = 4, rust = 4, cpp = 4, c = 4, make = 4, lua = 4 })
 require("hek.color")
 require("hek.commands")
 -- require("hek.status")

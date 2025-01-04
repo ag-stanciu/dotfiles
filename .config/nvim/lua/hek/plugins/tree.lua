@@ -1,7 +1,7 @@
 return {
     {
         'nvim-tree/nvim-tree.lua',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        -- dependencies = { 'nvim-tree/nvim-web-devicons' },
         keys = {
             { "<C-n>", ":NvimTreeToggle<CR>", { silent = true } },
         },
@@ -18,9 +18,6 @@ return {
                 hijack_cursor = false,
                 hijack_netrw = true,
                 hijack_unnamed_buffer_when_opening = false,
-                -- ignore_buffer_on_setup = false,
-                -- open_on_setup = false,
-                -- open_on_setup_file = false,
                 open_on_tab = false,
                 sort_by = "name",
                 update_cwd = true,
@@ -195,56 +192,4 @@ return {
             vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })
         end
     },
-    -- {
-    --     "nvim-neo-tree/neo-tree.nvim",
-    --     cmd = "Neotree",
-    --     dependencies = {
-    --         "nvim-lua/plenary.nvim",
-    --         "nvim-tree/nvim-web-devicons",
-    --         "MunifTanjim/nui.nvim",
-    --     },
-    --     keys = {
-    --         { "<C-n>", ":Neotree toggle<CR>", { silent = true } },
-    --     },
-    --     init = function()
-    --         vim.g.neo_tree_remove_legacy_commands = 1
-    --     end,
-    --     opts = {
-    --         popup_border_style = "single",
-    --         filesystem = {
-    --             bind_to_cwd = true,
-    --             follow_current_file = true,
-    --             filtered_items = {
-    --                 hide_dotfiles = false,
-    --             },
-    --             window = {
-    --                 popup = {
-    --                     position = { col = "100%", row = "2" },
-    --                     size = function(state)
-    --                         local root_name = vim.fn.fnamemodify(state.path, ":~")
-    --                         local root_len = string.len(root_name) + 4
-    --                         return {
-    --                             width = math.max(root_len, 50),
-    --                             height = vim.o.lines - 6
-    --                         }
-    --                     end
-    --                 }
-    --             }
-    --         },
-    --         default_component_configs = {
-    --             indent = {
-    --                 with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-    --                 expander_collapsed = "",
-    --                 expander_expanded = "",
-    --                 expander_highlight = "NeoTreeExpander",
-    --             },
-    --         },
-    --         source_selector = {
-    --             winbar = true,
-    --         },
-    --         window = {
-    --             position = "float"
-    --         }
-    --     },
-    -- }
 }

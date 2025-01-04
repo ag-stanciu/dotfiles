@@ -61,6 +61,7 @@ opt.listchars = {
     -- trail = "-"
     trail = "·"
 } -- set listchars
+opt.fillchars = { eob = " ", fold = " ", foldopen = "", foldsep = " ", foldclose = "" }
 opt.fillchars:append({
     horiz = '━',
     horizup = '┻',
@@ -70,6 +71,13 @@ opt.fillchars:append({
     vertright = '┣',
     verthoriz = '╋',
 })
+
+-- opt.foldcolumn = '1'
+-- opt.foldenable = true
+-- opt.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+-- vim.o.foldlevel = 99
+-- vim.o.foldlevelstart = 99
+-- vim.o.foldmethod = 'expr'
 
 opt.laststatus = 3
 opt.shortmess:append('c')

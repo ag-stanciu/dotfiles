@@ -1,29 +1,22 @@
 return {
     {
-        "stevearc/dressing.nvim",
-        lazy = true,
-        init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.select = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.select(...)
-            end
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.input = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.input(...)
-            end
-        end,
-        config = function()
-            local util = require("hek.util")
-            require("dressing").setup({
-                input = {
-                    relative = "win",
-                    border = util.border_chars_outer_thin,
-                    prefer_width = 60,
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            indent = {
+                enabled = true,
+                animate = {
+                    enabled = false,
+                },
+                indent = {
+                    char = '┊',
                 }
-            })
-        end
+            },
+            input = { enabled = true },
+            statuscolumn = { enabled = true },
+            scroll = { enabled = true },
+        }
     },
     {
         'akinsho/nvim-bufferline.lua',
@@ -67,79 +60,11 @@ return {
         end
     },
     {
-        'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
-        event = { "BufReadPost", "BufNewFile" },
-        main = "ibl",
-        opts = {
-            indent = {
-                char = '┊',
-                highlight = "IndentBlanklineChar",
-            },
-            scope = { enabled = false },
-            exclude = {
-                filetypes = {
-                    'help',
-                    'lazy',
-                    'mason'
-                }
-            }
-        },
-    },
-    {
-        "echasnovski/mini.indentscope",
-        version = false, -- wait till new 0.7.0 release to put it back on semver
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = { "help", "alpha", "NvimTree", "neo-tree", "Trouble", "lazy", "mason" },
-                callback = function()
-                    vim.b.miniindentscope_disable = true
-                end,
-            })
-            require("mini.indentscope").setup({
-                -- symbol = "▏",
-                symbol = "│",
-                options = { try_as_border = true },
-                draw = {
-                    animation = require("mini.indentscope").gen_animation.none()
-                }
-            })
-        end,
-    },
-    -- {
-    --     "folke/noice.nvim",
-    --     dependencies = {
-    --         "MunifTanjim/nui.nvim",
-    --         "rcarriga/nvim-notify"
-    --     },
-    --     event = "VeryLazy",
-    --     opts = {
-    --         notify = {
-    --             enabled = false,
-    --         },
-    --         lsp = {
-    --             progress = {
-    --                 enabled = false
-    --             },
-    --             override = {
-    --                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-    --                 ["vim.lsp.util.stylize_markdown"] = true,
-    --             },
-    --         },
-    --         presets = {
-    --             bottom_search = true,
-    --             command_palette = true,
-    --             long_message_to_split = true,
-    --             inc_rename = true,
-    --         },
-    --     }
-    -- },
-    {
         "utilyre/barbecue.nvim",
         event = "VeryLazy",
         dependencies = {
             "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons", -- optional dependency
+            -- "nvim-tree/nvim-web-devicons", -- optional dependency
         },
         config = function()
             local util = require("hek.util")
@@ -168,5 +93,18 @@ return {
                 end,
             })
         end,
-    }
+    },
+    -- {
+    --     'folke/todo-comments.nvim',
+    --     event = 'VimEnter',
+    --     dependencies = { 'nvim-lua/plenary.nvim' },
+    --     opts = { signs = false }
+    -- }
+    {
+        "norcalli/nvim-colorizer.lua",
+        event = "BufReadPost",
+        config = function()
+            require("colorizer").setup()
+        end
+    },
 }

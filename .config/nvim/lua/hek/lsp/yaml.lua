@@ -17,9 +17,9 @@ M.setup = function(on_attach, capabilities)
                 schemaDownload = {
                     enable = true
                 },
-				schemas = {
-					["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-				},
+                schemas = {
+                    ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+                },
                 schemaStore = {
                     url = "https://www.schemastore.org/api/json/catalog.json",
                     enable = true,

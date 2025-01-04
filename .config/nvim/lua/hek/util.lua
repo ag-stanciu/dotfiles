@@ -69,7 +69,7 @@ M.filepath = function()
 end
 
 -- M.signs = { Error = "", Warn = "", Hint = "", Info = "" }
-M.signs = { Error = "󰅗", Warn = "󰀧", Hint = "", Info = "󰀧" }
+M.signs = { Error = "󰅗 ", Warn = "󰀧 ", Hint = " ", Info = " " }
 
 M.powerline = {
     circle = {

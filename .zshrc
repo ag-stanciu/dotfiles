@@ -22,15 +22,14 @@ setopt INC_APPEND_HISTORY
 alias grep='grep --color=auto'
 alias vim='nvim'
 alias v='nvim'
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-
-## prompt
-fpath+=$HOME/.zsh/pure
-autoload promptinit; promptinit
-prompt pure
+alias gv='~/dev/neovide/target/release/neovide'
 
 # bash like
 bindkey -e
+
+eval "$(starship init zsh)"
+
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # source work stuff
 [[ -e "${HOME}/.workrc" ]] && source "${HOME}/.workrc"
@@ -38,14 +37,15 @@ bindkey -e
 # direnv
 eval "$(direnv hook zsh)"
 
-# fnm
-eval "$(fnm env --use-on-cd)"
-
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # Created by `pipx` on 2021-11-18 08:26:39
 export PATH="$PATH:/Users/alex/.local/bin:/opt/homebrew/bin"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Add Docker Desktop for Mac (docker)
+export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"

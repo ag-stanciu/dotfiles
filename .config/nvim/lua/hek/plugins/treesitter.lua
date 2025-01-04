@@ -1,7 +1,7 @@
 return {
     -- Treesitter
     'nvim-treesitter/nvim-treesitter',
-    event = {"BufReadPost", "BufNewFile"},
+    event = { "BufReadPost", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
         'JoosepAlviste/nvim-ts-context-commentstring',

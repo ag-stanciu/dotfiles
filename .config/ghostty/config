@@ -1,0 +1,57 @@
+# general
+theme = "tokyonight"
+# theme = "Kanagawa Dragon"
+shell-integration = zsh
+confirm-close-surface = false
+background-opacity = 0.9
+background-blur-radius = 20
+copy-on-select = clipboard
+# cursor-invert-fg-bg = true
+
+# fonts
+font-family =
+font-family = "Symbols Nerd Font"
+# font-family = "0xProto"
+font-family = "Source Code Pro"
+# font-family = "SF Mono"
+# font-family = "Inconsolata Regular"
+# font-family = "Maple Mono NL"
+# font-family = "Iosevka Term Extended"
+# font-family = "IBM Plex Mono"
+font-size = 13
+font-thicken = true
+# adjust-cell-height = 1
+# adjust-cell-width = 1
+
+
+# window
+# window-padding-y = 0
+# window-padding-x = 10
+window-padding-balance = true
+window-step-resize = true
+window-theme = dark
+window-title-font-family = "SF Mono"
+window-colorspace = display-p3
+
+# macos
+macos-option-as-alt = true
+macos-titlebar-style = tabs
+macos-icon = custom-style
+macos-icon-frame = aluminum
+macos-icon-screen-color = #1a1b26
+macos-icon-ghost-color = #a4daff
+
+# splits
+unfocused-split-opacity = 0.85
+keybind = ctrl+\=new_split:right
+keybind = ctrl+minus=new_split:down
+
+# navigation
+keybind = ctrl+shift+l=goto_split:right
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+j=goto_split:bottom
+keybind = ctrl+shift+k=goto_split:top
+
+# shaders
+# custom-shader = "/Users/alex/dev/ghostty-shaders/glitchy.glsl"
+# custom-shader-animation = true

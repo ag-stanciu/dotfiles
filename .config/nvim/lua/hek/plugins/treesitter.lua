@@ -1,7 +1,10 @@
+-- return {}
 return {
     -- Treesitter
     'nvim-treesitter/nvim-treesitter',
-    event = { "BufReadPost", "BufNewFile" },
+    -- event = { "BufReadPost", "BufNewFile" },
+    branch = 'main',
+    commit = vim.fn.has("nvim-0.12") == 0 and "7caec274fd19c12b55902a5b795100d21531391f" or nil,
     build = ":TSUpdate",
     dependencies = {
         'JoosepAlviste/nvim-ts-context-commentstring',
@@ -9,16 +12,11 @@ return {
         'andymass/vim-matchup',
     },
     config = function()
-        local ts = require('nvim-treesitter.configs')
+        local ts = require('nvim-treesitter')
         ts.setup {
             ensure_installed = {
                 'bash',
                 'c',
-                'html',
-                'lua',
-                'luadoc',
-                'vim',
-                'vimdoc',
                 'css',
                 'diff',
                 'dockerfile',
@@ -26,16 +24,26 @@ return {
                 'gomod',
                 'gosum',
                 'graphql',
+                'html',
+                'javascript',
                 'json',
                 'jsonc',
-                'javascript',
+                'lua',
+                'luadoc',
+                'markdown',
+                'markdown_inline',
+                'prisma',
+                'python',
                 'rust',
                 'sql',
                 'terraform',
+                'toml',
+                'tsx',
                 'typescript',
+                'vim',
+                'vimdoc',
                 'yaml',
                 'zig',
-                'prisma',
             },
             highlight = {
                 enable = true, -- false will disable the whole extension

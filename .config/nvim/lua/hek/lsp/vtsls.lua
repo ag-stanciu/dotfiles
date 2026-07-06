@@ -3,7 +3,8 @@ local M = {}
 local nvim_lsp = require('lspconfig')
 
 M.setup = function(on_attach, capabilities)
-    nvim_lsp.vtsls.setup {
+    vim.lsp.config('vtsls', {
+    -- nvim_lsp.vtsls.setup {
         on_attach = function(client, bufnr)
             client.server_capabilities.document_formatting = false
             client.server_capabilities.document_range_formatting = false
@@ -60,7 +61,7 @@ M.setup = function(on_attach, capabilities)
                 -- },
             },
         },
-    }
+    })
 end
 
 return M

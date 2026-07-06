@@ -1,6 +1,7 @@
 return {
     'stevearc/oil.nvim',
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    lazy = false,
     dependencies = { "echasnovski/mini.icons" },
     config = function()
         local util = require("hek.util")

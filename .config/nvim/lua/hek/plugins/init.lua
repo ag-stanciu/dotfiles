@@ -5,18 +5,14 @@ return {
         lazy = true,
         priority = 1000,
     },
-    -- {
-    --     "neanias/everforest-nvim",
-    --     lazy = true,
-    --     priority = 1000,
-    -- },
     {
-        "sho-87/kanagawa-paper.nvim",
+        "neanias/everforest-nvim",
         lazy = true,
         priority = 1000,
     },
     {
-        "jasonlong/poimandres.nvim",
+        "webhooked/kanso.nvim",
         lazy = true,
-    },
+        priority = 1000,
+    }
 }

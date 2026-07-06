@@ -1,4 +1,5 @@
-return {
+return {}
+-- return {
     -- {
     --     -- Telescope
     --     'nvim-telescope/telescope.nvim',
@@ -123,111 +124,111 @@ return {
     --         end)
     --     end
     -- },
-    {
-        "ibhagwan/fzf-lua",
-        cmd = "FzfLua",
-        -- dependencies = { 'nvim-tree/nvim-web-devicons' },
-        keys = {
-            { "<leader><space>", "<cmd>FzfLua buffers<CR>" },
-            { "<leader>ff",      "<cmd>FzfLua files<CR>" },
-            { "<leader>fb",      "<cmd>FzfLua lgrep_curbuf<CR>" },
-            { "<leader>fh",      "<cmd>FzfLua help_tags<CR>" },
-            { "<leader>ft",      "<cmd>FzfLua tags<CR>" },
-            { "<leader>fs",      "<cmd>FzfLua grep<CR>" },
-            { "<leader>fw",      "<cmd>FzfLua live_grep<CR>" },
-            { "<leader>?",       "<cmd>FzfLua oldfiles<CR>" },
-            { "<leader>gt",      "<cmd>FzfLua git_status<CR>" }
-        },
-        config = function()
-            local util = require("hek.util")
-            local fzflua = require("fzf-lua")
-            local utils = fzflua.utils
-            local actions = fzflua.actions
-            local function hl_validate(hl)
-                return not utils.is_hl_cleared(hl) and hl or nil
-            end
-            fzflua.register_ui_select(function(_, items)
-                local min_h, max_h = 0.25, 0.70
-                local h = (#items + 4) / vim.o.lines
-                if h < min_h then
-                    h = min_h
-                elseif h > max_h then
-                    h = max_h
-                end
-                return { winopts = { height = h, width = 0.60, row = 0.40 } }
-            end)
-            fzflua.setup({
-                desc       = "match telescope default highlights|keybinds",
-                fzf_opts   = { ["--layout"] = "default", ["--marker"] = "+" },
-                files      = {
-                    cwd_prompt = false,
-                    prompt = "Files  "
-                },
-                defaults   = {
-                    formatter = "path.dirname_first",
-                },
-                winopts    = {
-                    width   = 0.8,
-                    height  = 0.8,
-                    row     = 0.5,
-                    col     = 0.5,
-                    border  = util.border_chars_outer_thin,
-                    backdrop = 80,
-                    preview = {
-                        scrollchars  = { "┃", "" },
-                        hidden       = "nohidden",
-                        vertical     = "up:45%",
-                        horizontal   = "right:50%",
-                        layout       = "flex",
-                        flip_columns = 120,
-                        scrollbar    = false,
-                        delay        = 10,
-                        winopts      = {
-                            -- cursorline = false,
-                            number = false
-                        }
-                    },
-                },
-                hls        = {
-                    normal         = hl_validate "TelescopeNormal",
-                    border         = hl_validate "TelescopeBorder",
-                    title          = hl_validate "TelescopePromptTitle",
-                    help_normal    = hl_validate "TelescopeNormal",
-                    help_border    = hl_validate "TelescopeBorder",
-                    preview_normal = hl_validate "TelescopeNormal",
-                    preview_border = hl_validate "TelescopeBorder",
-                    preview_title  = hl_validate "TelescopePreviewTitle",
-                    -- builtin preview only
-                    cursor         = hl_validate "Cursor",
-                    cursorline     = hl_validate "TelescopeSelection",
-                    cursorlinenr   = hl_validate "TelescopeSelection",
-                    search         = hl_validate "IncSearch",
-                },
-                lsp        = {
-                    jump_to_single_result = true,
-                    jump_to_single_result_action = actions.file_edit,
-                    code_actions = {
-                        previewer = "codeaction_native",
-                    },
-                },
-                -- fzf_colors = true,
-                fzf_colors = {
-                    ["fg"] = { "fg", "TelescopeNormal" },
-                    ["bg"] = { "bg", "TelescopeNormal" },
-                    ["hl"] = { "fg", "TelescopeMatching" },
-                    ["fg+"] = { "fg", "TelescopeSelection" },
-                    ["bg+"] = { "bg", "TelescopeSelection" },
-                    ["hl+"] = { "fg", "TelescopeMatching" },
-                    ["info"] = { "fg", "TelescopeMultiSelection" },
-                    ["border"] = { "fg", "TelescopeBorder" },
-                    ["gutter"] = "-1",
-                    ["query"] = { "fg", "TelescopePromptNormal" },
-                    ["prompt"] = { "fg", "TelescopePromptPrefix" },
-                    ["pointer"] = { "fg", "TelescopeSelectionCaret" },
-                    ["marker"] = { "fg", "TelescopeSelectionCaret" },
-                    ["header"] = { "fg", "TelescopeTitle" },
-                },
-            })
-        end
-    }
-}
+--     {
+--         "ibhagwan/fzf-lua",
+--         cmd = "FzfLua",
+--         -- dependencies = { 'nvim-tree/nvim-web-devicons' },
+--         keys = {
+--             { "<leader><space>", "<cmd>FzfLua buffers<CR>" },
+--             { "<leader>ff",      "<cmd>FzfLua files<CR>" },
+--             { "<leader>fb",      "<cmd>FzfLua lgrep_curbuf<CR>" },
+--             { "<leader>fh",      "<cmd>FzfLua help_tags<CR>" },
+--             { "<leader>ft",      "<cmd>FzfLua tags<CR>" },
+--             { "<leader>fs",      "<cmd>FzfLua grep<CR>" },
+--             { "<leader>fw",      "<cmd>FzfLua live_grep<CR>" },
+--             { "<leader>?",       "<cmd>FzfLua oldfiles<CR>" },
+--             { "<leader>gt",      "<cmd>FzfLua git_status<CR>" }
+--         },
+--         config = function()
+--             local util = require("hek.util")
+--             local fzflua = require("fzf-lua")
+--             local utils = fzflua.utils
+--             local actions = fzflua.actions
+--             local function hl_validate(hl)
+--                 return not utils.is_hl_cleared(hl) and hl or nil
+--             end
+--             fzflua.register_ui_select(function(_, items)
+--                 local min_h, max_h = 0.25, 0.70
+--                 local h = (#items + 4) / vim.o.lines
+--                 if h < min_h then
+--                     h = min_h
+--                 elseif h > max_h then
+--                     h = max_h
+--                 end
+--                 return { winopts = { height = h, width = 0.60, row = 0.40 } }
+--             end)
+--             fzflua.setup({
+--                 desc       = "match telescope default highlights|keybinds",
+--                 fzf_opts   = { ["--layout"] = "default", ["--marker"] = "+" },
+--                 files      = {
+--                     cwd_prompt = false,
+--                     prompt = "Files  "
+--                 },
+--                 defaults   = {
+--                     formatter = "path.dirname_first",
+--                 },
+--                 winopts    = {
+--                     width   = 0.8,
+--                     height  = 0.8,
+--                     row     = 0.5,
+--                     col     = 0.5,
+--                     border  = util.border_chars_outer_thin,
+--                     backdrop = 80,
+--                     preview = {
+--                         scrollchars  = { "┃", "" },
+--                         hidden       = "nohidden",
+--                         vertical     = "up:45%",
+--                         horizontal   = "right:50%",
+--                         layout       = "flex",
+--                         flip_columns = 120,
+--                         scrollbar    = false,
+--                         delay        = 10,
+--                         border       = util.border_chars_outer_thin,
+--                         winopts      = {
+--                             number = false
+--                         }
+--                     },
+--                 },
+--                 hls        = {
+--                     normal         = hl_validate "TelescopeNormal",
+--                     border         = hl_validate "TelescopeBorder",
+--                     title          = hl_validate "TelescopePromptTitle",
+--                     help_normal    = hl_validate "TelescopeNormal",
+--                     help_border    = hl_validate "TelescopeBorder",
+--                     preview_normal = hl_validate "TelescopeNormal",
+--                     preview_border = hl_validate "TelescopeBorder",
+--                     preview_title  = hl_validate "TelescopePreviewTitle",
+--                     -- builtin preview only
+--                     cursor         = hl_validate "Cursor",
+--                     cursorline     = hl_validate "TelescopeSelection",
+--                     cursorlinenr   = hl_validate "TelescopeSelection",
+--                     search         = hl_validate "IncSearch",
+--                 },
+--                 lsp        = {
+--                     jump_to_single_result = true,
+--                     jump_to_single_result_action = actions.file_edit,
+--                     code_actions = {
+--                         previewer = "codeaction_native",
+--                     },
+--                 },
+--                 -- fzf_colors = true,
+--                 fzf_colors = {
+--                     ["fg"] = { "fg", "TelescopeNormal" },
+--                     ["bg"] = { "bg", "TelescopeNormal" },
+--                     ["hl"] = { "fg", "TelescopeMatching" },
+--                     ["fg+"] = { "fg", "TelescopeSelection" },
+--                     ["bg+"] = { "bg", "TelescopeSelection" },
+--                     ["hl+"] = { "fg", "TelescopeMatching" },
+--                     ["info"] = { "fg", "TelescopeMultiSelection" },
+--                     ["border"] = { "fg", "TelescopeBorder" },
+--                     ["gutter"] = "-1",
+--                     ["query"] = { "fg", "TelescopePromptNormal" },
+--                     ["prompt"] = { "fg", "TelescopePromptPrefix" },
+--                     ["pointer"] = { "fg", "TelescopeSelectionCaret" },
+--                     ["marker"] = { "fg", "TelescopeSelectionCaret" },
+--                     ["header"] = { "fg", "TelescopeTitle" },
+--                 },
+--             })
+--         end
+--     }
+-- }

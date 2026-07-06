@@ -10,9 +10,9 @@ M.load = function()
         },
         transparent = true,
         lualine_bold = true,
-        styles = {
-            -- floats = "transparent"
-        },
+        -- styles = {
+        --     floats = "transparent"
+        -- },
         on_highlights = function(hl, c)
             -- Normals.
             hl.TelescopePromptNormal = { bg = c.bg, }
@@ -30,7 +30,7 @@ M.load = function()
             hl.TelescopeTitle = { bg = c.orange, fg = c.black, bold = true, }
 
             -- Borders.
-            -- hl.TelescopeBorder = { fg = c.fg, bg = c.bg_popup, }
+            hl.TelescopeBorder = { fg = c.blue7, bg = c.bg_popup, }
             hl.TelescopePromptBorder = { bg = c.bg, fg = c.blue7, }
             hl.TelescopeResultsBorder = { bg = c.bg_dark, fg = c.blue7, }
             hl.TelescopePreviewBorder = { bg = c.bg_dark, fg = c.blue7, }
@@ -47,7 +47,7 @@ M.load = function()
             hl.PmenuSel = { bg = c.blue7 }
             hl.PmenuBorder = { link = 'PopupBorder' }
             hl.PmenuDocBorder = { bg = c.bg_dark, fg = c.blue7 }
-            --
+
             -- hl.CmpItemAbbrDeprecated = { fg = c.comment, bg = "NONE", strikethrough = true }
             -- hl.CmpItemAbbrMatch = { fg = c.blue, bg = "NONE", bold = true }
             -- hl.CmpItemAbbrMatchFuzzy = { fg = c.blue, bg = "NONE", bold = true }
@@ -87,7 +87,9 @@ M.load = function()
             -- hl.CmpItemKindTypeParameter = { fg = c.fg, bg = c.blue2 }
         end,
     })
-    local colorscheme = require("tokyonight.colors").setup()
+    local colorscheme = require("tokyonight.colors").setup({
+        style = 'night'
+    })
     -- local util = require("tokyonight.util")
     -- local grey9 = util.darken(colorscheme.bg_highlight, 0.5)
     -- local dark_red = util.darken(colorscheme.red, 0.5)

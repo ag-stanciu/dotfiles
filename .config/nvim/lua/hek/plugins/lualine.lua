@@ -1,7 +1,7 @@
 return {
     {
         "nvim-lualine/lualine.nvim",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         init = function()
             vim.g.lualine_laststatus = vim.o.laststatus
             if vim.fn.argc(-1) > 0 then
@@ -43,10 +43,10 @@ return {
             --         }
             --     end
             -- end
-
+            --
             local theme = require("lualine.themes.tokyonight-night")
-            -- local theme = require("lualine.themes.poimandres")
-            -- local theme = require("lualine.themes.kanagawa-paper")
+            -- local theme = require("lualine.themes.kanso")
+            -- local theme = require("lualine.themes.everforest")
             theme.normal.c.bg = 'none'
             theme.normal.b.bg = colors.bg_dark
             theme.insert.b.bg = colors.bg_dark
@@ -108,6 +108,7 @@ return {
                 extensions = { "lazy", "fzf", "nvim-tree", "mason" },
             }
 
+            vim.api.nvim_set_hl(0, "StatusLine", { bg = 'none' })
             return opts
         end,
     }

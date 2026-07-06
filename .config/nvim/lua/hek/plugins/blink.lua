@@ -3,7 +3,7 @@ return {
     {
         "saghen/blink.cmp",
         event = "InsertEnter",
-        version = "v0.*", -- REQUIRED `tag` needed to download pre-built binary
+        version = "1.*", -- REQUIRED `tag` needed to download pre-built binary
         dependencies = {
             "echasnovski/mini.icons",
         },
@@ -32,7 +32,9 @@ return {
                         score_offset = 100,
                     }
                 },
-                cmdline = {},
+            },
+            cmdline = {
+                enabled = false
             },
             keymap = {
                 preset = "enter",
@@ -46,12 +48,16 @@ return {
                     },
                 },
                 list = {
-                    selection = "auto_insert",
+                    selection = {
+                        auto_insert = true,
+                        preselect = true,
+                    },
                 },
                 menu = {
                     -- border = u.border_chars_outer_thin,
                     scrollbar = false,
                     draw = {
+                        padding = { 0, 1 },
                         treesitter = { "lsp" },
                         -- padding = { 1, 0 },
                         columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
@@ -70,6 +76,12 @@ return {
                                     local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
                                     return hl
                                 end,
+                            },
+                            kind = {
+                                highlight = function(ctx)
+                                    local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                                    return hl
+                                end
                             }
                         }
                     },

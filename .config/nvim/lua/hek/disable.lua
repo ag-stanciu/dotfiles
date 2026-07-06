@@ -18,3 +18,6 @@ vim.g.loaded_rrhelper = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
+
+-- zig autoformat is buggy
+vim.g.zig_fmt_autosave = 0

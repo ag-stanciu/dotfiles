@@ -1,3 +1,4 @@
+local util = require("hek.util")
 return {
     {
         "folke/snacks.nvim",
@@ -16,6 +17,53 @@ return {
             input = { enabled = true },
             statuscolumn = { enabled = true },
             scroll = { enabled = true },
+            picker = {
+                win = {
+                    input = {
+                        keys = {
+                            ["<Esc>"] = { "close", mode = { "n", "i" } },
+                            ["<Tab>"] = { "list_up", mode = { "n", "i" } },
+                            ["<S-Tab>"] = { "list_down", mode = { "n", "i" } },
+                            ["<c-a>"] = { "select_and_prev", mode = { "n", "i" } },
+                        }
+                    }
+                },
+                layout = {
+                    reverse = true,
+                    layout = {
+                        box = "horizontal",
+                        backdrop = false,
+                        width = 0.75,
+                        height = 0.85,
+                        border = "none",
+                        {
+                            box = "vertical",
+                            { win = "list",  title = " Results ", title_pos = "center", border = util.border_chars_outer_thin },
+                            { win = "input", height = 1, border = util.border_chars_outer_thin, title = "{source} {live}", title_pos = "center" },
+                        },
+                        {
+                            win = "preview",
+                            width = 0.45,
+                            -- border = "rounded",
+                            border = util.border_chars_outer_thin,
+                            title = " Preview ",
+                            title_pos = "center",
+                        },
+                    },
+                }
+            },
+        },
+        keys = {
+            { "<leader><space>", function() Snacks.picker.buffers() end },
+            { "<leader>ff",      function() Snacks.picker.files() end },
+            { "<leader>fb",      function() Snacks.picker.buffers() end },
+            { "<leader>fh",      function() Snacks.picker.help() end },
+            { "<leader>fs",      function() Snacks.picker.grep_word() end },
+            { "<leader>fw",      function() Snacks.picker.grep() end },
+            { "<leader>?",       function() Snacks.picker.recent() end },
+            { "<leader>gt",      function() Snacks.picker.git_status() end },
+            { "<leader>fr",      function() Snacks.picker.lsp_references() end },
+            { "<leader>sr",      function() Snacks.picker.resume() end },
         }
     },
     {
@@ -23,7 +71,7 @@ return {
         event = "VeryLazy",
         config = function()
             local bufferline = require('bufferline')
-            local colors = require("hek.color").colors
+            -- local colors = require("hek.color").colors
             -- Bufferine
             bufferline.setup {
                 options = {
@@ -47,7 +95,8 @@ return {
                 },
                 highlights = {
                     fill = {
-                        bg = colors.bg,
+                        -- bg = colors.bg,
+                        bg = "none"
                     },
                 }
             }
@@ -60,14 +109,15 @@ return {
         end
     },
     {
-        "utilyre/barbecue.nvim",
+        -- "utilyre/barbecue.nvim",
+        "mbwilding/barbecue.nvim",
         event = "VeryLazy",
         dependencies = {
             "SmiteshP/nvim-navic",
             -- "nvim-tree/nvim-web-devicons", -- optional dependency
         },
         config = function()
-            local util = require("hek.util")
+            -- local util = require("hek.util")
             require("barbecue").setup({
                 create_autocmd = false, -- prevent barbecue from updating itself automatically
                 kinds = util.new_kinds,

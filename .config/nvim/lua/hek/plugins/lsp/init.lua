@@ -25,25 +25,27 @@ return {
                     "dockerls",
                     -- "terraformls",
                     "bashls",
-                    "gopls",
+                    -- "gopls",
                     "jsonls",
-                    "yamlls",
+                    -- "yamlls",
                     "graphql",
-                    "zls",
+                    -- "zls",
                     "prismals",
                     -- "nil_ls",
-                    "pylsp"
+                    "pyright",
+                    "ruff"
                 }
             })
-            local nvim_lsp = require('lspconfig')
+            -- local nvim_lsp = require('lspconfig')
+            -- local nvim_lsp = vim.lsp.config
             local lsp_lines = require("lsp_lines")
             lsp_lines.setup()
-            local popup_opts = { border = util.border_chars_outer_thin, focusable = false }
+            -- local popup_opts = { border = util.border_chars_outer_thin, focusable = false }
 
             -- Diagnostic keymaps
             vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-            vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-            vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+            -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+            -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
             -- vim.keymap.set('n', '[d', function()
             --     vim.diagnostic.jump({ count = 1 })
             -- end)
@@ -59,13 +61,14 @@ return {
                 -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
                 vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
-                vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, popup_opts)
-                vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, popup_opts)
+                -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, popup_opts)
+                -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, popup_opts)
+                -- vim.lsp.buf.signature_help(popup_opts)
 
                 local opts = { buffer = bufnr }
                 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
                 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-                vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+                vim.keymap.set('n', 'K', function () return vim.lsp.buf.hover({ border = util.border_chars_outer_thin }) end, opts)
                 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
                 -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
                 vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
@@ -85,11 +88,16 @@ return {
                 vim.api.nvim_create_user_command('Format', vim.lsp.buf.format, {})
 
                 -- Set some keybinds conditional on server capabilities
-                if client.supports_method("textDocument/formatting") then
-                    -- if client.server_capabilities.document_formatting then
-                    vim.keymap.set('n', '<leader>fm', vim.lsp.buf.format, opts)
-                elseif client.supports_method 'textDocument/rangeFormatting' then
-                    vim.keymap.set('n', '<leader>fm', vim.lsp.buf.range_formatting, opts)
+                if client:supports_method("textDocument/formatting") then
+                    vim.keymap.set('n', '<leader>fm', function()
+                        vim.lsp.buf.format({ bufnr = bufnr })
+                    end, opts)
+                end
+
+                if client:supports_method("textDocument/rangeFormatting") then
+                    vim.keymap.set('x', '<leader>fm', function()
+                        vim.lsp.buf.format({ bufnr = bufnr })
+                    end, opts)
                 end
 
                 -- vim.api.nvim_create_autocmd("CursorHold", {
@@ -135,35 +143,38 @@ return {
             }
 
             -- local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-            local cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
-            local capabilities = vim.tbl_deep_extend("force", nvim_lsp.util.default_config.capabilities, cmp_capabilities)
+            local blink = require('blink.cmp')
+            -- local capabilities = vim.tbl_deep_extend("force", nvim_lsp.util.default_config.capabilities, cmp_capabilities)
+            local capabilities = blink.get_lsp_capabilities()
 
             local servers = {
-                -- 'pyright',
-                'graphql',
+                -- 'graphql',
                 -- 'rust_analyzer',
                 -- 'tailwindcss',
                 'dockerls',
                 -- 'terraformls',
                 'bashls',
-                'lua_ls',
+                -- 'lua_ls',
                 -- 'clangd',
                 -- 'nil_ls',
-                'zls',
-                'prismals',
+                -- 'zls',
+                -- 'prismals',
             }
             for _, server in ipairs(servers) do
-                nvim_lsp[server].setup {
+                -- nvim_lsp[server].setup {
+                vim.lsp.config(server, {
                     capabilities = capabilities,
                     on_attach = on_attach,
                     flags = {
                         debounce_text_changes = 150
                     }
-                }
+                })
+                vim.lsp.enable(server)
             end
 
             -- json
-            nvim_lsp.jsonls.setup {
+            vim.lsp.config('jsonls', {
+            -- nvim_lsp.jsonls.setup {
                 capabilities = capabilities,
                 on_attach = on_attach,
                 settings = {
@@ -172,34 +183,19 @@ return {
                         validate = { enable = true },
                     }
                 }
-            }
+            })
 
             -- pylsp
-            nvim_lsp.pylsp.setup {
-                capabilities = capabilities,
-                on_attach = on_attach,
-                flags = {
-                    debounce_text_changes = 150
-                },
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            pycodestyle = {
-                                -- ignore = {'W391'},
-                                maxLineLength = 120
-                            }
-                        }
-                    }
-                }
-            }
+            -- nvim_lsp.pylsp.setup {
 
             -- custom settings servers
             -- require('hek.lsp.tsserver').setup(on_attach, capabilities)
             require('hek.lsp.vtsls').setup(on_attach, capabilities)
             -- require('hek.lsp.luals').setup(on_attach, capabilities)
-            require('hek.lsp.yaml').setup(on_attach, capabilities)
-            require('hek.lsp.gopls').setup(on_attach, capabilities)
+            -- require('hek.lsp.yaml').setup(on_attach, capabilities)
+            -- require('hek.lsp.gopls').setup(on_attach, capabilities)
             require('hek.lsp.eslint').setup(on_attach, capabilities)
+            require('hek.lsp.python').setup(on_attach, capabilities)
         end
     },
     {
@@ -210,12 +206,14 @@ return {
                 -- See the configuration section for more details
                 -- Load luvit types when the `vim.uv` word is found
                 { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                { path = "snacks.nvim",        words = { "Snacks" } },
             },
         },
     },
     {
         "j-hui/fidget.nvim",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
             progress = {
                 display = {

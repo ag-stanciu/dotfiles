@@ -22,7 +22,6 @@ setopt INC_APPEND_HISTORY
 alias grep='grep --color=auto'
 alias vim='nvim'
 alias v='nvim'
-alias gv='~/dev/neovide/target/release/neovide'
 
 # bash like
 bindkey -e
@@ -49,3 +48,6 @@ autoload -U +X bashcompinit && bashcompinit
 
 # Add Docker Desktop for Mac (docker)
 export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"

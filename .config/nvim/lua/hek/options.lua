@@ -3,6 +3,8 @@ local opt = vim.opt
 --Set highlight on search
 opt.hlsearch = false
 
+vim.o.winborder = 'solid'
+
 --Make line numbers default
 opt.number = true
 opt.numberwidth = 2

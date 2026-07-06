@@ -60,7 +60,7 @@ window-step-resize = true
 window-theme = dark
 window-title-font-family = "SF Mono"
 window-colorspace = display-p3
-#scrollbar = "never"
+scrollbar = "never"
 
 # macos
 macos-option-as-alt = true
@@ -84,4 +84,3 @@ keybind = ctrl+shift+k=goto_split:top
 # shaders
 # custom-shader = "/Users/alex/dev/ghostty-shaders/glitchy.glsl"
 # custom-shader-animation = true
-keybind = shift+enter=text:\x1b\r

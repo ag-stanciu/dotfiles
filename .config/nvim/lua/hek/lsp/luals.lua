@@ -1,6 +1,7 @@
 local M = {}
 
-local nvim_lsp = require('lspconfig')
+-- local nvim_lsp = require('lspconfig')
+local nvim_lsp = vim.lsp.config
 M.setup = function(on_attach, capabilities)
     require('neodev').setup({})
     nvim_lsp.lua_ls.setup({

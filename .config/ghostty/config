@@ -82,6 +82,6 @@ keybind = ctrl+shift+j=goto_split:bottom
 keybind = ctrl+shift+k=goto_split:top
 
 # shaders
-# custom-shader = "/Users/alex/dev/ghostty-shaders/glitchy.glsl"
+custom-shader = "shaders/cursor_tail.glsl"
 # custom-shader-animation = true
 keybind = shift+enter=text:\x1b\r
